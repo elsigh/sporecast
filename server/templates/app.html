@@ -73,6 +73,7 @@
     <script src="js/app.js"></script>
     <script src="js/models_mf.js"></script>
     <script src="js/models.js"></script>
+    <script src="js/views_mf.js"></script>
     <script src="js/views.js"></script>
 
     <script id="tpl_weather" type="text/html">
@@ -103,10 +104,13 @@
           </select>
         </div>
       </form>
+
+      <div class="weather-data-c">Month data</div>
     </script>
 
-    <script id="tpl_weather_month" type="text/html">
+    <script id="tpl_weather_data" type="text/html">
       {{#days}}
+        {{precip}}
 
       {{/days}}
     </script>

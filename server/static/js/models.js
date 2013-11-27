@@ -1,31 +1,5 @@
 
 
-/** @type {Array.<string>} */
-mf.models.Cities = [
-  'Mendocino',
-  'San Francisco'
-];
-
-
-/** @type {Array.<string>} */
-mf.models.Months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
-
-
-/** @type {Array.<number>} */
-mf.models.Years = [2013, 2012];
 
 /******************************************************************************/
 
@@ -65,11 +39,65 @@ mf.models.App.prototype.onChangeWeatherPrefs_ = function() {
  */
 mf.models.WeatherPrefs = mf.Model.extend({
   defaults: {
-    'city': mf.models.Cities[0],
-    'month': mf.models.Months[(new Date()).getMonth()],
+    'city': mf.models.WeatherPrefsCities[0]['name'],
+    'month': mf.models.WeatherPrefs.Months[(new Date()).getMonth()],
     'year': (new Date()).getFullYear()
   }
 });
+
+/** @type {Array.<string>} */
+mf.models.WeatherPrefs.Cities = [
+  {
+    'pws': 'KCAMENDO1',
+    'name': 'Mendocino'
+  },
+  {
+    'pws': 'KCAINVER2',
+    'name': 'Inverness'
+  },
+  {
+    'pws': 'KCASANFR34',  // Twin Peaks
+    'name': 'San Francisco'
+  },
+  {
+    'pws': 'KCASANTA134', // Walnut/King
+    'name': 'Santa Cruz'
+  }
+];
+
+
+/**
+ * @param {string} city A city name.
+ * @return {string} A station.
+ */
+mf.models.WeatherPrefs.getStation = function(city) {
+  for (var i = 0, city; city = mf.models.WeatherPrefs.Cities[i]; i++) {
+    if (city['name'] == city) {
+      return city['pws'];
+    }
+  }
+};
+
+
+/** @type {Array.<string>} */
+mf.models.WeatherPrefs.Months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+
+
+/** @type {Array.<number>} */
+mf.models.WeatherPrefs.Years = [2013, 2012];
 
 
 /******************************************************************************/
@@ -106,7 +134,7 @@ mf.models.WeatherData.prototype.fetch = function(options) {
 mf.models.WeatherData.prototype.url = function() {
   var monthAsString = mf.models.WeatherData.padMonth(
       _.indexOf(mf.models.Months, this.prefs.get('month')) + 1);
-  var url = mf.models.getServer() + '/wunderground/data/CA/' +
+  var url = window.location.origin + '/wunderground/data/CA/' +
       this.prefs.get('city') + '/' + this.prefs.get('year') +
       monthAsString + '.json';
   return url;

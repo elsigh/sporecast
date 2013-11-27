@@ -1,212 +1,4 @@
 
-$.ajaxSettings['xhrCount'] = 0;
-
-// Yep, we need zepto to work with CORS and cookies.
-$.ajaxSettings['beforeSend'] = function(xhr, settings) {
-  xhr.withCredentials = true;
-  $.ajaxSettings['xhrCount']++;
-  $('.mf-app > .mf-loading').show();
-};
-
-$.ajaxSettings['complete'] = function(xhr, status) {
-  $.ajaxSettings['xhrCount']--;
-  if ($.ajaxSettings['xhrCount'] === 0) {
-    $('.mf-app > .mf-loading').hide();
-  }
-};
-
-/*
-$.ajaxSettings['success'] = function(xhr, status) {
-  // noop
-};
-$.ajaxSettings['error'] = function(xhr, status) {
-  // noop
-};
-*/
-
-// Proxy click as zepto tap so we can bind to "tap"
-$(document).ready(function(e) {
-  var shouldPreventDefault = function(el) {
-    var tagName = el.tagName.toLowerCase();
-    switch (tagName) {
-      case 'input':
-      case 'select':
-      case 'textarea':
-      case 'label':
-        return false;
-        break;
-      default:
-        return true;
-    }
-  };
-  // only do this if not on a touch device
-  if (!('ontouchend' in window)) {
-    $(document.body).on('click', function(e) {
-      if (shouldPreventDefault(e.target)) {
-        e.preventDefault();
-        $(e.target).trigger('tap', e);
-      }
-    });
-
-  // Nuke ghost clicks on touch devices.
-  } else {
-    $(document.body).on('click', function(e) {
-      if (shouldPreventDefault(e.target)) {
-        e.preventDefault();
-      }
-    });
-  }
-});
-
-
-/**
- * @type {Object} Views namespace.
- */
-mf.views = {};
-
-
-/**
- * @param {string} name The template name.
- * @param {Object=} opt_data The template data.
- * @param {Object=} opt_partials Template partials.
- * @return {string} The template as HTML.
- */
-mf.views.getTemplateHtml = function(name, opt_data, opt_partials) {
-  var data = opt_data || {};
-  _.extend(data, {
-    'global_external_protocol': window.location.protocol == 'file:' ?
-        'http' : window.location.protocol,
-    'api_server': mf.models.SERVER,
-    'is_android': mf.ua.IS_ANDROID,
-    'is_ios': mf.ua.IS_IOS
-  });
-  var html = window['templates'][name].render(data, opt_partials);
-  return html;
-};
-
-
-/**
- * A helper like benalman's jQuery serializeObject.
- * @param {Element|Zepto} form A form element reference.
- * @return {Object} A dictionary of name value pairs.
- */
-mf.views.serializeFormToObject = function(form) {
-  var data = {};
-  var $form = $(form);
-  var arrayData = $form.serializeArray();
-  _.each(arrayData, function(obj) {
-    if (obj.name) {
-
-      // Allows for inclusion of input values as objects, i.e:
-      // <input data-form-obj="foo" name="bar" value="baz">
-      // will result in data['foo']['bar'] = 'baz'.
-      var objKey = $form.
-          find('input[name="' + obj.name + '"]').
-          data('form-obj');
-
-      // Allows for the includes of input values as arrays, i.e:
-      // <input data-form-array="foo" name="foo-0" value="baz">
-      // <input data-form-array="foo" name="foo-1" value="bat">
-      // will result in data['foo'] = ['baz', 'bat'].
-      var arrayKey = $form.
-          find('input[name="' + obj.name + '"]').
-          data('form-array');
-
-      if (objKey) {
-        if (!data[objKey]) {
-          data[objKey] = {};
-        }
-        data[objKey][obj.name] = obj.value;
-
-      } else if (arrayKey) {
-        if (!data[arrayKey]) {
-          data[arrayKey] = [];
-        }
-        data[arrayKey].push(obj.value);
-
-      } else {
-        data[obj.name] = obj.value;
-      }
-    }
-  });
-  return data;
-};
-
-
-/**
- * @param {string} msg The message to show.
- */
-mf.views.showSpinner = function(msg) {
-  if (navigator.notification && navigator.notification.activityStart) {
-    navigator.notification.activityStart('', msg);
-  } else {
-    mf.log('GAH!!!! No activityStart available.');
-    mf.views.showMessage(msg);
-  }
-};
-
-
-/**
- * Hide that notification.
- */
-mf.views.hideSpinner = function() {
-  if (navigator.notification && navigator.notification.activityStop) {
-    navigator.notification.activityStop();
-  }
-};
-
-
-/**
- * @param {string} msg The message to show.
- */
-mf.views.showMessage = function(msg) {
-  mf.views.clearHideMessageTimeout_();
-  $('.mf-msg').text(msg);
-  $('.mf-msg-c').css('opacity', '0').show().animate({
-    opacity: 1
-  }, 250, 'linear', mf.views.hideMessage_);
-};
-
-
-/**
- * @private {number}
- */
-mf.views.hideMessageTimeout_ = null;
-
-
-/**
- * @private
- */
-mf.views.clearHideMessageTimeout_ = function() {
-  if (mf.views.hideMessageTimeout_ !== null) {
-    window.clearTimeout(mf.views.hideMessageTimeout_);
-    mf.views.hideMessageTimeout_ = null;
-  }
-};
-
-
-/**
- * @private
- */
-mf.views.hideMessage_ = function() {
-  mf.views.clearHideMessageTimeout_();
-  mf.views.hideMessageTimeout_ = _.delay(
-      function() {
-        $('.mf-msg-c').animate(
-            {
-              opacity: 0
-            },
-            1000,
-            'linear',
-            function() {
-              $('.mf-msg-c').hide();
-            });
-      }, 2000);
-};
-
-
-/******************************************************************************/
-
 
 
 /**
@@ -379,9 +171,9 @@ mf.views.Weather = Backbone.View.extend({
 mf.views.Weather.prototype.initialize = function(options) {
   mf.log('views.Weather initialize');
   this.prefs = options.prefs;
-
-  this.subViews_ = {};
-  this.$month = $('<div class="for-month">Month data</div>');
+  this.subView = new mf.views.WeatherData({
+    model: this.model
+  });
 };
 
 
@@ -400,19 +192,50 @@ mf.views.Weather.prototype.render = function() {
   this.$el.html(mf.views.getTemplateHtml('weather', {
     prefs: this.prefs.getTemplateData(),
     weather: this.model.getTemplateData(),
-    cities: mf.models.Cities,
-    months: mf.models.Months,
-    years: mf.models.Years
+    cities: mf.models.WeatherPrefs.Cities,
+    months: mf.models.WeatherPrefs.Months,
+    years: mf.models.WeatherPrefs.Years
   }));
 
-  this.$('[name="city"]').val(this.prefs.get('city'));
+  this.$form = this.$('form');
+  this.$('[name="city"]').val(
+      mf.models.WeatherPrefs.getStation(this.prefs.get('city')));
   this.$('[name="month"]').val(this.prefs.get('month'));
   this.$('[name="year"]').val(this.prefs.get('year'));
 
-  this.$el.append(this.$month);
-  this.$form = this.$('form');
+  this.$weatherData = this.$('.weather-data-c');
+  this.subView.setElement(this.$weatherData);
 
   return this;
 };
 
+
+
+/******************************************************************************/
+
+
+
+/**
+ * @extends {Backbone.View}
+ * @constructor
+ */
+mf.views.WeatherData = Backbone.View.extend({
+  events: {}
+});
+
+
+/** @inheritDoc */
+mf.views.WeatherData.prototype.initialize = function(options) {
+  mf.log('views.WeatherData initialize');
+  this.listenTo(this.model, 'change', this.render);
+};
+
+
+/** @inheritDoc */
+mf.views.WeatherData.prototype.render = function() {
+  mf.log('mf.views.WeatherData render');
+
+  this.$el.html(mf.views.getTemplateHtml('weather_data',
+      this.model.getTemplateData());
+};
 
