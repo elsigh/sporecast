@@ -21,17 +21,19 @@ def datespan(startDate, endDate, delta=timedelta(days=1)):
         currentDate += delta
 
 
-def get_api_url(yyyymmdd, state='CA', city='Mendocino'):
-    return ('http://api.wunderground.com/api/%s/history_%s/q/%s/%s.json' %
-            (KEY, yyyymmdd, state, urllib2.quote(city)))
+def get_api_url(yyyymmdd, pws='KCAMENDO1'):
+    return ('http://api.wunderground.com/api/%s/history_%s/q/pws:%s.json' %
+            (KEY, yyyymmdd, pws))
 
 
-def store_data(yyyymmdd, state='CA', city='Mendocino'):
+def store_data(yyyymmdd, pws='KCAMENDO1'):
+
     output_file = os.path.join(os.getcwd(),
                                DATA_DIR,
-                               state,
-                               city.replace(' ', '_'),
-                               '%s.json' % yyyymmdd)
+                               pws,
+                               yyyymmdd.strftime('%Y'),
+                               yyyymmdd.strftime('%m'),
+                               '%s.json' % yyyymmdd.strftime('%d'))
 
     if os.path.isfile(output_file):
         print 'Already have %s' % output_file
@@ -45,8 +47,10 @@ def store_data(yyyymmdd, state='CA', city='Mendocino'):
         response = urllib2.urlopen(url)
         data = json.load(response)
 
+        # mkdir -p
         if not os.path.exists(os.path.dirname(output_file)):
             os.makedirs(os.path.dirname(output_file))
+
         with open(output_file, 'w') as f:
             f.write(json.dumps(data))
 
