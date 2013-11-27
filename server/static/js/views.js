@@ -131,17 +131,16 @@ mf.views.App.prototype.transitionPage = function(route) {
     newView = this.viewWeather;
 
   } else if (_.isEqual(mf.App.Routes.MUSHROOM_OBSERVER, route)) {
-    /*
+
     if (!this.viewMushroomObserver) {
-      this.viewMushroomObserver = new mf.views.Following({
-        model: this.model.user.get('following'),
-        user: this.model.user
+      this.viewMushroomObserver = new mf.views.MushroomObserver({
+        prefs: this.model.weatherPrefs,
+        model: this.model.weatherData
       });
-      this.viewFollowing.render();
+      this.viewMushroomObserver.render();
     }
-    newTab = 'mushroom-observer';
-    newView = this.viewFollowing;
-    */
+    newTab = 'mushroomobserver';
+    newView = this.viewMushroomObserver;
 
   }
 
@@ -192,19 +191,19 @@ mf.views.Weather.prototype.render = function() {
   this.$el.html(mf.views.getTemplateHtml('weather', {
     prefs: this.prefs.getTemplateData(),
     weather: this.model.getTemplateData(),
-    cities: mf.models.WeatherPrefs.Cities,
-    months: mf.models.WeatherPrefs.Months,
-    years: mf.models.WeatherPrefs.Years
+    cities: mf.models.WeatherPrefsCities,
+    months: mf.models.WeatherPrefsMonths,
+    years: mf.models.WeatherPrefsYears
   }));
 
   this.$form = this.$('form');
-  this.$('[name="city"]').val(
-      mf.models.WeatherPrefs.getStation(this.prefs.get('city')));
+  this.$('[name="city"]').val(this.prefs.get('city'));
   this.$('[name="month"]').val(this.prefs.get('month'));
   this.$('[name="year"]').val(this.prefs.get('year'));
 
-  this.$weatherData = this.$('.weather-data-c');
-  this.subView.setElement(this.$weatherData);
+  this.$data = this.$('.data-c');
+  this.subView.setElement(this.$data);
+  this.subView.render();
 
   return this;
 };
@@ -236,6 +235,81 @@ mf.views.WeatherData.prototype.render = function() {
   mf.log('mf.views.WeatherData render');
 
   this.$el.html(mf.views.getTemplateHtml('weather_data',
-      this.model.getTemplateData());
+      this.model.getTemplateData()));
+};
+
+
+/******************************************************************************/
+
+
+
+/**
+ * @extends {Backbone.View}
+ * @constructor
+ */
+mf.views.MushroomObserver = Backbone.View.extend({
+  el: '.mf-mushroomobserver',
+  events: {
+    'change select': 'onChangePrefs_'
+  }
+});
+
+
+/** @inheritDoc */
+mf.views.MushroomObserver.prototype.initialize = function(options) {
+  mf.log('views.MushroomObserver initialize');
+  this.prefs = options.prefs;
+  this.subView = new mf.views.MushroomObserverData({
+    model: this.model
+  });
+};
+
+
+/** @private */
+mf.views.MushroomObserver.prototype.onChangePrefs_ = function() {
+  var obj = mf.views.serializeFormToObject(this.$form);
+  mf.log('onChangePrefs_', obj);
+  this.prefs.set(obj);
+};
+
+
+/** @inheritDoc */
+mf.views.MushroomObserver.prototype.render = function() {
+  mf.log('mf.views.MushroomObserver render');
+
+  this.$el.html(mf.views.getTemplateHtml('mushroomobserver', {
+    prefs: this.prefs.getTemplateData(),
+    weather: this.model.getTemplateData(),
+    cities: mf.models.MushroomObserverPrefsCities
+  }));
+
+  this.$form = this.$('form');
+  this.$('[name="city"]').val(this.prefs.get('city'));
+
+  this.$data = this.$('.data-c');
+  this.subView.setElement(this.$data);
+  this.subView.render();
+
+  return this;
+};
+
+
+/******************************************************************************/
+
+
+
+/**
+ * @extends {Backbone.View}
+ * @constructor
+ */
+mf.views.MushroomObserverData = Backbone.View.extend();
+
+
+/** @inheritDoc */
+mf.views.MushroomObserverData.prototype.render = function() {
+  mf.log('mf.views.MushroomObserverData render');
+
+  this.$el.html(mf.views.getTemplateHtml('mushroomobserver_data',
+      this.model.getTemplateData()));
 };
 

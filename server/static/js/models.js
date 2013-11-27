@@ -17,6 +17,7 @@ mf.models.App.prototype.initialize = function(opt_data, opt_options) {
   mf.log('mf.models.App.initialize');
   this.weatherPrefs = new mf.models.WeatherPrefs();
   this.weatherData = new mf.models.WeatherData();
+  this.onChangeWeatherPrefs_();  // init
 
   this.listenTo(this.weatherPrefs, 'change', this.onChangeWeatherPrefs_);
 };
@@ -32,21 +33,8 @@ mf.models.App.prototype.onChangeWeatherPrefs_ = function() {
 /******************************************************************************/
 
 
-
-/**
- * @extends {Backbone.Model}
- * @constructor
- */
-mf.models.WeatherPrefs = mf.Model.extend({
-  defaults: {
-    'city': mf.models.WeatherPrefsCities[0]['name'],
-    'month': mf.models.WeatherPrefs.Months[(new Date()).getMonth()],
-    'year': (new Date()).getFullYear()
-  }
-});
-
 /** @type {Array.<string>} */
-mf.models.WeatherPrefs.Cities = [
+mf.models.WeatherPrefsCities = [
   {
     'pws': 'KCAMENDO1',
     'name': 'Mendocino'
@@ -66,21 +54,8 @@ mf.models.WeatherPrefs.Cities = [
 ];
 
 
-/**
- * @param {string} city A city name.
- * @return {string} A station.
- */
-mf.models.WeatherPrefs.getStation = function(city) {
-  for (var i = 0, city; city = mf.models.WeatherPrefs.Cities[i]; i++) {
-    if (city['name'] == city) {
-      return city['pws'];
-    }
-  }
-};
-
-
 /** @type {Array.<string>} */
-mf.models.WeatherPrefs.Months = [
+mf.models.WeatherPrefsMonths = [
   'January',
   'February',
   'March',
@@ -97,7 +72,51 @@ mf.models.WeatherPrefs.Months = [
 
 
 /** @type {Array.<number>} */
-mf.models.WeatherPrefs.Years = [2013, 2012];
+mf.models.WeatherPrefsYears = [2013];
+
+
+/******************************************************************************/
+
+
+
+/**
+ * @extends {Backbone.Model}
+ * @constructor
+ */
+mf.models.WeatherPrefs = mf.Model.extend({
+  defaults: {
+    'city': mf.models.WeatherPrefsCities[0]['name'],
+    'month': mf.models.WeatherPrefsMonths[(new Date()).getMonth()],
+    'year': (new Date()).getFullYear()
+  }
+});
+
+
+/**
+ * @param {string} city A city name.
+ * @return {string} A station.
+ */
+mf.models.WeatherPrefs.getStation = function(city) {
+  for (var i = 0, cityObj; cityObj = mf.models.WeatherPrefsCities[i]; i++) {
+    if (cityObj['name'] == city) {
+      return cityObj['pws'];
+    }
+  }
+};
+
+
+/** @return {string} A station name. */
+mf.models.WeatherPrefs.prototype.getStation = function() {
+  return mf.models.WeatherPrefs.getStation(this.get('city'));
+};
+
+
+/** @inheritDoc */
+mf.models.WeatherPrefs.prototype.getTemplateData = function() {
+  var data = mf.Model.prototype.getTemplateData.call(this);
+  data['station'] = this.getStation();
+  return data;
+};
 
 
 /******************************************************************************/
@@ -133,10 +152,10 @@ mf.models.WeatherData.prototype.fetch = function(options) {
  */
 mf.models.WeatherData.prototype.url = function() {
   var monthAsString = mf.models.WeatherData.padMonth(
-      _.indexOf(mf.models.Months, this.prefs.get('month')) + 1);
-  var url = window.location.origin + '/wunderground/data/CA/' +
-      this.prefs.get('city') + '/' + this.prefs.get('year') +
-      monthAsString + '.json';
+      _.indexOf(mf.models.WeatherPrefsMonths, this.prefs.get('month')) + 1);
+  var url = window.location.origin + '/wunderground/data/' +
+      this.prefs.getStation() + '/' + this.prefs.get('year') + '/' +
+      monthAsString + '/data.json';
   return url;
 };
 

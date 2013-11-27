@@ -76,50 +76,86 @@
     <script src="js/views_mf.js"></script>
     <script src="js/views.js"></script>
 
+
+    <!-- START Hogan templates -->
     <script id="tpl_weather" type="text/html">
       <form class="mf-weather-prefs">
-        <div>
+        <label class="mf-select-c">
+          <span>Choose a city:</span>
           <select name="city">
             {{#cities}}
-              <option>{{.}}</option>
+              <option val="{{pws}}">{{name}}</option>
             {{/cities}}
           </select>
-        </div>
+        </label>
 
-        <div>
-          Today in {{prefs.city}}...
-        </div>
-
-        <div>
+        <label class="mf-select-c">
+          <span>Choose a month:</span>
           <select name="month">
             {{#months}}
               <option>{{.}}</option>
             {{/months}}
           </select>
+        </label>
 
+        <label class="mf-select-c">
+          <span>Choose a year:</span>
           <select name="year">
             {{#years}}
               <option>{{.}}</option>
             {{/years}}
           </select>
-        </div>
+        </label>
+
       </form>
 
-      <div class="weather-data-c">Month data</div>
+      <div class="data-c"></div>
     </script>
+
 
     <script id="tpl_weather_data" type="text/html">
-      {{#days}}
-        {{precip}}
-
-      {{/days}}
+      <table class="mf-weather-data">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Rain</th>
+            <th>Low</th>
+            <th>High</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#data}}
+            <tr>
+              <td>{{daynum}}</td>
+              <td class="precip precip-{{precipi}}">
+                {{precipi}}
+              </td>
+              <td>{{mintempi}}</td>
+              <td>{{maxtempi}}</td>
+            </tr>
+          {{/data}}
+          {{^data}}
+            <tr>
+              <td colspan="2">No data</td>
+            </tr>
+          {{/data}}
+        </tbody>
+      </table>
     </script>
 
-    <script id="tpl_mushroom_observer" type="text/html">
-      <h2>Mushroom Observer</h2>
 
+    <script id="tpl_mushroomobserver" type="text/html">
+      <h2>Mushroom Observer Prefs coming ..</h2>
+
+      <div class="data-c"></div>
     </script>
 
+
+    <script id="tpl_mushroomobserver_data" type="text/html">
+      <h3>Observations will show up here.</h3>
+    </script>
+
+    <!-- END Hogan templates -->
 
 
     <script>
