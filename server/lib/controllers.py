@@ -1,0 +1,41 @@
+#!/usr/bin/python2.7
+#
+#
+
+import logging
+import os
+import webapp2
+from webapp2 import Route
+
+#sys.path.append(os.path.join(os.path.dirname(__file__), 'external'))
+
+#from lib.models import FMBUser
+from lib.web_request_handler import ErrorNotFoundRequestHandler
+from lib.web_request_handler import ErrorInternalRequestHandler
+
+#from google.appengine.ext import deferred
+# Hack to get ndb into the modules list.
+#from google.appengine.ext import ndb
+#sys.modules['ndb'] = ndb
+
+# last import.
+import settings
+
+routes = [
+    # App
+    Route('/app', handler='lib.www.AppHandler'),
+    Route('/app/weather', handler='lib.www.AppHandler'),
+    Route('/app/mushroomobserver', handler='lib.www.AppHandler'),
+
+    Route('/', handler='lib.www.IndexHandler'),
+]
+
+is_debug = False
+if 'SERVER_SOFTWARE' in os.environ:
+    is_debug = 'Development' in os.environ['SERVER_SOFTWARE']
+
+app = webapp2.WSGIApplication(routes,
+                              debug=is_debug)
+
+app.error_handlers[404] = ErrorNotFoundRequestHandler
+app.error_handlers[500] = ErrorInternalRequestHandler
