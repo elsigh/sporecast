@@ -29,7 +29,7 @@ select {
   line-height: 1;
   border: 1px solid #aaa;
   border-radius: 3px;
-  padding: 0.7em 3em 0.7em 1em;
+  padding: 0.7em 2em 0.7em 1em;
   width: 100%;
   -webkit-appearance: none;
 }
@@ -40,7 +40,7 @@ label.mf-select-c {
 }
 
 label.mf-select-c ~ label.mf-select-c {
-  margin-left: 0.7em;
+  margin-left: 0.1em;
 }
 
 label.mf-select-c::after {
@@ -65,11 +65,11 @@ footer {
 
 h1 {
   position: fixed;
+  font-size: 1.2em;
   box-sizing: border-box;
   top: 0;
   z-index: 2;
   width: 100%;
-  font-size: 1.6em;
   margin: 0;
   padding: 10px;
   background-color: #ccc;
@@ -88,13 +88,8 @@ h1 > a {
   display: inline-block;
 }
 
-h1 > a > span,
-h1 > span {
-  xvisibility: hidden;
-}
-
 h2 {
-  font-size: 1.2em;
+  font-size: 1em;
   margin: 0;
   padding-bottom: 10px;
   font-weight: 300;
@@ -119,7 +114,7 @@ figure {
 
 table {
   border-radius: 3px;
-  margin: 1em 0;
+  margin: 10px 0;
   width: 100%;
   background: #efefef;
   border-collapse: collapse;
@@ -217,8 +212,7 @@ button:active {
 }
 
 nav {
-  top: 55px;
-  height: 55px;
+  top: 46px;
   position: fixed;
   width: 100%;
   /* otherwise it disappears . */
@@ -234,7 +228,7 @@ body.mf-app-container,
 
 .mf-tab-frame-c {
   position: absolute;
-  top: 110px;
+  top: 85px;  /* 37 + 46 + boxshadow 2px */
   right: 0;
   left: 0;
   bottom: 0;
@@ -256,7 +250,7 @@ body.mf-app-container,
 
 .mf-tab {
   box-sizing: border-box;
-  padding: 20px 10px 0;
+  padding: 10px 10px 0;
   height: 100%;
   width: 100%;
   vertical-align: top;
@@ -290,13 +284,13 @@ body.mf-app-container,
   color: #111;
   text-align: center;
   text-shadow: 0 1px 1px #fff;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   -webkit-box-sizing: border-box;
   width: 49.9%;
   text-decoration: none;
   border-right: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #bbb;
 }
 .mf-tabs a:last-child,
 .mf-tabs span:last-child {
@@ -321,6 +315,10 @@ body.mf-app-container,
 }
 
 /*** Page-specific CSS ***/
+.mf-weather-prefs {
+  font-size: 13px;
+}
+
 .mf-weather-data .precip:not(.precip-0) {
   background-color: #33FF99;
 }
