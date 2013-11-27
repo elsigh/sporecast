@@ -324,3 +324,7 @@ body.mf-app-container,
 .mf-weather-data .precip:not(.precip-0) {
   background-color: #33FF99;
 }
+
+.mf-weather-data img {
+  width: 100%;
+}
