@@ -24,7 +24,8 @@ import settings
 routes = [
     # App
     Route('/app', handler='lib.www.AppHandler'),
-    Route('/app/weather', handler='lib.www.AppHandler'),
+    Route('/app/weather/<station>/<year>/<month>',
+          handler='lib.www.AppHandler'),
     Route('/app/mushroomobserver', handler='lib.www.AppHandler'),
 
     Route('/', handler='lib.www.IndexHandler'),

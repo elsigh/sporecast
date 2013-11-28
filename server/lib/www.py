@@ -9,7 +9,7 @@ import settings
 
 
 class AppHandler(WebRequestHandler):
-    def get(self, endpoint=None, more_endpoint=None):
+    def get(self, station=None, year=None, month=None):
         # TODO(elsigh): cache this baby in memory.
         app_html = open('templates/app.html', 'r').read()
         self.response.out.write(app_html)

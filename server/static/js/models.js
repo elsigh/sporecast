@@ -12,10 +12,30 @@
 mf.models.App = Backbone.Model.extend();
 
 
+/**
+ * @return {Object} A weather prefs obj if matches in the URL.
+ */
+mf.models.App.getWeatherPrefsFromUrl = function() {
+  var weatherPrefs;
+  var re = new RegExp(/weather\/(.+)\/(.+)\/(.+)/);
+  var matches = re.exec(window.location.href);
+  if (matches) {
+    weatherPrefs = {
+      'city': mf.models.WeatherPrefs.getCity(matches[1]),
+      'year': matches[2],
+      'month': mf.models.WeatherPrefsMonths[matches[3] - 1]
+    };
+  }
+  mf.log('weatherPrefs from URL', weatherPrefs);
+  return weatherPrefs;
+};
+
+
 /** @inheritDoc */
 mf.models.App.prototype.initialize = function(opt_data, opt_options) {
   mf.log('mf.models.App.initialize');
-  this.weatherPrefs = new mf.models.WeatherPrefs();
+  this.weatherPrefs = new mf.models.WeatherPrefs(
+      mf.models.App.getWeatherPrefsFromUrl());
   this.weatherData = new mf.models.WeatherData();
   this.onChangeWeatherPrefs_();  // init
 
@@ -109,10 +129,42 @@ mf.models.WeatherPrefs.getStation = function(city) {
 };
 
 
+/**
+ * @param {string} station A station name.
+ * @return {string} A city.
+ */
+mf.models.WeatherPrefs.getCity = function(station) {
+  mf.log('mf.models.WeatherPrefs.getCity', station);
+  for (var i = 0, cityObj; cityObj = mf.models.WeatherPrefsCities[i]; i++) {
+    if (cityObj['pws'] == station) {
+      return cityObj['name'];
+    }
+  }
+};
+
+
+/**
+ * Based on prefs, we should be on this URL.
+ * @return {string} The url.
+ */
+mf.models.WeatherPrefs.prototype.getUrlState = function() {
+  return '/weather/' + this.getStation() +
+        '/' + this.get('year') + '/' +
+        mf.models.WeatherData.padMonth(this.getMonthNum());
+};
+
+
 /** @return {string} A station name. */
 mf.models.WeatherPrefs.prototype.getStation = function() {
   return mf.models.WeatherPrefs.getStation(this.get('city'));
 };
+
+
+/** @return {string} The month as a number starting from 1, not 0 index. */
+mf.models.WeatherPrefs.prototype.getMonthNum = function() {
+  return _.indexOf(mf.models.WeatherPrefsMonths, this.get('month')) + 1;
+};
+
 
 
 /** @inheritDoc */
@@ -147,6 +199,11 @@ mf.models.WeatherData.padMonth = function(number) {
 /** @inheritDoc */
 mf.models.WeatherData.prototype.fetch = function(options) {
   this.prefs = options.prefs;
+  options.error = _.bind(function() {
+    mf.log('Error in WeatherData fetch.');
+    this.clear();
+  }, this);
+  window['app'].navigate(this.prefs.getUrlState(), {replace: true});
   mf.Model.prototype.fetch.call(this, options);
 };
 
@@ -155,8 +212,7 @@ mf.models.WeatherData.prototype.fetch = function(options) {
  * @return {string} An url.
  */
 mf.models.WeatherData.prototype.url = function() {
-  var monthAsString = mf.models.WeatherData.padMonth(
-      _.indexOf(mf.models.WeatherPrefsMonths, this.prefs.get('month')) + 1);
+  var monthAsString = mf.models.WeatherData.padMonth(this.prefs.getMonthNum());
   var url = window.location.origin + '/wunderground/data/' +
       this.prefs.getStation() + '/' + this.prefs.get('year') + '/' +
       monthAsString + '/data.json';

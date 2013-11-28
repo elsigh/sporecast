@@ -13,7 +13,7 @@ mf.App = Backbone.Router.extend();
  */
 mf.App.Routes = {
   WEATHER: {
-    url: 'weather',
+    url: 'weather/:station/:year/:month',
     handler: 'routeWeather_'
   },
   MUSHROOM_OBSERVER: {
@@ -80,8 +80,9 @@ mf.App.prototype.initHistory_ = function() {
   });
 
   if (!matchedRoute) {
-    console.warn('No matchedRoute in initHistory');
-    this.navigate(mf.App.Routes.WEATHER.url, {trigger: true});
+    var url = this.model.weatherPrefs.getUrlState();
+    console.warn('No matchedRoute in initHistory, going to', url);
+    this.navigate(url, {trigger: true});
   }
 };
 
