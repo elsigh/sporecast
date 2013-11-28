@@ -148,7 +148,7 @@ mf.models.WeatherPrefs.getCity = function(station) {
  * @return {string} The url.
  */
 mf.models.WeatherPrefs.prototype.getUrlState = function() {
-  return '/weather/' + this.getStation() +
+  return 'weather/' + this.getStation() +
         '/' + this.get('year') + '/' +
         mf.models.WeatherData.padMonth(this.getMonthNum());
 };
@@ -203,7 +203,10 @@ mf.models.WeatherData.prototype.fetch = function(options) {
     mf.log('Error in WeatherData fetch.');
     this.clear();
   }, this);
-  window['app'].navigate(this.prefs.getUrlState(), {replace: true});
+
+  var urlState = this.prefs.getUrlState();
+  window['app'].navigate(urlState, {replace: true});
+  $('.weather.mf-app-link').attr('href', urlState);
   mf.Model.prototype.fetch.call(this, options);
 };
 
