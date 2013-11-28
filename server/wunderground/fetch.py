@@ -14,7 +14,8 @@ PWS = [
     'KCAMENDO1',
     'KCAINVER2',
     'KCASANFR34',
-    'KCASANTA134'
+    'KCASANTA134',
+    'KCAEUREK5'
 ]
 
 DATA_DIR = 'data'
@@ -90,9 +91,9 @@ def store_data(day, pws='KCAMENDO1'):
 
 
 # Loops through a date range and makes a call to store the daily data.
-start_date = date(2013, 11, 26)
+start_date = date(2013, 9, 01)
 end_date = date(2013, 11, 27)
-for i in range(0, 4):
+for i in range(0, len(PWS)):
     pws = PWS[i]
     #end_date = datetime.now().date()
     print '%s :: START: %s -> END: %s\n' % (pws, start_date, end_date)

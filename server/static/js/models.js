@@ -36,6 +36,10 @@ mf.models.App.prototype.onChangeWeatherPrefs_ = function() {
 /** @type {Array.<string>} */
 mf.models.WeatherPrefsCities = [
   {
+    'pws': 'KCAEUREK5',
+    'name': 'Eureka'
+  },
+  {
     'pws': 'KCAMENDO1',
     'name': 'Mendocino'
   },
