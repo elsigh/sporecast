@@ -28,6 +28,8 @@ routes = [
           handler='lib.www.AppHandler'),
     Route('/app/mushroomobserver', handler='lib.www.AppHandler'),
 
+    Route('/mushroomobserver', handler='lib.www.MushroomObserverHandler'),
+
     Route('/', handler='lib.www.IndexHandler'),
 ]
 

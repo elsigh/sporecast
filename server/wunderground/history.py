@@ -36,7 +36,7 @@ def fetch_history_data(day, pws=utils.PWS[0]):
 
 
 # Loops through a date range and makes a call to store the daily data.
-start_date = date(2013, 9, 01)
+start_date = date(2013, 12, 01)
 end_date = datetime.now().date()
 for i in range(0, len(utils.PWS)):
     pws = utils.PWS[i]

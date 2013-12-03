@@ -41,4 +41,3 @@ for i in range(0, len(utils.PWS)):
     #end_date = datetime.now().date()
     print 'FORECAST :: %s' % pws
     fetch_forecast_data(pws)
-    break

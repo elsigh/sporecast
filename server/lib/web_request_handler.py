@@ -87,7 +87,6 @@ class WebRequestHandler(webapp2.RequestHandler):
         return json.dumps(obj, default=date_handler)
 
     def output_json(self, obj):
-        self.apply_cors_headers()
         self.response.headers['Content-Type'] = 'application/json'
         json_out = WebRequestHandler.json_dump(obj)
         logging.info('output_json: %s' % json_out)

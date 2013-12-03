@@ -125,10 +125,10 @@
         </thead>
         <tbody>
           {{#data}}
-            <tr>
-              <td>{{daynum}}</td>
+            <tr {{#is_forecast}}class="forecast"{{/is_forecast}}>
+              <td>{{daynum}} - {{is_forecast}}</td>
               <td class="precip precip-{{precipi}}">
-                {{precipi}}
+                {{precipi}}{{#is_forecast}}%{{/is_forecast}}
               </td>
               <td>{{mintempi}}</td>
               <td>{{maxtempi}}</td>
