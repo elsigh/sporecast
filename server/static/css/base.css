@@ -314,9 +314,21 @@ body.mf-app-container,
   padding: 10px;
 }
 
+
+/******************************************************************************/
+
+
 /*** Page-specific CSS ***/
+
+/* Weather */
+
 .mf-weather-prefs {
   font-size: 13px;
+}
+
+.mf-weather-data .forecast td {
+  background: #FFFFE0;
+  opacity: 0.6;
 }
 
 .mf-weather-data .precip:not(.precip-0) {
@@ -324,5 +336,22 @@ body.mf-app-container,
 }
 
 .mf-weather-data img {
+  width: 100%;
+}
+
+/* MO */
+
+.mf-mob-data .observation {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  margin: 1em 0;
+  padding: 10px;
+}
+
+.mf-mob-data .observation > div {
+  margin: 1em 0;
+}
+
+.mf-mob-data .observation img {
   width: 100%;
 }

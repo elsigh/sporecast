@@ -22,7 +22,8 @@ class AppHandler(WebRequestHandler):
 
 
 class MushroomObserverHandler(WebRequestHandler):
-    def get(self):
+    def get(self, state='CA'):
+        """FUGLY hackery to get MO data."""
         mo_url = 'http://mushroomobserver.org/observer/advanced_search?_js=on&_new=true&q=1f5SB'
         mo_key = 'mushroomobserver_CA'
         docstring = memcache.get(mo_key)

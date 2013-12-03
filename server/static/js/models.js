@@ -37,9 +37,17 @@ mf.models.App.prototype.initialize = function(opt_data, opt_options) {
   this.weatherPrefs = new mf.models.WeatherPrefs(
       mf.models.App.getWeatherPrefsFromUrl());
   this.weatherData = new mf.models.WeatherData();
-  this.onChangeWeatherPrefs_();  // init
+
+  this.mobPrefs = new mf.models.MobPrefs();
+  this.mobData = new mf.models.MobData();
+
+  // init fetch data
+  this.onChangeWeatherPrefs_();
+  this.onChangeMobPrefs_();
 
   this.listenTo(this.weatherPrefs, 'change', this.onChangeWeatherPrefs_);
+  this.listenTo(this.mobPrefs, 'change',
+      this.onChangeMobPrefs_);
 };
 
 
@@ -47,6 +55,13 @@ mf.models.App.prototype.initialize = function(opt_data, opt_options) {
 mf.models.App.prototype.onChangeWeatherPrefs_ = function() {
   mf.log('mf.models.App onChangeWeatherPrefs_', this.weatherPrefs.toJSON());
   this.weatherData.fetch({prefs: this.weatherPrefs});
+};
+
+
+/** @private */
+mf.models.App.prototype.onChangeMobPrefs_ = function() {
+  mf.log('mf.models.App onChangeMobPrefs_', this.mobPrefs.toJSON());
+  this.mobData.fetch({prefs: this.mobPrefs});
 };
 
 
@@ -219,6 +234,57 @@ mf.models.WeatherData.prototype.url = function() {
   var url = window.location.origin + '/wunderground/data/' +
       this.prefs.getStation() + '/' + this.prefs.get('year') + '/' +
       monthAsString + '/data.json';
+  return url;
+};
+
+
+/******************************************************************************/
+
+
+/** @type {Array.<string>} */
+mf.models.MobPrefsStates = ['CA'];
+
+
+/**
+ * @extends {Backbone.Model}
+ * @constructor
+ */
+mf.models.MobPrefs = mf.Model.extend({
+  defaults: {
+    'state': mf.models.MobPrefsStates[0]
+  }
+});
+
+
+/******************************************************************************/
+
+
+
+/**
+ * @extends {Backbone.Model}
+ * @constructor
+ */
+mf.models.MobData = mf.Model.extend();
+
+
+/** @inheritDoc */
+mf.models.MobData.prototype.fetch = function(options) {
+  this.prefs = options.prefs;
+  options.error = _.bind(function() {
+    mf.log('Error in MobData fetch.');
+    this.clear();
+  }, this);
+
+  mf.Model.prototype.fetch.call(this, options);
+};
+
+
+/**
+ * @return {string} An url.
+ */
+mf.models.MobData.prototype.url = function() {
+  var url = window.location.origin + '/mushroomobserver/' +
+      this.prefs.get('state') + '/data.json';
   return url;
 };
 

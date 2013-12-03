@@ -2,7 +2,6 @@
 #
 #
 
-import logging
 import os
 import webapp2
 from webapp2 import Route
@@ -26,9 +25,10 @@ routes = [
     Route('/app', handler='lib.www.AppHandler'),
     Route('/app/weather/<station>/<year>/<month>',
           handler='lib.www.AppHandler'),
-    Route('/app/mushroomobserver', handler='lib.www.AppHandler'),
+    Route('/app/mob', handler='lib.www.AppHandler'),
 
-    Route('/mushroomobserver', handler='lib.www.MushroomObserverHandler'),
+    Route('/mushroomobserver/<state>/data.json',
+          handler='lib.www.MushroomObserverHandler'),
 
     Route('/', handler='lib.www.IndexHandler'),
 ]

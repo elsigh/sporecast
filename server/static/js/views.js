@@ -80,11 +80,6 @@ mf.views.App.prototype.setCurrentView = function(view) {
   var screenW = document.documentElement.clientWidth;
 
   var $mfTabs = $('.mf-tab');
-  //$('.mf-tab-frame').css('width', $mfTabs.length * screenW + 'px');
-
-  //$mfTabs.each(function(i, el) {
-  //  $(el).css('left', i * screenW + 'px').css('width', screenW + 'px');
-  //});
 
   var tabIndex = this.getTabIndex_(view);
   var transform = 'translateX(-' + (tabIndex * screenW) + 'px)';
@@ -132,15 +127,15 @@ mf.views.App.prototype.transitionPage = function(route) {
 
   } else if (_.isEqual(mf.App.Routes.MUSHROOM_OBSERVER, route)) {
 
-    if (!this.viewMushroomObserver) {
-      this.viewMushroomObserver = new mf.views.MushroomObserver({
-        prefs: this.model.weatherPrefs,
-        model: this.model.weatherData
+    if (!this.viewMob) {
+      this.viewMob = new mf.views.Mob({
+        prefs: this.model.mobPrefs,
+        model: this.model.mobData
       });
-      this.viewMushroomObserver.render();
+      this.viewMob.render();
     }
-    newTab = 'mushroomobserver';
-    newView = this.viewMushroomObserver;
+    newTab = 'mob';
+    newView = this.viewMob;
 
   }
 
@@ -190,7 +185,6 @@ mf.views.Weather.prototype.render = function() {
 
   this.$el.html(mf.views.getTemplateHtml('weather', {
     prefs: this.prefs.getTemplateData(),
-    weather: this.model.getTemplateData(),
     cities: mf.models.WeatherPrefsCities,
     months: mf.models.WeatherPrefsMonths,
     years: mf.models.WeatherPrefsYears
@@ -247,8 +241,8 @@ mf.views.WeatherData.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.MushroomObserver = Backbone.View.extend({
-  el: '.mf-mushroomobserver',
+mf.views.Mob = Backbone.View.extend({
+  el: '.mf-mob',
   events: {
     'change select': 'onChangePrefs_'
   }
@@ -256,17 +250,17 @@ mf.views.MushroomObserver = Backbone.View.extend({
 
 
 /** @inheritDoc */
-mf.views.MushroomObserver.prototype.initialize = function(options) {
+mf.views.Mob.prototype.initialize = function(options) {
   mf.log('views.MushroomObserver initialize');
   this.prefs = options.prefs;
-  this.subView = new mf.views.MushroomObserverData({
+  this.subView = new mf.views.MobData({
     model: this.model
   });
 };
 
 
 /** @private */
-mf.views.MushroomObserver.prototype.onChangePrefs_ = function() {
+mf.views.Mob.prototype.onChangePrefs_ = function() {
   var obj = mf.views.serializeFormToObject(this.$form);
   mf.log('onChangePrefs_', obj);
   this.prefs.set(obj);
@@ -274,17 +268,16 @@ mf.views.MushroomObserver.prototype.onChangePrefs_ = function() {
 
 
 /** @inheritDoc */
-mf.views.MushroomObserver.prototype.render = function() {
-  mf.log('mf.views.MushroomObserver render');
+mf.views.Mob.prototype.render = function() {
+  mf.log('mf.views.Mob render');
 
-  this.$el.html(mf.views.getTemplateHtml('mushroomobserver', {
+  this.$el.html(mf.views.getTemplateHtml('mob', {
     prefs: this.prefs.getTemplateData(),
-    weather: this.model.getTemplateData(),
-    cities: mf.models.MushroomObserverPrefsCities
+    states: mf.models.MobPrefsStates
   }));
 
   this.$form = this.$('form');
-  this.$('[name="city"]').val(this.prefs.get('city'));
+  this.$('[name="state"]').val(this.prefs.get('state'));
 
   this.$data = this.$('.data-c');
   this.subView.setElement(this.$data);
@@ -302,14 +295,21 @@ mf.views.MushroomObserver.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.MushroomObserverData = Backbone.View.extend();
+mf.views.MobData = Backbone.View.extend();
 
 
 /** @inheritDoc */
-mf.views.MushroomObserverData.prototype.render = function() {
-  mf.log('mf.views.MushroomObserverData render');
+mf.views.MobData.prototype.initialize = function(options) {
+  mf.log('views.MobData initialize');
+  this.listenTo(this.model, 'change', this.render);
+};
 
-  this.$el.html(mf.views.getTemplateHtml('mushroomobserver_data',
+
+/** @inheritDoc */
+mf.views.MobData.prototype.render = function() {
+  mf.log('mf.views.MobData render');
+
+  this.$el.html(mf.views.getTemplateHtml('mob_data',
       this.model.getTemplateData()));
 };
 

@@ -21,7 +21,7 @@
       <nav class="mf-tabs-c">
         <div class="mf-tabs">
           <a href="weather" class="weather mf-app-link">Weather</a
-            ><a href="mushroomobserver" class="mushroomobserver mf-app-link"
+            ><a href="mob" class="mob mf-app-link"
             >Observer</a>
         </div>
       </nav>
@@ -31,8 +31,8 @@
           <section class="mf-tab mf-tab-weather">
             <div class="mf-weather"></div>
           </section
-          ><section class="mf-tab mf-tab-mushroomobserver">
-            <div class="mf-mushroomobserver"></div>
+          ><section class="mf-tab mf-tab-mob">
+            <div class="mf-mob"></div>
           </section>
         </div>
       </div>
@@ -126,9 +126,14 @@
         <tbody>
           {{#data}}
             <tr {{#is_forecast}}class="forecast"{{/is_forecast}}>
-              <td>{{daynum}} - {{is_forecast}}</td>
+              <td>{{daynum}}</td>
               <td class="precip precip-{{precipi}}">
-                {{precipi}}{{#is_forecast}}%{{/is_forecast}}
+                {{#precipi_is_zero}}
+                  -
+                {{/precipi_is_zero}}
+                {{^precipi_is_zero}}
+                  {{precipi}}{{#is_forecast}}%{{/is_forecast}}{{^is_forecast}} in{{/is_forecast}}
+                {{/precipi_is_zero}}
               </td>
               <td>{{mintempi}}</td>
               <td>{{maxtempi}}</td>
@@ -153,15 +158,36 @@
     </script>
 
 
-    <script id="tpl_mushroomobserver" type="text/html">
-      <h2>Mushroom Observer Prefs coming ..</h2>
+    <script id="tpl_mob" type="text/html">
+      <form class="mf-mob-prefs">
+        <label class="mf-select-c">
+          <span>Choose a state:</span>
+          <select name="state">
+            {{#states}}
+              <option>{{.}}</option>
+            {{/states}}
+          </select>
+        </label>
+      </form>
 
       <div class="data-c"></div>
     </script>
 
 
-    <script id="tpl_mushroomobserver_data" type="text/html">
-      <h3>Observations will show up here.</h3>
+    <script id="tpl_mob_data" type="text/html">
+      <div class="mf-mob-data">
+        {{#observations}}
+          <div class="observation">
+            <div class="when">{{{when}}}</div>
+            <div class="img">{{{img}}}</div>
+            <div class="what">{{{what}}}</div>
+            <div class="where">{{{where}}}</div>
+          </div>
+        {{/observations}}
+        {{^observations}}
+          <h3>No MushroomObserver data.</h3>
+        {{/observations}}
+      </div>
     </script>
 
     <!-- END Hogan templates -->

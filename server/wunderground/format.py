@@ -4,6 +4,7 @@ from datetime import date, datetime
 import json
 import os
 from os import walk
+import math
 import re
 import sys
 import utils
@@ -44,6 +45,7 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                                 'is_forecast': True,
                                 'daynum': daily_data['date']['day'],
                                 'precipi': daily_data['pop'],
+                                'precipi_is_zero': int(daily_data['pop']) == 0,
                                 'mintempi': float(daily_data['high']['fahrenheit']),
                                 'maxtempi': float(daily_data['low']['fahrenheit'])
                             })
@@ -56,6 +58,8 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                     monthly_data['data'].append({
                         'daynum': int(daynum),
                         'precipi': float(daily_data['precipi']),
+                        'precipi_is_zero':
+                            int(math.ceil(float(daily_data['precipi']))) == 0,
                         'mintempi': float(daily_data['mintempi']),
                         'maxtempi': float(daily_data['maxtempi'])
                     })

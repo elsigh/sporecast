@@ -17,8 +17,8 @@ mf.App.Routes = {
     handler: 'routeWeather_'
   },
   MUSHROOM_OBSERVER: {
-    url: 'mushroomobserver',
-    handler: 'routeMushroomObserver_'
+    url: 'mob',
+    handler: 'routeMob_'
   }
 };
 
@@ -99,7 +99,7 @@ mf.App.prototype.routeWeather_ = function() {
 /**
  * @private
  */
-mf.App.prototype.routeMushroomObserver_ = function() {
-  mf.log('mf.App routeMushroomObserver_');
+mf.App.prototype.routeMob_ = function() {
+  mf.log('mf.App routeMob_');
   this.view.transitionPage(mf.App.Routes.MUSHROOM_OBSERVER);
 };
