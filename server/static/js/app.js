@@ -80,7 +80,7 @@ mf.App.prototype.initHistory_ = function() {
   });
 
   if (!matchedRoute) {
-    var url = this.model.weatherPrefs.getUrlState();
+    var url = this.model.weatherData.prefs.getUrlState();
     console.warn('No matchedRoute in initHistory, going to', url);
     this.navigate(url, {trigger: true});
   }

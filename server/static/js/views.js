@@ -26,6 +26,10 @@ mf.views.App.prototype.initialize = function(options) {
       _.debounce(_.bind(this.handleResizeOrientationChange_, this), 500), true);
   $(window).on('resize',
       _.debounce(_.bind(this.handleResizeOrientationChange_, this), 500), true);
+
+  this.onChangeWeatherDataPrefs_();  // init link w/ correct href.
+  this.listenTo(this.model.weatherData.prefs, 'change',
+      this.onChangeWeatherDataPrefs_);
 };
 
 
@@ -38,6 +42,18 @@ mf.views.App.prototype.onClickAppLink_ = function(e) {
   e.preventDefault();
   window['app'].navigate($(e.currentTarget).attr('href'),
                          {trigger: true});
+};
+
+
+/** @private */
+mf.views.App.prototype.onChangeWeatherDataPrefs_ = function() {
+  var urlState = this.model.weatherData.prefs.getUrlState();
+  $('.weather.mf-app-link').attr('href', urlState);
+
+  // Quietly update the URL as appropo
+  if (this.currentView == this.viewWeather) {
+    window['app'].navigate(urlState, {replace: true});
+  }
 };
 
 
@@ -117,7 +133,6 @@ mf.views.App.prototype.transitionPage = function(route) {
   if (_.isEqual(mf.App.Routes.WEATHER, route)) {
     if (!this.viewWeather) {
       this.viewWeather = new mf.views.Weather({
-        prefs: this.model.weatherPrefs,
         model: this.model.weatherData
       });
       this.viewWeather.render();
@@ -129,7 +144,6 @@ mf.views.App.prototype.transitionPage = function(route) {
 
     if (!this.viewMob) {
       this.viewMob = new mf.views.Mob({
-        prefs: this.model.mobPrefs,
         model: this.model.mobData
       });
       this.viewMob.render();
@@ -164,18 +178,20 @@ mf.views.Weather = Backbone.View.extend({
 /** @inheritDoc */
 mf.views.Weather.prototype.initialize = function(options) {
   mf.log('views.Weather initialize');
-  this.prefs = options.prefs;
   this.subView = new mf.views.WeatherData({
     model: this.model
   });
+  if (!this.model.has('data')) {
+    this.model.fetch();
+  }
 };
 
 
 /** @private */
 mf.views.Weather.prototype.onChangePrefs_ = function() {
   var obj = mf.views.serializeFormToObject(this.$form);
-  mf.log('onChangePrefs_', obj);
-  this.prefs.set(obj);
+  mf.log('mf.views.Weather onChangePrefs_', obj);
+  this.model.prefs.set(obj);
 };
 
 
@@ -184,16 +200,16 @@ mf.views.Weather.prototype.render = function() {
   mf.log('mf.views.Weather render');
 
   this.$el.html(mf.views.getTemplateHtml('weather', {
-    prefs: this.prefs.getTemplateData(),
+    prefs: this.model.prefs.getTemplateData(),
     cities: mf.models.WeatherPrefsCities,
     months: mf.models.WeatherPrefsMonths,
     years: mf.models.WeatherPrefsYears
   }));
 
   this.$form = this.$('form');
-  this.$('[name="city"]').val(this.prefs.get('city'));
-  this.$('[name="month"]').val(this.prefs.get('month'));
-  this.$('[name="year"]').val(this.prefs.get('year'));
+  this.$('[name="city"]').val(this.model.prefs.get('city'));
+  this.$('[name="month"]').val(this.model.prefs.get('month'));
+  this.$('[name="year"]').val(this.model.prefs.get('year'));
 
   this.$data = this.$('.data-c');
   this.subView.setElement(this.$data);
@@ -251,19 +267,21 @@ mf.views.Mob = Backbone.View.extend({
 
 /** @inheritDoc */
 mf.views.Mob.prototype.initialize = function(options) {
-  mf.log('views.MushroomObserver initialize');
-  this.prefs = options.prefs;
+  mf.log('mf.views.Mob initialize');
   this.subView = new mf.views.MobData({
     model: this.model
   });
+  if (!this.model.has('data')) {
+    this.model.fetch();
+  }
 };
 
 
 /** @private */
 mf.views.Mob.prototype.onChangePrefs_ = function() {
   var obj = mf.views.serializeFormToObject(this.$form);
-  mf.log('onChangePrefs_', obj);
-  this.prefs.set(obj);
+  mf.log('mf.views.Mob onChangePrefs_', obj);
+  this.model.prefs.set(obj);
 };
 
 
@@ -272,12 +290,12 @@ mf.views.Mob.prototype.render = function() {
   mf.log('mf.views.Mob render');
 
   this.$el.html(mf.views.getTemplateHtml('mob', {
-    prefs: this.prefs.getTemplateData(),
+    prefs: this.model.prefs.getTemplateData(),
     states: mf.models.MobPrefsStates
   }));
 
   this.$form = this.$('form');
-  this.$('[name="state"]').val(this.prefs.get('state'));
+  this.$('[name="state"]').val(this.model.prefs.get('state'));
 
   this.$data = this.$('.data-c');
   this.subView.setElement(this.$data);

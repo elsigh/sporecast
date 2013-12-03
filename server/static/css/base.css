@@ -73,7 +73,7 @@ h1 {
   margin: 0;
   padding: 10px;
   background-color: #ccc;
-  background-image: url(../img/logo.png);
+  X-background-image: url(../img/logo.png);
   background-position: 10px 10px;
   background-repeat: no-repeat;
   background-size: 100px auto;

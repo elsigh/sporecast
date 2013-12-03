@@ -22,7 +22,7 @@
         <div class="mf-tabs">
           <a href="weather" class="weather mf-app-link">Weather</a
             ><a href="mob" class="mob mf-app-link"
-            >Observer</a>
+            >M. Observer</a>
         </div>
       </nav>
 
@@ -176,17 +176,17 @@
 
     <script id="tpl_mob_data" type="text/html">
       <div class="mf-mob-data">
-        {{#observations}}
+        {{#data}}
           <div class="observation">
             <div class="when">{{{when}}}</div>
             <div class="img">{{{img}}}</div>
             <div class="what">{{{what}}}</div>
             <div class="where">{{{where}}}</div>
           </div>
-        {{/observations}}
-        {{^observations}}
+        {{/data}}
+        {{^data}}
           <h3>No MushroomObserver data.</h3>
-        {{/observations}}
+        {{/data}}
       </div>
     </script>
 

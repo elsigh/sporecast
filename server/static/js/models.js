@@ -12,56 +12,13 @@
 mf.models.App = Backbone.Model.extend();
 
 
-/**
- * @return {Object} A weather prefs obj if matches in the URL.
- */
-mf.models.App.getWeatherPrefsFromUrl = function() {
-  var weatherPrefs;
-  var re = new RegExp(/weather\/(.+)\/(.+)\/(.+)/);
-  var matches = re.exec(window.location.href);
-  if (matches) {
-    weatherPrefs = {
-      'city': mf.models.WeatherPrefs.getCity(matches[1]),
-      'year': matches[2],
-      'month': mf.models.WeatherPrefsMonths[matches[3] - 1]
-    };
-  }
-  mf.log('weatherPrefs from URL', weatherPrefs);
-  return weatherPrefs;
-};
-
 
 /** @inheritDoc */
 mf.models.App.prototype.initialize = function(opt_data, opt_options) {
   mf.log('mf.models.App.initialize');
-  this.weatherPrefs = new mf.models.WeatherPrefs(
-      mf.models.App.getWeatherPrefsFromUrl());
+
   this.weatherData = new mf.models.WeatherData();
-
-  this.mobPrefs = new mf.models.MobPrefs();
   this.mobData = new mf.models.MobData();
-
-  // init fetch data
-  this.onChangeWeatherPrefs_();
-  this.onChangeMobPrefs_();
-
-  this.listenTo(this.weatherPrefs, 'change', this.onChangeWeatherPrefs_);
-  this.listenTo(this.mobPrefs, 'change',
-      this.onChangeMobPrefs_);
-};
-
-
-/** @private */
-mf.models.App.prototype.onChangeWeatherPrefs_ = function() {
-  mf.log('mf.models.App onChangeWeatherPrefs_', this.weatherPrefs.toJSON());
-  this.weatherData.fetch({prefs: this.weatherPrefs});
-};
-
-
-/** @private */
-mf.models.App.prototype.onChangeMobPrefs_ = function() {
-  mf.log('mf.models.App onChangeMobPrefs_', this.mobPrefs.toJSON());
-  this.mobData.fetch({prefs: this.mobPrefs});
 };
 
 
@@ -159,6 +116,25 @@ mf.models.WeatherPrefs.getCity = function(station) {
 
 
 /**
+ * @return {Object} A weather prefs obj if matches in the URL.
+ */
+mf.models.WeatherPrefs.getFromUrl = function() {
+  var weatherPrefs;
+  var re = new RegExp(/weather\/(.+)\/(.+)\/(.+)/);
+  var matches = re.exec(window.location.href);
+  if (matches) {
+    weatherPrefs = {
+      'city': mf.models.WeatherPrefs.getCity(matches[1]),
+      'year': matches[2],
+      'month': mf.models.WeatherPrefsMonths[matches[3] - 1]
+    };
+  }
+  mf.log('mf.models.WeatherData getPrefsFromUrl', weatherPrefs);
+  return weatherPrefs;
+};
+
+
+/**
  * Based on prefs, we should be on this URL.
  * @return {string} The url.
  */
@@ -210,19 +186,28 @@ mf.models.WeatherData.padMonth = function(number) {
 };
 
 
+/** @inheritDoc */
+mf.models.WeatherData.prototype.initialize = function(opt_data, opt_options) {
+  mf.log('mf.models.WeatherData initialize');
+  this.prefs = new mf.models.WeatherPrefs(
+      mf.models.WeatherPrefs.getFromUrl());
+  this.listenTo(this.prefs, 'change', this.fetch);
+};
+
+
 
 /** @inheritDoc */
-mf.models.WeatherData.prototype.fetch = function(options) {
-  this.prefs = options.prefs;
-  options.error = _.bind(function() {
-    mf.log('Error in WeatherData fetch.');
-    this.clear();
-  }, this);
+mf.models.WeatherData.prototype.fetch = function(opt_options) {
+  mf.log('mf.models.WeatherData fetch');
 
-  var urlState = this.prefs.getUrlState();
-  window['app'].navigate(urlState, {replace: true});
-  $('.weather.mf-app-link').attr('href', urlState);
-  mf.Model.prototype.fetch.call(this, options);
+  mf.Model.prototype.fetch.call(this, {
+    error: _.bind(function() {
+      mf.log('Error in WeatherData fetch.');
+      this.clear();
+    }, this)
+  });
+
+
 };
 
 
@@ -268,14 +253,22 @@ mf.models.MobData = mf.Model.extend();
 
 
 /** @inheritDoc */
-mf.models.MobData.prototype.fetch = function(options) {
-  this.prefs = options.prefs;
-  options.error = _.bind(function() {
-    mf.log('Error in MobData fetch.');
-    this.clear();
-  }, this);
+mf.models.MobData.prototype.initialize = function(opt_data, opt_options) {
+  mf.log('mf.models.MobData.initialize');
+  this.prefs = new mf.models.MobPrefs();
+  this.listenTo(this.prefs, 'change', this.fetch);
+};
 
-  mf.Model.prototype.fetch.call(this, options);
+
+/** @inheritDoc */
+mf.models.MobData.prototype.fetch = function(opt_options) {
+  mf.log('mf.models.MobData.fetch');
+  mf.Model.prototype.fetch.call(this, {
+    error: _.bind(function() {
+      mf.log('Error in MobData fetch.');
+      this.clear();
+    }, this)
+  });
 };
 
 

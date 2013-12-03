@@ -35,7 +35,7 @@ class MushroomObserverHandler(WebRequestHandler):
             docstring = tostring(doc)
             memcache.set(mo_key, docstring, time=1000)
 
-        response_json = {'observations': []}
+        response_json = {'data': []}
         for result_node in doc.xpath('//table[@class="Matrix"]/.//table'):
             img = ''
             what = ''
@@ -49,7 +49,7 @@ class MushroomObserverHandler(WebRequestHandler):
                     what = tostring(cell_node.xpath('.//*[@class="ListWhat"]/.//a')[0])
                     where = tostring(cell_node.xpath('.//*[@class="ListWhere"]/.//a')[0])
                     when = cell_node.xpath('.//*[@class="ListWhen"]')[1].text
-            response_json['observations'].append({
+            response_json['data'].append({
                 'img': img.strip(),
                 'what': what.strip(),
                 'where': where.strip(),
