@@ -122,7 +122,7 @@ def ErrorHandler(request, response, exception, code):
     tpl_data = {
         'error_code': code,
         'error_code_text': httplib.responses[code],
-        'error_message': exception
+        'exception': exception
     }
     jinja2_instance = jinja2.get_jinja2()
     rendered = jinja2_instance.render_template('error.html', **tpl_data)

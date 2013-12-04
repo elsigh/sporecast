@@ -63,7 +63,7 @@ footer {
   text-align: center;
 }
 
-h1 {
+.mf-app h1 {
   position: fixed;
   font-size: 1.2em;
   box-sizing: border-box;
@@ -211,7 +211,7 @@ button:active {
   border-radius: 3px;
 }
 
-nav {
+.mf-app nav {
   top: 46px;
   position: fixed;
   width: 100%;
