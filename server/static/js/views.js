@@ -62,6 +62,10 @@ mf.views.App.prototype.onChangeWeatherDataPrefs_ = function() {
  */
 mf.views.App.prototype.handleResizeOrientationChange_ = function() {
   this.setCurrentView(this.currentView);
+
+  // Resize the scrollys.
+  this.currentView && this.currentView.subView &&
+      this.currentView.subView.setDataContainersScrollY();
 };
 
 
@@ -167,7 +171,7 @@ mf.views.App.prototype.transitionPage = function(route) {
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.Weather = Backbone.View.extend({
+mf.views.Weather = mf.views.View.extend({
   el: '.mf-weather',
   events: {
     'change select': 'onChangePrefs_'
@@ -228,7 +232,7 @@ mf.views.Weather.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.WeatherData = Backbone.View.extend({
+mf.views.WeatherData = mf.views.View.extend({
   events: {}
 });
 
@@ -246,6 +250,8 @@ mf.views.WeatherData.prototype.render = function() {
 
   this.$el.html(mf.views.getTemplateHtml('weather_data',
       this.model.getTemplateData()));
+
+  this.setDataContainersScrollY();
 };
 
 
@@ -257,7 +263,7 @@ mf.views.WeatherData.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.Mob = Backbone.View.extend({
+mf.views.Mob = mf.views.View.extend({
   el: '.mf-mob',
   events: {
     'change select': 'onChangePrefs_'
@@ -313,7 +319,7 @@ mf.views.Mob.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.MobData = Backbone.View.extend();
+mf.views.MobData = mf.views.View.extend();
 
 
 /** @inheritDoc */
@@ -329,5 +335,7 @@ mf.views.MobData.prototype.render = function() {
 
   this.$el.html(mf.views.getTemplateHtml('mob_data',
       this.model.getTemplateData()));
+
+  this.setDataContainersScrollY();
 };
 

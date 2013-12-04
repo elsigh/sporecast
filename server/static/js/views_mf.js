@@ -141,11 +141,15 @@ mf.views.showMessage = function(msg, opt_autoHide) {
   var callback = opt_autoHide === false ? function() {} :
       mf.views.hideMessage_;
   mf.views.clearHideMessageTimeout_();
-  $('.mf-tab-frame').css('opacity', '0.5');
+  //$('.mf-tab-frame').css('opacity', '0.5');
   $('.mf-msg').text(msg);
+
+  callback();
+
   $('.mf-msg-c').css('opacity', '0').show().animate({
     opacity: 1
   }, 300, 'linear', callback);
+
 };
 
 
@@ -179,6 +183,7 @@ mf.views.hideMessage = function() {
       function() {
         $('.mf-msg-c').hide();
       });
+  /*
   $('.mf-tab-frame').animate(
       {
         opacity: 1
@@ -188,6 +193,7 @@ mf.views.hideMessage = function() {
       function() {
         // add done
       });
+  */
 };
 
 
@@ -200,3 +206,32 @@ mf.views.hideMessage_ = function() {
       mf.views.hideMessage, 1500);
 };
 
+
+/****** MF VIEW ********/
+mf.views.View = Backbone.View.extend();
+
+
+/**
+ * Makes the data container independently scrollable.
+ */
+mf.views.View.prototype.setDataContainersScrollY = function() {
+  var screenW = document.documentElement.clientWidth;
+  var screenH = document.documentElement.clientHeight;
+  var $el = this.$el;
+  var offset = $el.offset();
+  var availHeight = screenH - offset.top;
+  mf.log('mf.views.View setDataContainersScrollY',
+      this.el, availHeight, offset);
+
+  $el.addClass('mf-scroll-y');
+  $el.css('height', availHeight + 'px');
+  /*
+  if (offset.height > availHeight) {
+    $el.addClass('mf-scroll-y');
+    $el.css('height', availHeight + 'px');
+  } else {
+    $el.removeClass('mf-scroll-y');
+    $el.css('height', '');
+  }
+  */
+};

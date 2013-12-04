@@ -114,7 +114,6 @@ figure {
 
 table {
   border-radius: 3px;
-  margin: 10px 0;
   width: 100%;
   background: #efefef;
   border-collapse: collapse;
@@ -219,11 +218,18 @@ button:active {
   -webkit-transform: translateZ(0);
 }
 
-
 html.mf-app-container,
 body.mf-app-container,
 .mf-app {
   overflow: hidden;
+}
+
+.mf-app form {
+  margin-bottom: 10px;
+}
+
+.mf-app table {
+  margin-bottom: 10px;
 }
 
 .mf-tab-frame-c {
@@ -314,6 +320,11 @@ body.mf-app-container,
   padding: 10px;
 }
 
+.mf-scroll-y {
+  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 
 /******************************************************************************/
 
@@ -344,8 +355,12 @@ body.mf-app-container,
 .mf-mob-data .observation {
   border: 1px solid #aaa;
   border-radius: 3px;
-  margin: 1em 0;
+  margin-bottom: 1.5em;
   padding: 10px;
+}
+
+.mf-mob-data .observation:last-child {
+  margin-bottom: 0;
 }
 
 .mf-mob-data .observation > div {
