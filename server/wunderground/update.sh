@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 python history.py;
 python forecast.py;
