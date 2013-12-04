@@ -1,5 +1,6 @@
 #!/bin/sh
 
+#git pull;
 python history.py;
 python forecast.py;
 python format.py data/;
