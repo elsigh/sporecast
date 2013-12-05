@@ -5,7 +5,7 @@ $.ajaxSettings['xhrCount'] = 0;
 $.ajaxSettings['beforeSend'] = function(xhr, settings) {
   xhr.withCredentials = true;
   $.ajaxSettings['xhrCount']++;
-  mf.views.showMessage('Loading data ...');
+  mf.views.showMessage('Loading data ...', false);
 };
 
 $.ajaxSettings['complete'] = function(xhr, status) {
@@ -138,10 +138,11 @@ mf.views.serializeFormToObject = function(form) {
  * @param {boolean=} opt_autoHide Pass false to not hide it automatically.
  */
 mf.views.showMessage = function(msg, opt_autoHide) {
+  mf.log('mf.views.hideMessage', msg, opt_autoHide);
   var callback = opt_autoHide === false ? function() {} :
       mf.views.hideMessage_;
   mf.views.clearHideMessageTimeout_();
-  //$('.mf-tab-frame').css('opacity', '0.5');
+  $('.mf-tab-frame').css('opacity', '0.5');
   $('.mf-msg').text(msg);
 
   callback();
@@ -172,6 +173,7 @@ mf.views.clearHideMessageTimeout_ = function() {
 
 /** Hide it */
 mf.views.hideMessage = function() {
+  mf.log('mf.views.hideMessage');
   mf.views.clearHideMessageTimeout_();
   $('.mf-msg-c').css('opacity', '1');
   $('.mf-msg-c').animate(
@@ -183,6 +185,7 @@ mf.views.hideMessage = function() {
       function() {
         $('.mf-msg-c').hide();
       });
+  $('.mf-tab-frame').css('opacity', '');
   /*
   $('.mf-tab-frame').animate(
       {
