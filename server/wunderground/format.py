@@ -5,6 +5,7 @@ import json
 import os
 from os import walk
 import math
+import operator
 import re
 import sys
 import utils
@@ -49,7 +50,7 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                                 'mintempi': float(daily_data['high']['fahrenheit']),
                                 'maxtempi': float(daily_data['low']['fahrenheit'])
                             })
-
+                            #print 'Adding forecast for %s' % daynum
 
                 # DAILY DATA
                 else:
@@ -58,11 +59,13 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                     monthly_data['data'].append({
                         'daynum': int(daynum),
                         'precipi': float(daily_data['precipi']),
-                        'precipi_is_zero':
-                            int(math.ceil(float(daily_data['precipi']))) == 0,
+                        'precipi_is_zero': int(
+                            math.ceil(float(daily_data['precipi']))) == 0,
                         'mintempi': float(daily_data['mintempi']),
                         'maxtempi': float(daily_data['maxtempi'])
                     })
+                    #print 'Adding past for %s' % daynum
 
+        monthly_data['data'].sort(key=operator.itemgetter('daynum'))
         file_path = os.path.join(dirpath, MONTHLY_SUMMARY_FILENAME)
         utils.write_json_data_to_file(monthly_data, file_path)
