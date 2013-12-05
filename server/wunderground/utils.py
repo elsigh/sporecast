@@ -28,7 +28,7 @@ MIN_TIME_SEC = 7
 
 def now_date(tz='US/Pacific'):
     """Returns a date object for now in the given timezine."""
-    return datetime.datetime.now(pytz.timezone(tz)).date()
+    return datetime.now(pytz.timezone(tz)).date()
 
 
 def datespan(startDate, endDate, delta=timedelta(days=1)):

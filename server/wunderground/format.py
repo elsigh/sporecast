@@ -41,11 +41,10 @@ for (dirpath, dirnames, filenames) in walk(data_path):
 
                     # only incorporate forecast data if it's from today.
                     if from_date == today:
-                        print 'FORECAST DATA will be used!'
+                        print 'FORECAST DATA will be used! %s' % today
                         forecast_data = json_data['forecast']['simpleforecast']['forecastday']
                         for daily_data in forecast_data:
                             daynum_in_data = daily_data['date']['day']
-                            print 'DAYNUM IN DATA: %s' % daynum_in_data
                             if daynum_in_data > today.day:
                                 monthly_data['data'].append({
                                     'is_forecast': True,
