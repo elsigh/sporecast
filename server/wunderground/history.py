@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from datetime import date, datetime
+from datetime import date
 import json
 import os
 
@@ -21,7 +21,7 @@ def fetch_history_data(day, pws=utils.PWS[0]):
                              '%s.json' % day.strftime('%d'))
 
     if os.path.isfile(file_path):
-        print 'Already have %s' % file_path
+        print 'Already have %s\n' % file_path
         return
 
     url = utils.get_history_api_url(day, pws)
@@ -37,7 +37,7 @@ def fetch_history_data(day, pws=utils.PWS[0]):
 
 # Loops through a date range and makes a call to store the daily data.
 start_date = date(2013, 12, 01)
-end_date = datetime.now().date()
+end_date = utils.now_date()
 for i in range(0, len(utils.PWS)):
     pws = utils.PWS[i]
     #end_date = datetime.now().date()

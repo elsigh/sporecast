@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-from datetime import datetime
 import json
 import os
 
@@ -13,7 +12,8 @@ def fetch_forecast_data(pws=utils.PWS[0]):
         day: A date object.
         pws: A weather station string.
     """
-    day = datetime.now().date()
+    ## TODO(elsigh): Add timezone info to PWS.
+    day = utils.now_date()
     file_path = os.path.join(os.getcwd(),
                              utils.DATA_DIR,
                              pws,
@@ -22,7 +22,7 @@ def fetch_forecast_data(pws=utils.PWS[0]):
                              '%s_forecast10day.json' % day.strftime('%d'))
 
     if os.path.isfile(file_path):
-        print 'Already have %s' % file_path
+        print 'Already have %s\n' % file_path
         return
 
     url = utils.get_forecast_api_url(pws)

@@ -6,6 +6,7 @@ import os
 import time
 import urllib2
 
+from pytz.gae import pytz
 
 KEY = 'b316a72d2e91b2e7'
 
@@ -23,6 +24,11 @@ DATA_DIR = 'data'
 # Note - we're rate-limited by wunderground to 10-per-minute, so
 # we'll just ghetto-rig this so that each request takes 7 seconds.
 MIN_TIME_SEC = 7
+
+
+def now_date(tz='US/Pacific'):
+    """Returns a date object for now in the given timezine."""
+    return datetime.datetime.now(pytz.timezone(tz)).date()
 
 
 def datespan(startDate, endDate, delta=timedelta(days=1)):
@@ -66,7 +72,7 @@ def write_json_data_to_file(data, file_path):
     with open(file_path, 'w') as f:
         f.write(json.dumps(data))
 
-    print 'Wrote data! %s' % file_path
+    print 'Wrote data! %s\n' % file_path
 
 
 def urlfetch_throttled(url):
@@ -78,7 +84,7 @@ def urlfetch_throttled(url):
         response object from urllib2.urlopen
     """
     start_time = datetime.now()
-    print '\nLoading %s ...' % url
+    print 'Loading %s ...' % url
 
     try:
         response = urllib2.urlopen(url)

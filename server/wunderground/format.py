@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from datetime import date, datetime
+from datetime import date
 import json
 import os
 from os import walk
@@ -8,7 +8,9 @@ import math
 import operator
 import re
 import sys
+
 import utils
+
 
 FILE_EXT = '.json'
 MONTHLY_SUMMARY_FILENAME = 'data%s' % FILE_EXT
@@ -35,22 +37,25 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                     (year, month) = re.search('(\d{4})\/(\d{2})$', dirpath).groups()
 
                     from_date = date(int(year), int(month), int(daynum))
-                    today = datetime.now().date()
+                    today = utils.now_date()
 
                     # only incorporate forecast data if it's from today.
                     if from_date == today:
                         print 'FORECAST DATA will be used!'
                         forecast_data = json_data['forecast']['simpleforecast']['forecastday']
                         for daily_data in forecast_data:
-                            monthly_data['data'].append({
-                                'is_forecast': True,
-                                'daynum': daily_data['date']['day'],
-                                'precipi': daily_data['pop'],
-                                'precipi_is_zero': int(daily_data['pop']) == 0,
-                                'mintempi': float(daily_data['high']['fahrenheit']),
-                                'maxtempi': float(daily_data['low']['fahrenheit'])
-                            })
-                            #print 'Adding forecast for %s' % daynum
+                            daynum_in_data = daily_data['date']['day']
+                            print 'DAYNUM IN DATA: %s' % daynum_in_data
+                            if daynum_in_data > today.day:
+                                monthly_data['data'].append({
+                                    'is_forecast': True,
+                                    'daynum': daynum_in_data,
+                                    'precipi': daily_data['pop'],
+                                    'precipi_is_zero': int(daily_data['pop']) == 0,
+                                    'mintempi': float(daily_data['high']['fahrenheit']),
+                                    'maxtempi': float(daily_data['low']['fahrenheit'])
+                                })
+                                #print 'Adding forecast for %s' % daynum
 
                 # DAILY DATA
                 else:
