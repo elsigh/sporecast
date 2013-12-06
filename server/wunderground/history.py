@@ -15,7 +15,7 @@ def fetch_history_data(day, pws=utils.PWS[0]):
     """
     file_path = os.path.join(os.getcwd(),
                              utils.DATA_DIR,
-                             pws,
+                             pws['name'],
                              day.strftime('%Y'),
                              day.strftime('%m'),
                              '%s.json' % day.strftime('%d'))
@@ -41,6 +41,7 @@ end_date = utils.now_date()
 for i in range(0, len(utils.PWS)):
     pws = utils.PWS[i]
     #end_date = datetime.now().date()
-    print 'HISTORY :: %s :: START: %s -> END: %s' % (pws, start_date, end_date)
+    print ('HISTORY :: %s :: START: %s -> END: %s' %
+           (pws['name'], start_date, end_date))
     for day in utils.datespan(start_date, end_date):
         fetch_history_data(day, pws)

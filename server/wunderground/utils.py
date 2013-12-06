@@ -12,11 +12,26 @@ KEY = 'b316a72d2e91b2e7'
 
 # Pesonal Weather Stations
 PWS = [
-    'KCAMENDO1',
-    'KCAINVER2',
-    'KCASANFR34',
-    'KCASANTA134',
-    'KCAEUREK5'
+    {
+        'name': 'KCAMENDO1',
+        'tz_long': 'America/Vancouver'
+    },
+    {
+        'name': 'KCAINVER2',
+        'tz_long': 'America/Los_Angeles'
+    },
+    {
+        'name': 'KCASANFR34',
+        'tz_long': 'America/Los_Angeles'
+    },
+    {
+        'name': 'KCASANTA134',
+        'tz_long': 'America/Los_Angeles'
+    },
+    {
+        'name': 'KCAEUREK5',
+        'tz_long': 'America/Vancouverr'
+    },
 ]
 
 DATA_DIR = 'data'
@@ -46,7 +61,7 @@ def get_history_api_url(day, pws=PWS[0]):
     """
     yyyymmdd = day.strftime('%Y%m%d')
     return ('http://api.wunderground.com/api/%s/history_%s/q/pws:%s.json' %
-            (KEY, yyyymmdd, pws))
+            (KEY, yyyymmdd, pws['name']))
 
 
 def get_forecast_api_url(pws=PWS[0]):
@@ -55,7 +70,7 @@ def get_forecast_api_url(pws=PWS[0]):
         pws: A weather station string.
     """
     return ('http://api.wunderground.com/api/%s/forecast10day/q/pws:%s.json' %
-            (KEY, pws))
+            (KEY, pws['name']))
 
 
 def write_json_data_to_file(data, file_path):

@@ -34,27 +34,34 @@ for (dirpath, dirnames, filenames) in walk(data_path):
 
                 # FORECAST DATA
                 if filename.find('forecast10day') != -1:
-                    (year, month) = re.search('(\d{4})\/(\d{2})$', dirpath).groups()
+                    (pws_name, year, month) = re.search(
+                        '%s\/(.+)\/(\d{4})\/(\d{2})$' % DATA_DIR, dirpath).groups()
+
+                    pws = None
+                    for pws_item in utils.PWS:
+                        if pws_item['name'] == pws_name:
+                            pws = pws_item
+                            break
+                    if pws is None:
+                        raise 'Found no PWS data for %s' % pws_name
 
                     from_date = date(int(year), int(month), int(daynum))
-                    today = utils.now_date()
+                    today = utils.now_date(tz=pws['tz_long'])
 
                     # only incorporate forecast data if it's from today.
                     if from_date == today:
                         print 'FORECAST DATA will be used! %s' % today
                         forecast_data = json_data['forecast']['simpleforecast']['forecastday']
                         for daily_data in forecast_data:
-                            daynum_in_data = daily_data['date']['day']
-                            if daynum_in_data > today.day:
-                                monthly_data['data'].append({
-                                    'is_forecast': True,
-                                    'daynum': daynum_in_data,
-                                    'precipi': daily_data['pop'],
-                                    'precipi_is_zero': int(daily_data['pop']) == 0,
-                                    'mintempi': float(daily_data['high']['fahrenheit']),
-                                    'maxtempi': float(daily_data['low']['fahrenheit'])
-                                })
-                                #print 'Adding forecast for %s' % daynum
+                            monthly_data['data'].append({
+                                'is_forecast': True,
+                                'daynum': daily_data['date']['day'],
+                                'precipi': daily_data['pop'],
+                                'precipi_is_zero': int(daily_data['pop']) == 0,
+                                'mintempi': float(daily_data['high']['fahrenheit']),
+                                'maxtempi': float(daily_data['low']['fahrenheit'])
+                            })
+                            #print 'Adding forecast for %s' % daynum
 
                 # DAILY DATA
                 else:
