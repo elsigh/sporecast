@@ -1,5 +1,6 @@
 #!/bin/sh
 
+cd $(dirname $0);
 git pull;
 python history.py;
 python forecast.py;
