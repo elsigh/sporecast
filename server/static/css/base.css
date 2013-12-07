@@ -363,8 +363,9 @@ body.mf-app-container,
 
 .mf-weather .total-rain {
   position: absolute;
-  margin-top: -2.5em;
-  right: 15px;
+  opacity: 0.6;
+  margin-top: 0.5em;
+  font-size: 90%;
 }
 
 .mf-weather-prefs {
@@ -411,12 +412,17 @@ body.mf-app-container,
   margin-top: 1em;
 }
 
+.mf-mob-data h3 {
+  padding: 10px;
+}
+
 .mf-mob-data .observation {
   border: 1px solid #aaa;
   border-left: 0;
   border-right: 0;
   padding: 10px;
 }
+
 
 .mf-mob-data .observation:first-child {
   border-top: 0;
@@ -430,10 +436,15 @@ body.mf-app-container,
   margin-bottom: 0;
 }
 
+.mf-mob-data .observation a {
+  display: block;
+}
+
 .mf-mob-data .observation > div {
   margin: 1em 0;
 }
 
 .mf-mob-data .observation img {
   width: 100%;
+  min-height: 100px;
 }
