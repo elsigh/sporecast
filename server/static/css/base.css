@@ -361,6 +361,12 @@ body.mf-app-container,
 
 /* Weather */
 
+.mf-weather .total-rain {
+  position: absolute;
+  margin-top: -2.5em;
+  right: 15px;
+}
+
 .mf-weather-prefs {
   font-size: 13px;
 }

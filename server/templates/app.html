@@ -114,6 +114,9 @@
 
 
     <script id="tpl_weather_data" type="text/html">
+      {{#total_rain}}
+        <div class="total-rain">Monthly total: {{total_rain}}</div>
+      {{/total_rain}}
       <table class="mf-weather-data mf-scroll-table">
         <thead>
           <tr>

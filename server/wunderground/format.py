@@ -21,7 +21,8 @@ data_path = os.path.join(os.getcwd(), dir_to_start)
 for (dirpath, dirnames, filenames) in walk(data_path):
     if len(filenames) > 0:
         monthly_data = {
-            'data': []
+            'data': [],
+            'total_rain': 0
         }
         for filename in filenames:
             if filename != MONTHLY_SUMMARY_FILENAME:
@@ -82,6 +83,7 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                         'mintempi': int(float(daily_data['mintempi'])),
                         'maxtempi': int(float(daily_data['maxtempi'])),
                     })
+                    monthly_data['total_rain'] += float(daily_data['precipi'])
                     #print 'Adding past for %s' % daynum
 
         monthly_data['data'].sort(key=operator.itemgetter('daynum'))
