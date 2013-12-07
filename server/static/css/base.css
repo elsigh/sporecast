@@ -328,6 +328,7 @@ body.mf-app-container,
   overflow: auto;
   overflow-x: hidden;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 
