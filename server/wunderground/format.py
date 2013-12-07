@@ -35,7 +35,8 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                 # FORECAST DATA
                 if filename.find('forecast10day') != -1:
                     (pws_name, year, month) = re.search(
-                        '%s\/(.+)\/(\d{4})\/(\d{2})$' % DATA_DIR, dirpath).groups()
+                        '%s\/(.+)\/(\d{4})\/(\d{2})$' % utils.DATA_DIR,
+                        dirpath).groups()
 
                     pws = None
                     for pws_item in utils.PWS:
@@ -50,7 +51,7 @@ for (dirpath, dirnames, filenames) in walk(data_path):
 
                     # only incorporate forecast data if it's from today.
                     if from_date == today:
-                        print 'FORECAST DATA will be used! %s' % today
+                        print '->-> using forecast data %s' % today
                         forecast_data = json_data['forecast']['simpleforecast']['forecastday']
                         for daily_data in forecast_data:
                             monthly_data['data'].append({
@@ -65,6 +66,7 @@ for (dirpath, dirnames, filenames) in walk(data_path):
 
                 # DAILY DATA
                 else:
+                    print '-> using daily data.'
                     daily_data = json_data['history']['dailysummary'][0]
 
                     monthly_data['data'].append({
