@@ -337,17 +337,28 @@ body.mf-app-container,
   font-size: 13px;
 }
 
+.mf-weather-data img {
+  width: 100%;
+}
+
 .mf-weather-data .forecast td {
   background: #FFFFE0;
   opacity: 0.6;
+}
+
+.mf-weather-data .day {
+  font-family: monospace;
 }
 
 .mf-weather-data .precip:not(.precip-0) {
   background-color: #33FF99;
 }
 
-.mf-weather-data img {
-  width: 100%;
+.mf-weather-data .forecast td{
+  border-top-width: 2px;
+}
+.mf-weather-data .forecast ~ .forecast td {
+  border-top-width: 1px;
 }
 
 /* MO */

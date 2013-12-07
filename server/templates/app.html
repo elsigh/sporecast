@@ -126,7 +126,7 @@
         <tbody>
           {{#data}}
             <tr {{#is_forecast}}class="forecast"{{/is_forecast}}>
-              <td>{{daynum}}</td>
+              <td class="day">{{dayname}} {{daynum}}</td>
               <td class="precip precip-{{precipi}}">
                 {{#precipi_is_zero}}
                   -
