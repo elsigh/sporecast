@@ -30,13 +30,14 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                 json_data = json.loads(f.read())
                 f.close()
 
+                (pws_name, year, month) = re.search(
+                    '%s\/(.+)\/(\d{4})\/(\d{2})$' % utils.DATA_DIR,
+                    dirpath).groups()
                 daynum = re.search('^([\d]+)', filename).groups()[0]
+                from_date = date(int(year), int(month), int(daynum))
 
                 # FORECAST DATA
                 if filename.find('forecast10day') != -1:
-                    (pws_name, year, month) = re.search(
-                        '%s\/(.+)\/(\d{4})\/(\d{2})$' % utils.DATA_DIR,
-                        dirpath).groups()
 
                     pws = None
                     for pws_item in utils.PWS:
@@ -46,7 +47,6 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                     if pws is None:
                         raise 'Found no PWS data for %s' % pws_name
 
-                    from_date = date(int(year), int(month), int(daynum))
                     today = utils.now_date(tz=pws['tz_long'])
 
                     # only incorporate forecast data if it's from today.
@@ -54,9 +54,13 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                         print '->-> using forecast data %s' % today
                         forecast_data = json_data['forecast']['simpleforecast']['forecastday']
                         for daily_data in forecast_data:
+                            forecast_day_num = daily_data['date']['day']
+                            forecast_day_name = date(int(year), int(month),
+                                int(forecast_day_num)).strftime('%a')
                             monthly_data['data'].append({
                                 'is_forecast': True,
-                                'daynum': daily_data['date']['day'],
+                                'daynum': forecast_day_num,
+                                'dayname': forecast_day_name,
                                 'precipi': daily_data['pop'],
                                 'precipi_is_zero': int(daily_data['pop']) == 0,
                                 'mintempi': float(daily_data['high']['fahrenheit']),
@@ -71,6 +75,7 @@ for (dirpath, dirnames, filenames) in walk(data_path):
 
                     monthly_data['data'].append({
                         'daynum': int(daynum),
+                        'dayname': from_date.strftime('%a'),
                         'precipi': float(daily_data['precipi']),
                         'precipi_is_zero': int(
                             math.ceil(float(daily_data['precipi']))) == 0,
