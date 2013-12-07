@@ -30,7 +30,7 @@ PWS = [
     },
     {
         'name': 'KCAEUREK5',
-        'tz_long': 'America/Vancouverr'
+        'tz_long': 'America/Vancouver'
     },
 ]
 
