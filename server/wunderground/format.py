@@ -63,8 +63,8 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                                 'dayname': forecast_day_name,
                                 'precipi': daily_data['pop'],
                                 'precipi_is_zero': int(daily_data['pop']) == 0,
-                                'mintempi': int(daily_data['high']['fahrenheit']),
-                                'maxtempi': int(daily_data['low']['fahrenheit'])
+                                'mintempi': int(float(daily_data['high']['fahrenheit'])),
+                                'maxtempi': int(float(daily_data['low']['fahrenheit'])),
                             })
                             #print 'Adding forecast for %s' % daynum
 
@@ -79,8 +79,8 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                         'precipi': float(daily_data['precipi']),
                         'precipi_is_zero': int(
                             math.ceil(float(daily_data['precipi']))) == 0,
-                        'mintempi': int(daily_data['mintempi']),
-                        'maxtempi': int(daily_data['maxtempi'])
+                        'mintempi': int(float(daily_data['mintempi'])),
+                        'maxtempi': int(float(daily_data['maxtempi'])),
                     })
                     #print 'Adding past for %s' % daynum
 
