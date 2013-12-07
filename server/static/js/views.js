@@ -65,7 +65,7 @@ mf.views.App.prototype.handleResizeOrientationChange_ = function() {
 
   // Resize the scrollys.
   this.currentView && this.currentView.subView &&
-      this.currentView.subView.setDataContainersScrollY();
+      this.currentView.subView.render();
 };
 
 
@@ -251,7 +251,7 @@ mf.views.WeatherData.prototype.render = function() {
   this.$el.html(mf.views.getTemplateHtml('weather_data',
       this.model.getTemplateData()));
 
-  this.setDataContainersScrollY();
+  this.makeScrollTables();
 };
 
 
@@ -336,6 +336,8 @@ mf.views.MobData.prototype.render = function() {
   this.$el.html(mf.views.getTemplateHtml('mob_data',
       this.model.getTemplateData()));
 
-  this.setDataContainersScrollY();
+  this.$el.removeClass('mf-scroll-y');
+  mf.views.View.setHeightAsAvailable(this.$el);
+  this.$el.addClass('mf-scroll-y');
 };
 

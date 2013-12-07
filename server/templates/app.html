@@ -114,7 +114,7 @@
 
 
     <script id="tpl_weather_data" type="text/html">
-      <table class="mf-weather-data">
+      <table class="mf-weather-data mf-scroll-table">
         <thead>
           <tr>
             <th>Day</th>
@@ -159,6 +159,11 @@
 
 
     <script id="tpl_mob" type="text/html">
+      <div class="credit">
+        <a href="http://www.mushroomobserver.org/"
+          target="_blank">visit mushroomobserver.org</a>
+      </div>
+
       <form class="mf-mob-prefs">
         <label class="mf-select-c">
           <span>Choose a state:</span>
@@ -185,7 +190,7 @@
           </div>
         {{/data}}
         {{^data}}
-          <h3>No MushroomObserver data.</h3>
+          <h3>No data yet ...</h3>
         {{/data}}
       </div>
     </script>

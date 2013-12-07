@@ -216,25 +216,99 @@ mf.views.View = Backbone.View.extend();
 
 /**
  * Makes the data container independently scrollable.
+ * @param {Zepto} $el A zepto.
+ * @return {number} The new height.
  */
-mf.views.View.prototype.setDataContainersScrollY = function() {
+mf.views.View.setHeightAsAvailable = function($el) {
   var screenW = document.documentElement.clientWidth;
   var screenH = document.documentElement.clientHeight;
-  var $el = this.$el;
   var offset = $el.offset();
-  var availHeight = screenH - offset.top;
-  mf.log('mf.views.View setDataContainersScrollY',
-      this.el, availHeight, offset);
+  var PADDING_BOTTOM = 15;
+  var availHeight = screenH - offset.top - PADDING_BOTTOM;
+  mf.log('mf.views.View setHeightAsAvailable',
+      $el, availHeight, offset);
 
-  $el.addClass('mf-scroll-y');
   $el.css('height', availHeight + 'px');
-  /*
-  if (offset.height > availHeight) {
-    $el.addClass('mf-scroll-y');
-    $el.css('height', availHeight + 'px');
-  } else {
-    $el.removeClass('mf-scroll-y');
-    $el.css('height', '');
-  }
-  */
+  return availHeight;
+};
+
+
+/**
+ * Makes the data container independently scrollable.
+ */
+mf.views.View.prototype.makeScrollTables = function() {
+  var $tables = this.$('table.mf-scroll-table:not(.mf-scroll-table-ready)');
+  mf.log('mf.views.View makeScrollTables', $tables);
+
+  var that = this;
+  $tables.each(function(i, table) {
+    var $table = $(table);
+
+    var $tbody = $table.find('tbody');
+    var $tbodyClone = $tbody.clone();
+    var $theadClone = $table.find('thead').clone();
+
+    // Capture the original column widths.
+    var widths = [];
+    $table.find('thead th').each(function(i, th) {
+      var $th = $(th);
+      var width = $th.offset().width;
+      widths.push(width);
+      // Ensures that the cells remain the proper width once the tbody
+      // gets wiped out.
+      $th.css('width', width + 'px');
+    });
+
+    // Nuke the old DOM.
+    $tbody.html('');
+
+    var $tr = $('<tr>');
+
+    var $td = $('<td>');
+    $td.attr('colspan', $table.find('th').length);
+    $td.addClass('mf-scroll-table-td');
+
+    var $newTable = $('<table>').
+        append($theadClone).
+        append($tbodyClone);
+
+    // Clear the cloned table headers, but use them to set the width
+    // so the embedded table columns and header table columns match.
+    $newTable.find('th').each(function(i, th) {
+      var $th = $(th);
+      $th.css('width', widths[i] + 'px').html('');
+    });
+
+    var $div = $('<div>').append($newTable);
+    $td.append($div);
+    $tr.append($td);
+    $tbody.append($tr);
+
+    $table.addClass('mf-scroll-table-ready');
+
+    $table.find('img').each(function(i, img) {
+      $('img').on('load', function() {
+        that.resizeScrollTables_();
+      });
+    });
+  });
+
+  this.resizeScrollTables_();
+};
+
+/** @private */
+mf.views.View.prototype.resizeScrollTables_ = function() {
+  this.$('table.mf-scroll-table').each(function(i, table) {
+    var $table = $(table);
+    var $div = $table.find('.mf-scroll-table-td > div');
+    $div.removeClass('mf-scroll-y');
+
+    var theadHeight = $table.find('thead').offset().height;
+    var tfootHeight = $table.find('tfoot').offset().height;
+    var tableHeight = mf.views.View.setHeightAsAvailable($table);
+
+    var divHeight = tableHeight - theadHeight - tfootHeight;
+    $div.css('height', divHeight + 'px');
+    $div.addClass('mf-scroll-y');
+  });
 };

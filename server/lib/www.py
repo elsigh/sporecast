@@ -30,10 +30,11 @@ class MushroomObserverHandler(WebRequestHandler):
         Args:
             state: A state code.
         """
-        mob_url = 'http://mushroomobserver.org/observer/advanced_search?_js=on&_new=true&q=1f5SB'
+        mob_url = ('http://mushroomobserver.org/observer/'
+                   'advanced_search?_js=on&_new=true&q=1fXhT')
         mob_key = 'mushroomobserver_CA'
         docstring = memcache.get(mob_key)
-        if docstring:
+        if docstring and len(docstring) > 500:
             logging.info('Got docstring from memcache.')
             doc = fromstring(docstring)
         else:
