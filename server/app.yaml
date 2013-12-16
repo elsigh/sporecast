@@ -94,6 +94,12 @@ handlers:
 - url: /img
   static_dir: static/img
 
+
+# Since we also want to serve from /app...
+- url: /app/(.*\.appcache)
+  static_files: static/appcache/\1
+  mime_type: text/cache-manifest
+  upload: static/appcache/(.*\.appcache)
 - url: /app/css
   static_dir: static/css
 - url: /app/js

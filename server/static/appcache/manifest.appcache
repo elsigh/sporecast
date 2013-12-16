@@ -1,0 +1,10 @@
+CACHE MANIFEST
+
+# Version 0.01
+
+# Explicitly cached entries
+/app/js/zepto.js
+
+# All other resources (e.g. sites) require the user to be online.
+NETWORK:
+*

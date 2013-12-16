@@ -30,17 +30,29 @@ class MushroomObserverHandler(WebRequestHandler):
         Args:
             state: A state code.
         """
-        mob_url = ('http://mushroomobserver.org/observer/'
-                   'advanced_search?_js=on&_new=true&q=1fXhT')
-        mob_key = 'mushroomobserver_CA'
+        mob_location = urllib2.quote('California, USA')
+        mob_url = ('http://mushroomobserver.org/observer/observation_search'
+                   '?_js=off&_new=true&pattern=%s' % mob_location)
+        mob_key = 'mushroomobserver_%s' % mob_location
+
+        # Look in memcache first.
         docstring = memcache.get(mob_key)
-        if docstring and len(docstring) > 500:
-            logging.info('Got docstring from memcache.')
+
+        # MO will serve certain non-results pages back under some circumstances
+        # so if the length of the page is less than this, then don't cache.
+        docstring_min_length = 600
+        if docstring and len(docstring) > docstring_min_length:
+            logging.info('Got docstring from memcache %s.' % len(docstring))
             doc = fromstring(docstring)
+
         else:
             logging.info('Loading %s ...' % mob_url)
             try:
-                response = urllib2.urlopen(mob_url, timeout=30)
+                request = urllib2.Request(mob_url)
+                request.add_header('User-Agent', 'MushroomForecast/0.1')
+                #opener = urllib2.build_opener()
+                #response = opener.open(request, timeout=30).read()
+                response = urllib2.urlopen(request, timeout=30)
             except urllib2.HTTPError, e:
                 print e.code
             except urllib2.URLError, e:
@@ -50,7 +62,8 @@ class MushroomObserverHandler(WebRequestHandler):
             encoding = response.headers.getparam('charset')
             logging.info('Encoding: %s' % encoding)
             html = response.read().decode(encoding).encode('ascii', 'ignore')
-            logging.info('Got HTML!')
+            logging.info('Got HTML! length: %s' % len(html))
+            #logging.info('HTML: %s' % html)
 
             doc = fromstring(html)
             logging.info('Made a lxml doc object %s' % doc)

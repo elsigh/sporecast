@@ -207,7 +207,6 @@ mf.models.WeatherData.prototype.fetch = function(opt_options) {
     }, this)
   });
 
-
 };
 
 
