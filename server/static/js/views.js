@@ -252,6 +252,13 @@ mf.views.WeatherData.prototype.render = function() {
       this.model.getTemplateData()));
 
   this.makeScrollTables();
+
+  // Scroll down to today.
+  var $mfScrollY = this.$('.mf-scroll-y');
+  var $forecast = this.$('.forecast');
+  if ($mfScrollY.length && $forecast.length) {
+    $mfScrollY[0].scrollTop = $forecast[0].offsetTop;
+  }
 };
 
 
