@@ -15,7 +15,10 @@ import utils
 FILE_EXT = '.json'
 MONTHLY_SUMMARY_FILENAME = 'data%s' % FILE_EXT
 
-dir_to_start = sys.argv[1]
+# Start with our data dir, but take command line as well.
+dir_to_start = utils.DATA_DIR
+if len(sys.argv) == 2:
+    dir_to_start = sys.argv[1]
 
 data_path = os.path.join(os.getcwd(), dir_to_start)
 for (dirpath, dirnames, filenames) in walk(data_path):
@@ -57,7 +60,7 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                         for daily_data in forecast_data:
                             forecast_day_num = daily_data['date']['day']
                             forecast_day_name = date(int(year), int(month),
-                                int(forecast_day_num)).strftime('%a')
+                                                     int(forecast_day_num)).strftime('%a')
                             monthly_data['data'].append({
                                 'is_forecast': True,
                                 'daynum': forecast_day_num,
@@ -87,5 +90,9 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                     #print 'Adding past for %s' % daynum
 
         monthly_data['data'].sort(key=operator.itemgetter('daynum'))
-        file_path = os.path.join(dirpath, MONTHLY_SUMMARY_FILENAME)
+
+        # Update dirpath to point to our output dir.
+        output_file_path = dirpath.replace('%s/' % utils.DATA_DIR,
+                                           '%s/' % utils.OUTPUT_DIR)
+        file_path = os.path.join(output_file_path, MONTHLY_SUMMARY_FILENAME)
         utils.write_json_data_to_file(monthly_data, file_path)

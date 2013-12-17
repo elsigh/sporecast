@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from datetime import date
+from datetime import date, timedelta
 import json
 import os
 
@@ -36,7 +36,7 @@ def fetch_history_data(day, pws=utils.PWS[0]):
 
 
 # Loops through a date range and makes a call to store the daily data.
-start_date = date(2013, 12, 01)
+start_date = utils.now_date() - timedelta(days=2)
 end_date = utils.now_date()
 for i in range(0, len(utils.PWS)):
     pws = utils.PWS[i]
