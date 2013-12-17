@@ -1,9 +1,9 @@
 application: mushroomforecast
-version: 1
+version: 2
 runtime: python27
 threadsafe: true
 api_version: 1
-default_expiration: "0d 0h"
+default_expiration: "0d 3h"
 
 
 libraries:
@@ -38,6 +38,7 @@ skip_files: |
   (.*~)|
   (.*\.py[co])|
   (.*\.php)|
+  (.*wunderground/data/.*)|
   (.*closure_compiler.*)|
   (\..*)|
   (.*DEPLOY.py)|
@@ -82,9 +83,9 @@ handlers:
   static_dir: static
   expiration: "3650d"
 
-# JSON data
-- url: /wunderground
-  static_dir: wunderground
+# JSON weather data.
+- url: /wunderground/output
+  static_dir: wunderground/output
 
 # Serve static contents from root paths
 - url: /css
@@ -93,7 +94,6 @@ handlers:
   static_dir: static/js
 - url: /img
   static_dir: static/img
-
 
 # Since we also want to serve from /app...
 - url: /app/(.*\.appcache)
@@ -107,6 +107,8 @@ handlers:
 - url: /app/img
   static_dir: static/img
 
+# TODO(elsigh): Remove these, although they allow for general
+# urls everywhere having lots of paths is bad.
 - url: /app/.*/css
   static_dir: static/css
 - url: /app/.*/js

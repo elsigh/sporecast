@@ -34,6 +34,7 @@ PWS = [
     },
 ]
 
+OUTPUT_DIR = 'output'
 DATA_DIR = 'data'
 
 # Note - we're rate-limited by wunderground to 10-per-minute, so

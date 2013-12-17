@@ -215,7 +215,7 @@ mf.models.WeatherData.prototype.fetch = function(opt_options) {
  */
 mf.models.WeatherData.prototype.url = function() {
   var monthAsString = mf.models.WeatherData.padMonth(this.prefs.getMonthNum());
-  var url = window.location.origin + '/wunderground/data/' +
+  var url = window.location.origin + '/wunderground/output/' +
       this.prefs.getStation() + '/' + this.prefs.get('year') + '/' +
       monthAsString + '/data.json';
   return url;

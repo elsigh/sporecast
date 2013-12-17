@@ -11,6 +11,7 @@ import sys
 
 import utils
 
+# TODO(elsigh): Put some bound on how far back we format each time.
 
 FILE_EXT = '.json'
 MONTHLY_SUMMARY_FILENAME = 'data%s' % FILE_EXT
@@ -22,77 +23,84 @@ if len(sys.argv) == 2:
 
 data_path = os.path.join(os.getcwd(), dir_to_start)
 for (dirpath, dirnames, filenames) in walk(data_path):
-    if len(filenames) > 0:
-        monthly_data = {
-            'data': [],
-            'total_rain': 0
-        }
-        for filename in filenames:
-            if filename != MONTHLY_SUMMARY_FILENAME:
-                print 'Reading %s in %s' % (filename, dirpath)
-                f = open(os.path.join(dirpath, filename), 'r')
-                json_data = json.loads(f.read())
-                f.close()
+    if len(filenames) == 0:
+        continue
 
-                (pws_name, year, month) = re.search(
-                    '%s\/(.+)\/(\d{4})\/(\d{2})$' % utils.DATA_DIR,
-                    dirpath).groups()
-                daynum = re.search('^([\d]+)', filename).groups()[0]
-                from_date = date(int(year), int(month), int(daynum))
+    monthly_data = {
+        'data': [],
+        'total_rain': 0
+    }
 
-                # FORECAST DATA
-                if filename.find('forecast10day') != -1:
+    for filename in filenames:
+        if filename == MONTHLY_SUMMARY_FILENAME:
+            continue
 
-                    pws = None
-                    for pws_item in utils.PWS:
-                        if pws_item['name'] == pws_name:
-                            pws = pws_item
-                            break
-                    if pws is None:
-                        raise 'Found no PWS data for %s' % pws_name
+        dirpath_split = dirpath.split('/')
+        dirpath_useful = '/'.join(dirpath_split[len(dirpath_split) - 4:len(dirpath_split)])
+        print 'Reading %s in %s' % (filename, dirpath_useful)
+        f = open(os.path.join(dirpath, filename), 'r')
+        json_data = json.loads(f.read())
+        f.close()
 
-                    today = utils.now_date(tz=pws['tz_long'])
+        (pws_name, year, month) = re.search(
+            '%s\/(.+)\/(\d{4})\/(\d{2})$' % utils.DATA_DIR,
+            dirpath).groups()
+        daynum = re.search('^([\d]+)', filename).groups()[0]
+        from_date = date(int(year), int(month), int(daynum))
 
-                    # only incorporate forecast data if it's from today.
-                    if from_date == today:
-                        print '->-> using forecast data %s' % today
-                        forecast_data = json_data['forecast']['simpleforecast']['forecastday']
-                        for daily_data in forecast_data:
-                            forecast_day_num = daily_data['date']['day']
-                            forecast_day_name = date(int(year), int(month),
-                                                     int(forecast_day_num)).strftime('%a')
-                            monthly_data['data'].append({
-                                'is_forecast': True,
-                                'daynum': forecast_day_num,
-                                'dayname': forecast_day_name,
-                                'precipi': daily_data['pop'],
-                                'precipi_is_zero': int(daily_data['pop']) == 0,
-                                'mintempi': int(float(daily_data['high']['fahrenheit'])),
-                                'maxtempi': int(float(daily_data['low']['fahrenheit'])),
-                            })
-                            #print 'Adding forecast for %s' % daynum
+        # FORECAST DATA
+        if filename.find('forecast10day') != -1:
 
-                # DAILY DATA
-                else:
-                    print '-> using daily data.'
-                    daily_data = json_data['history']['dailysummary'][0]
+            pws = None
+            for pws_item in utils.PWS:
+                if pws_item['name'] == pws_name:
+                    pws = pws_item
+                    break
+            if pws is None:
+                raise 'Found no PWS data for %s' % pws_name
 
+            today = utils.now_date(tz=pws['tz_long'])
+
+            # only incorporate forecast data if it's from today.
+            if from_date == today:
+                print '->-> using forecast data %s' % today
+                forecast_data = json_data['forecast']['simpleforecast']['forecastday']
+                for daily_data in forecast_data:
+                    forecast_day_num = daily_data['date']['day']
+                    forecast_day_name = date(int(year), int(month),
+                                             int(forecast_day_num)).strftime('%a')
                     monthly_data['data'].append({
-                        'daynum': int(daynum),
-                        'dayname': from_date.strftime('%a'),
-                        'precipi': float(daily_data['precipi']),
-                        'precipi_is_zero': int(
-                            math.ceil(float(daily_data['precipi']))) == 0,
-                        'mintempi': int(float(daily_data['mintempi'])),
-                        'maxtempi': int(float(daily_data['maxtempi'])),
+                        'is_forecast': True,
+                        'daynum': forecast_day_num,
+                        'dayname': forecast_day_name,
+                        'precipi': daily_data['pop'],
+                        'precipi_is_zero': int(daily_data['pop']) == 0,
+                        'mintempi': int(float(daily_data['high']['fahrenheit'])),
+                        'maxtempi': int(float(daily_data['low']['fahrenheit'])),
                     })
-                    monthly_data['total_rain'] += float(daily_data['precipi'])
-                    #print 'Adding past for %s' % daynum
+                    #print 'Adding forecast for %s' % daynum
 
-        monthly_data['data'].sort(key=operator.itemgetter('daynum'))
+        # DAILY DATA
+        else:
+            print '-> using daily data.'
+            daily_data = json_data['history']['dailysummary'][0]
 
-        # Update dirpath to point to our output dir.
-        output_file_path = dirpath.replace('%s/' % utils.DATA_DIR,
-                                           '%s/' % utils.OUTPUT_DIR)
-        file_path = os.path.join(output_file_path, MONTHLY_SUMMARY_FILENAME)
-        utils.write_json_data_to_file(monthly_data, file_path)
+            monthly_data['data'].append({
+                'daynum': int(daynum),
+                'dayname': from_date.strftime('%a'),
+                'precipi': float(daily_data['precipi']),
+                'precipi_is_zero': int(
+                    math.ceil(float(daily_data['precipi']))) == 0,
+                'mintempi': int(float(daily_data['mintempi'])),
+                'maxtempi': int(float(daily_data['maxtempi'])),
+            })
+            monthly_data['total_rain'] += float(daily_data['precipi'])
+            #print 'Adding past for %s' % daynum
+
+    monthly_data['data'].sort(key=operator.itemgetter('daynum'))
+
+    # Update dirpath to point to our output dir.
+    output_file_path = dirpath.replace('%s/' % utils.DATA_DIR,
+                                       '%s/' % utils.OUTPUT_DIR)
+    file_path = os.path.join(output_file_path, MONTHLY_SUMMARY_FILENAME)
+    utils.write_json_data_to_file(monthly_data, file_path)
