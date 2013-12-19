@@ -5,13 +5,13 @@
  * @constructor
  * @param {Object} options Config options.
  */
-mf.App = Backbone.Router.extend();
+sc.App = Backbone.Router.extend();
 
 
 /**
  * @enum {Object}
  */
-mf.App.Routes = {
+sc.App.Routes = {
   WEATHER: {
     url: 'weather/:station/:year/:month',
     handler: 'routeWeather_'
@@ -25,11 +25,11 @@ mf.App.Routes = {
 
 /**
  * @param {string} url An url to look for.
- * @return {Object} One of mf.App.Routes or undefined.
+ * @return {Object} One of sc.App.Routes or undefined.
  */
-mf.App.getRouteByUrl = function(url) {
+sc.App.getRouteByUrl = function(url) {
   var matchingRoute;
-  _.each(mf.App.Routes, function(route) {
+  _.each(sc.App.Routes, function(route) {
     if (route.url == url) {
       matchingRoute = route;
     }
@@ -39,17 +39,17 @@ mf.App.getRouteByUrl = function(url) {
 
 
 /** @inheritDoc */
-mf.App.prototype.initialize = function(options) {
-  mf.log('mf.App initialize');
+sc.App.prototype.initialize = function(options) {
+  sc.log('sc.App initialize');
 
-  _.each(mf.App.Routes, _.bind(function(route) {
+  _.each(sc.App.Routes, _.bind(function(route) {
     this.route(route.url, route.handler);
   }, this));
 
   // We reference window.app so we need it to exist first.
   _.defer(_.bind(function() {
-    this.model = new mf.models.App();
-    this.view = new mf.views.App({model: this.model});
+    this.model = new sc.models.App();
+    this.view = new sc.views.App({model: this.model});
 
     _.defer(_.bind(function() {
       this.initHistory_();
@@ -65,14 +65,14 @@ mf.App.prototype.initialize = function(options) {
  * Initializes Backbone.history in our app.
  * @private
  */
-mf.App.prototype.initHistory_ = function() {
-  mf.log('mf.App.initHistory_', window.location);
+sc.App.prototype.initHistory_ = function() {
+  sc.log('sc.App.initHistory_', window.location);
 
   var usePushState = true;
   var root = '/app/';
   var silent = false;
 
-  mf.log('Backbone.history.start', usePushState, silent);
+  sc.log('Backbone.history.start', usePushState, silent);
   var matchedRoute = Backbone.history.start({
     pushState: usePushState,
     root: root,
@@ -90,16 +90,16 @@ mf.App.prototype.initHistory_ = function() {
 /**
  * @private
  */
-mf.App.prototype.routeWeather_ = function() {
-  mf.log('mf.App routeWeather_');
-  this.view.transitionPage(mf.App.Routes.WEATHER);
+sc.App.prototype.routeWeather_ = function() {
+  sc.log('sc.App routeWeather_');
+  this.view.transitionPage(sc.App.Routes.WEATHER);
 };
 
 
 /**
  * @private
  */
-mf.App.prototype.routeMob_ = function() {
-  mf.log('mf.App routeMob_');
-  this.view.transitionPage(mf.App.Routes.MUSHROOM_OBSERVER);
+sc.App.prototype.routeMob_ = function() {
+  sc.log('sc.App routeMob_');
+  this.view.transitionPage(sc.App.Routes.MUSHROOM_OBSERVER);
 };

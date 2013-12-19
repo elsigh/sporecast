@@ -3,7 +3,7 @@
 /**
  * @type {Object}
  */
-var mf = {};
+var sc = {};
 
 
 /******************************************************************************/
@@ -12,13 +12,13 @@ var mf = {};
 /**
  * @type {Object} UA namespace.
  */
-mf.ua = {};
+sc.ua = {};
 
 
 /**
  * @return {boolean}
  */
-mf.ua.getPlatform = function() {
+sc.ua.getPlatform = function() {
   return window.device ? window.device.platform.toLowerCase() : 'desktop';
 };
 
@@ -26,7 +26,7 @@ mf.ua.getPlatform = function() {
 /**
  * @return {boolean}
  */
-mf.ua.isSimulator = function() {
+sc.ua.isSimulator = function() {
   return window.device && window.device.model &&
          (window.device.model == 'x86_64' ||  // ios simulator
           window.device.model == 'simulator');  // whatever on droid
@@ -36,14 +36,14 @@ mf.ua.isSimulator = function() {
 /**
  * @type {boolean}
  */
-mf.ua.IS_ANDROID =
+sc.ua.IS_ANDROID =
     window.navigator.userAgent.toLowerCase().indexOf('android') !== -1;
 
 
 /**
  * @type {boolean}
  */
-mf.ua.IS_IOS =
+sc.ua.IS_IOS =
     window.navigator.userAgent.toLowerCase().indexOf('iphone') !== -1 ||
     window.navigator.userAgent.toLowerCase().indexOf('ipad') !== -1;
 
@@ -51,23 +51,23 @@ mf.ua.IS_IOS =
 /**
  * @type {boolean}
  */
-mf.ua.IS_CORDOVA = typeof cordova !== 'undefined';
+sc.ua.IS_CORDOVA = typeof cordova !== 'undefined';
 
 
 /**
  * The running app, and not the simulator.
  * @type {boolean}
  */
-mf.ua.IS_APP = window.location.protocol === 'file:' &&
-                mf.ua.IS_CORDOVA &&
-                (mf.ua.IS_ANDROID || mf.ua.IS_IOS);
+sc.ua.IS_APP = window.location.protocol === 'file:' &&
+                sc.ua.IS_CORDOVA &&
+                (sc.ua.IS_ANDROID || sc.ua.IS_IOS);
 
 
 /**
  * The hosted web app.
  * @type {boolean}
  */
-mf.ua.IS_PROD_WEB_APP = window.location.hostname == 'www.levelsapp.com';
+sc.ua.IS_PROD_WEB_APP = window.location.hostname == '';
 
 
 /******************************************************************************/
@@ -77,7 +77,7 @@ mf.ua.IS_PROD_WEB_APP = window.location.hostname == 'www.levelsapp.com';
  * @return {Function} The native console.log implementation.
  * @private
  */
-mf.getConsoleLogger_ = function() {
+sc.getConsoleLogger_ = function() {
   return _.bind(console.log, console);
 };
 
@@ -86,7 +86,7 @@ mf.getConsoleLogger_ = function() {
  * @return {Function} A wrapped up stringifier.
  * @private
  */
-mf.getWebViewLogger_ = function() {
+sc.getWebViewLogger_ = function() {
   return _.bind(function() {
     var argumentsArray = _.toArray(arguments);
     var consoleStrings = [];
@@ -116,7 +116,7 @@ mf.getWebViewLogger_ = function() {
 /**
  * @param {string} src The script src.
  */
-mf.injectScript = function(src) {
+sc.injectScript = function(src) {
   script = document.createElement('script');
   script.type = 'text/javascript';
   script.async = true;
@@ -129,16 +129,16 @@ mf.injectScript = function(src) {
 
 
 /**
- * Good times, wrap mf.log
+ * Good times, wrap sc.log
  */
-mf.log = mf.ua.IS_APP ?
-    mf.getWebViewLogger_() : mf.getConsoleLogger_();
+sc.log = sc.ua.IS_APP ?
+    sc.getWebViewLogger_() : sc.getConsoleLogger_();
 
 
 /**
  * @param {Object} obj An object to clone.
  * @return {Object} A deep clone of the passed in object.
  */
-mf.clone = function(obj) {
+sc.clone = function(obj) {
   return JSON.parse(JSON.stringify(obj));
 };

@@ -5,22 +5,22 @@
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.App = Backbone.View.extend({
-  el: '.mf-app',
+sc.views.App = Backbone.View.extend({
+  el: '.sc-app',
   events: {
-    'tap .mf-app-link': 'onClickAppLink_'
+    'tap .sc-app-link': 'onClickAppLink_'
   }
 });
 
 
 /** @inheritDoc */
-mf.views.App.prototype.initialize = function(options) {
-  mf.log('mf.views.App.initialize', this.model);
+sc.views.App.prototype.initialize = function(options) {
+  sc.log('sc.views.App.initialize', this.model);
 
   // For some special scroll/overflow control.
-  $('html,body').addClass('mf-app-container');
+  $('html,body').addClass('sc-app-container');
 
-  $('body').addClass('mf-platform-' + mf.ua.getPlatform());
+  $('body').addClass('sc-platform-' + sc.ua.getPlatform());
 
   $(window).on('orientationchange',
       _.debounce(_.bind(this.handleResizeOrientationChange_, this), 500), true);
@@ -37,8 +37,8 @@ mf.views.App.prototype.initialize = function(options) {
  * @param {Event} e A click event.
  * @private
  */
-mf.views.App.prototype.onClickAppLink_ = function(e) {
-  mf.log('mf.views.App.onClickAppLink_', e);
+sc.views.App.prototype.onClickAppLink_ = function(e) {
+  sc.log('sc.views.App.onClickAppLink_', e);
   e.preventDefault();
   window['app'].navigate($(e.currentTarget).attr('href'),
                          {trigger: true});
@@ -46,9 +46,9 @@ mf.views.App.prototype.onClickAppLink_ = function(e) {
 
 
 /** @private */
-mf.views.App.prototype.onChangeWeatherDataPrefs_ = function() {
+sc.views.App.prototype.onChangeWeatherDataPrefs_ = function() {
   var urlState = this.model.weatherData.prefs.getUrlState();
-  $('.weather.mf-app-link').attr('href', urlState);
+  $('.weather.sc-app-link').attr('href', urlState);
 
   // Quietly update the URL as appropo
   if (this.currentView == this.viewWeather) {
@@ -60,7 +60,7 @@ mf.views.App.prototype.onChangeWeatherDataPrefs_ = function() {
 /**
  * @private
  */
-mf.views.App.prototype.handleResizeOrientationChange_ = function() {
+sc.views.App.prototype.handleResizeOrientationChange_ = function() {
   this.setCurrentView(this.currentView);
 
   // Resize the scrollys.
@@ -74,15 +74,15 @@ mf.views.App.prototype.handleResizeOrientationChange_ = function() {
  * @return {number} The index of this node in it's parent list.
  * @private
  */
-mf.views.App.prototype.getTabIndex_ = function(view) {
-  return view.$el.parent('.mf-tab').index();
+sc.views.App.prototype.getTabIndex_ = function(view) {
+  return view.$el.parent('.sc-tab').index();
 };
 
 
 /**
  * @param {Backbone.View} view A view instance.
  */
-mf.views.App.prototype.setCurrentView = function(view) {
+sc.views.App.prototype.setCurrentView = function(view) {
   // Calls a "setIsActive" function if defined on this view.
   if (this.currentView && view !== this.currentView) {
     this.currentView.setIsActive &&
@@ -99,18 +99,18 @@ mf.views.App.prototype.setCurrentView = function(view) {
   // tab animations.
   var screenW = document.documentElement.clientWidth;
 
-  var $mfTabs = $('.mf-tab');
+  var $mfTabs = $('.sc-tab');
 
   var tabIndex = this.getTabIndex_(view);
   var transform = 'translateX(-' + (tabIndex * screenW) + 'px)';
-  $('.mf-tab-frame').
+  $('.sc-tab-frame').
       css('-webkit-transform', transform).
       css('transform', transform);
 
   _.defer(function() {
     // Enables transitions on all but the first change.
-    if (!$('.mf-tab-frame').hasClass('mf-active')) {
-      $('.mf-tab-frame').addClass('mf-active');
+    if (!$('.sc-tab-frame').hasClass('sc-active')) {
+      $('.sc-tab-frame').addClass('sc-active');
     }
   });
 };
@@ -119,24 +119,24 @@ mf.views.App.prototype.setCurrentView = function(view) {
 /**
  * @param {Object} route A route.
  */
-mf.views.App.prototype.transitionPage = function(route) {
-  mf.log('mf.views.App --> transitionPage', route);
+sc.views.App.prototype.transitionPage = function(route) {
+  sc.log('sc.views.App --> transitionPage', route);
 
   var newTab;
   var newView;
 
-  this.$('.mf-tabs .selected').removeClass('selected');
-  var $priorActiveTab = this.$('.mf-tab.mf-active');
+  this.$('.sc-tabs .selected').removeClass('selected');
+  var $priorActiveTab = this.$('.sc-tab.sc-active');
   if ($priorActiveTab.length) {
-    $priorActiveTab.removeClass('mf-active');
+    $priorActiveTab.removeClass('sc-active');
     _.defer(function() {
       $priorActiveTab.get(0).scrollTop = 0;
     });
   }
 
-  if (_.isEqual(mf.App.Routes.WEATHER, route)) {
+  if (_.isEqual(sc.App.Routes.WEATHER, route)) {
     if (!this.viewWeather) {
-      this.viewWeather = new mf.views.Weather({
+      this.viewWeather = new sc.views.Weather({
         model: this.model.weatherData
       });
       this.viewWeather.render();
@@ -144,10 +144,10 @@ mf.views.App.prototype.transitionPage = function(route) {
     newTab = 'weather';
     newView = this.viewWeather;
 
-  } else if (_.isEqual(mf.App.Routes.MUSHROOM_OBSERVER, route)) {
+  } else if (_.isEqual(sc.App.Routes.MUSHROOM_OBSERVER, route)) {
 
     if (!this.viewMob) {
-      this.viewMob = new mf.views.Mob({
+      this.viewMob = new sc.views.Mob({
         model: this.model.mobData
       });
       this.viewMob.render();
@@ -157,8 +157,8 @@ mf.views.App.prototype.transitionPage = function(route) {
 
   }
 
-  this.$('.mf-tabs .' + newTab).addClass('selected');
-  this.$('.mf-tab.mf-tab-' + newTab).addClass('mf-active');
+  this.$('.sc-tabs .' + newTab).addClass('selected');
+  this.$('.sc-tab.sc-tab-' + newTab).addClass('sc-active');
   this.setCurrentView(newView);
 };
 
@@ -171,8 +171,8 @@ mf.views.App.prototype.transitionPage = function(route) {
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.Weather = mf.views.View.extend({
-  el: '.mf-weather',
+sc.views.Weather = sc.views.View.extend({
+  el: '.sc-weather',
   events: {
     'change select': 'onChangePrefs_'
   }
@@ -180,9 +180,9 @@ mf.views.Weather = mf.views.View.extend({
 
 
 /** @inheritDoc */
-mf.views.Weather.prototype.initialize = function(options) {
-  mf.log('views.Weather initialize');
-  this.subView = new mf.views.WeatherData({
+sc.views.Weather.prototype.initialize = function(options) {
+  sc.log('views.Weather initialize');
+  this.subView = new sc.views.WeatherData({
     model: this.model
   });
   if (!this.model.has('data')) {
@@ -192,22 +192,22 @@ mf.views.Weather.prototype.initialize = function(options) {
 
 
 /** @private */
-mf.views.Weather.prototype.onChangePrefs_ = function() {
-  var obj = mf.views.serializeFormToObject(this.$form);
-  mf.log('mf.views.Weather onChangePrefs_', obj);
+sc.views.Weather.prototype.onChangePrefs_ = function() {
+  var obj = sc.views.serializeFormToObject(this.$form);
+  sc.log('sc.views.Weather onChangePrefs_', obj);
   this.model.prefs.set(obj);
 };
 
 
 /** @inheritDoc */
-mf.views.Weather.prototype.render = function() {
-  mf.log('mf.views.Weather render');
+sc.views.Weather.prototype.render = function() {
+  sc.log('sc.views.Weather render');
 
-  this.$el.html(mf.views.getTemplateHtml('weather', {
+  this.$el.html(sc.views.getTemplateHtml('weather', {
     prefs: this.model.prefs.getTemplateData(),
-    cities: mf.models.WeatherPrefsCities,
-    months: mf.models.WeatherPrefsMonths,
-    years: mf.models.WeatherPrefsYears
+    cities: sc.models.WeatherPrefsCities,
+    months: sc.models.WeatherPrefsMonths,
+    years: sc.models.WeatherPrefsYears
   }));
 
   this.$form = this.$('form');
@@ -232,29 +232,29 @@ mf.views.Weather.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.WeatherData = mf.views.View.extend({
+sc.views.WeatherData = sc.views.View.extend({
   events: {}
 });
 
 
 /** @inheritDoc */
-mf.views.WeatherData.prototype.initialize = function(options) {
-  mf.log('views.WeatherData initialize');
+sc.views.WeatherData.prototype.initialize = function(options) {
+  sc.log('views.WeatherData initialize');
   this.listenTo(this.model, 'change', this.render);
 };
 
 
 /** @inheritDoc */
-mf.views.WeatherData.prototype.render = function() {
-  mf.log('mf.views.WeatherData render');
+sc.views.WeatherData.prototype.render = function() {
+  sc.log('sc.views.WeatherData render');
 
-  this.$el.html(mf.views.getTemplateHtml('weather_data',
+  this.$el.html(sc.views.getTemplateHtml('weather_data',
       this.model.getTemplateData()));
 
   this.makeScrollTables();
 
   // Scroll down to today.
-  var $mfScrollY = this.$('.mf-scroll-y');
+  var $mfScrollY = this.$('.sc-scroll-y');
   var $forecast = this.$('.forecast');
   if ($mfScrollY.length && $forecast.length) {
     $mfScrollY[0].scrollTop = $forecast[0].offsetTop;
@@ -270,8 +270,8 @@ mf.views.WeatherData.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.Mob = mf.views.View.extend({
-  el: '.mf-mob',
+sc.views.Mob = sc.views.View.extend({
+  el: '.sc-mob',
   events: {
     'change select': 'onChangePrefs_'
   }
@@ -279,9 +279,9 @@ mf.views.Mob = mf.views.View.extend({
 
 
 /** @inheritDoc */
-mf.views.Mob.prototype.initialize = function(options) {
-  mf.log('mf.views.Mob initialize');
-  this.subView = new mf.views.MobData({
+sc.views.Mob.prototype.initialize = function(options) {
+  sc.log('sc.views.Mob initialize');
+  this.subView = new sc.views.MobData({
     model: this.model
   });
   if (!this.model.has('data')) {
@@ -291,20 +291,20 @@ mf.views.Mob.prototype.initialize = function(options) {
 
 
 /** @private */
-mf.views.Mob.prototype.onChangePrefs_ = function() {
-  var obj = mf.views.serializeFormToObject(this.$form);
-  mf.log('mf.views.Mob onChangePrefs_', obj);
+sc.views.Mob.prototype.onChangePrefs_ = function() {
+  var obj = sc.views.serializeFormToObject(this.$form);
+  sc.log('sc.views.Mob onChangePrefs_', obj);
   this.model.prefs.set(obj);
 };
 
 
 /** @inheritDoc */
-mf.views.Mob.prototype.render = function() {
-  mf.log('mf.views.Mob render');
+sc.views.Mob.prototype.render = function() {
+  sc.log('sc.views.Mob render');
 
-  this.$el.html(mf.views.getTemplateHtml('mob', {
+  this.$el.html(sc.views.getTemplateHtml('mob', {
     prefs: this.model.prefs.getTemplateData(),
-    states: mf.models.MobPrefsStates
+    states: sc.models.MobPrefsStates
   }));
 
   this.$form = this.$('form');
@@ -326,25 +326,25 @@ mf.views.Mob.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-mf.views.MobData = mf.views.View.extend();
+sc.views.MobData = sc.views.View.extend();
 
 
 /** @inheritDoc */
-mf.views.MobData.prototype.initialize = function(options) {
-  mf.log('views.MobData initialize');
+sc.views.MobData.prototype.initialize = function(options) {
+  sc.log('views.MobData initialize');
   this.listenTo(this.model, 'change', this.render);
 };
 
 
 /** @inheritDoc */
-mf.views.MobData.prototype.render = function() {
-  mf.log('mf.views.MobData render');
+sc.views.MobData.prototype.render = function() {
+  sc.log('sc.views.MobData render');
 
-  this.$el.html(mf.views.getTemplateHtml('mob_data',
+  this.$el.html(sc.views.getTemplateHtml('mob_data',
       this.model.getTemplateData()));
 
-  this.$el.removeClass('mf-scroll-y');
-  mf.views.View.setHeightAsAvailable(this.$el);
-  this.$el.addClass('mf-scroll-y');
+  this.$el.removeClass('sc-scroll-y');
+  sc.views.View.setHeightAsAvailable(this.$el);
+  this.$el.addClass('sc-scroll-y');
 };
 

@@ -12,38 +12,39 @@
     <link rel="stylesheet" href="css/offline-theme-slide.css">
 
     <!--<script src="http://clipport.net/target/target-script-min.js#R6b6Cp06"></script>-->
-    <title>Mushroom Forecast</title>
+    <title>Sporecast</title>
 
   </head>
   <body>
-    <div class="mf-app">
+    <div class="sc-app">
 
-      <h1><span>Mushroom Forecast</span></h1>
+      <h1><span>Sporecast</span></h1>
 
-      <nav class="mf-tabs-c">
-        <div class="mf-tabs">
-          <a href="weather" class="weather mf-app-link">Weather</a
-            ><a href="mob" class="mob mf-app-link"
+      <nav class="sc-tabs-c">
+        <div class="sc-tabs">
+          <a href="weather" class="weather sc-app-link">Weather</a
+            ><a href="mob" class="mob sc-app-link"
             >M. Observer</a>
         </div>
       </nav>
 
-      <div class="mf-tab-frame-c">
-        <div class="mf-tab-frame">
-          <section class="mf-tab mf-tab-weather">
-            <div class="mf-weather"></div>
+      <div class="sc-tab-frame-c">
+        <div class="sc-tab-frame">
+          <section class="sc-tab sc-tab-weather">
+            <div class="sc-weather"></div>
           </section
-          ><section class="mf-tab mf-tab-mob">
-            <div class="mf-mob"></div>
+          ><section class="sc-tab sc-tab-mob">
+            <div class="sc-mob"></div>
           </section>
         </div>
       </div>
 
-      <div class="mf-loading" style="display:none;"></div>
-      <div class="mf-msg-c" style="display:none;"><div class="mf-msg"></div></div>
+      <div class="sc-loading" style="display:none;"></div>
+      <div class="sc-msg-c" style="display:none;"><div class="sc-msg"></div></div>
     </div>
 
     <script>
+      // When loaded via the file protocol, assume we're in "Phonegap" land.
       var cordovaSrc_;
       if (window.location.protocol === 'file:') {
         cordovaSrc_ = 'cordova.js';
@@ -71,18 +72,18 @@
     <script src="js/offline.min.js"></script>
     <script src="js/hogan.js"></script>
 
-    <script src="js/mf.js"></script>
+    <script src="js/sc.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/models_mf.js"></script>
+    <script src="js/models_sc.js"></script>
     <script src="js/models.js"></script>
-    <script src="js/views_mf.js"></script>
+    <script src="js/views_sc.js"></script>
     <script src="js/views.js"></script>
 
 
     <!-- START Hogan templates -->
     <script id="tpl_weather" type="text/html">
-      <form class="mf-weather-prefs">
-        <label class="mf-select-c">
+      <form class="sc-weather-prefs">
+        <label class="sc-select-c">
           <span>Choose a city:</span>
           <select name="city">
             {{#cities}}
@@ -91,7 +92,7 @@
           </select>
         </label>
 
-        <label class="mf-select-c">
+        <label class="sc-select-c">
           <span>Choose a month:</span>
           <select name="month">
             {{#months}}
@@ -100,7 +101,7 @@
           </select>
         </label>
 
-        <label class="mf-select-c">
+        <label class="sc-select-c">
           <span>Choose a year:</span>
           <select name="year">
             {{#years}}
@@ -116,7 +117,7 @@
 
 
     <script id="tpl_weather_data" type="text/html">
-      <table class="mf-weather-data mf-scroll-table">
+      <table class="sc-weather-data sc-scroll-table">
         <thead>
           <tr>
             <th>Day</th>
@@ -169,8 +170,8 @@
           target="_blank">visit mushroomobserver.org</a>
       </div>
 
-      <form class="mf-mob-prefs">
-        <label class="mf-select-c">
+      <form class="sc-mob-prefs">
+        <label class="sc-select-c">
           <span>Choose a state:</span>
           <select name="state">
             {{#states}}
@@ -185,7 +186,7 @@
 
 
     <script id="tpl_mob_data" type="text/html">
-      <div class="mf-mob-data">
+      <div class="sc-mob-data">
         {{#data}}
           <div class="observation">
             <div>{{{when}}}</div>
@@ -232,13 +233,13 @@
       // Load the app as a cordova app.
       } else if (cordovaSrc_) {
         document.addEventListener('deviceready', function() {
-          window['app'] = new mf.App();
+          window['app'] = new sc.App();
         }, false);
 
       // Load the app ala webapp style.
       } else {
         $(document).ready(function() {
-          window['app'] = new mf.App();
+          window['app'] = new sc.App();
         });
       }
 

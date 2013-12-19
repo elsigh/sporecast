@@ -3,15 +3,15 @@ $.ajaxSettings['xhrCount'] = 0;
 
 // Yep, we need zepto to work with CORS and cookies.
 $.ajaxSettings['beforeSend'] = function(xhr, settings) {
-  xhr.withCredentials = true;
+  //xhr.withCredentials = true;
   $.ajaxSettings['xhrCount']++;
-  mf.views.showMessage('Loading data ...', false);
+  sc.views.showMessage('Loading data ...', false);
 };
 
 $.ajaxSettings['complete'] = function(xhr, status) {
   $.ajaxSettings['xhrCount']--;
   if ($.ajaxSettings['xhrCount'] === 0) {
-    mf.views.hideMessage();
+    sc.views.hideMessage();
   }
 };
 
@@ -66,7 +66,7 @@ $(document).ready(function(e) {
 /**
  * @type {Object} Views namespace.
  */
-mf.views = {};
+sc.views = {};
 
 
 /**
@@ -75,14 +75,14 @@ mf.views = {};
  * @param {Object=} opt_partials Template partials.
  * @return {string} The template as HTML.
  */
-mf.views.getTemplateHtml = function(name, opt_data, opt_partials) {
+sc.views.getTemplateHtml = function(name, opt_data, opt_partials) {
   var data = opt_data || {};
   _.extend(data, {
     'global_external_protocol': window.location.protocol == 'file:' ?
         'http' : window.location.protocol,
-    'api_server': mf.models.SERVER,
-    'is_android': mf.ua.IS_ANDROID,
-    'is_ios': mf.ua.IS_IOS
+    'api_server': sc.models.SERVER,
+    'is_android': sc.ua.IS_ANDROID,
+    'is_ios': sc.ua.IS_IOS
   });
   var html = window['templates'][name].render(data, opt_partials);
   return html;
@@ -94,7 +94,7 @@ mf.views.getTemplateHtml = function(name, opt_data, opt_partials) {
  * @param {Element|Zepto} form A form element reference.
  * @return {Object} A dictionary of name value pairs.
  */
-mf.views.serializeFormToObject = function(form) {
+sc.views.serializeFormToObject = function(form) {
   var data = {};
   var $form = $(form);
   var arrayData = $form.serializeArray();
@@ -141,17 +141,17 @@ mf.views.serializeFormToObject = function(form) {
  * @param {string} msg The message to show.
  * @param {boolean=} opt_autoHide Pass false to not hide it automatically.
  */
-mf.views.showMessage = function(msg, opt_autoHide) {
-  mf.log('mf.views.hideMessage', msg, opt_autoHide);
+sc.views.showMessage = function(msg, opt_autoHide) {
+  sc.log('sc.views.hideMessage', msg, opt_autoHide);
   var callback = opt_autoHide === false ? function() {} :
-      mf.views.hideMessage_;
-  mf.views.clearHideMessageTimeout_();
-  $('.mf-tab-frame').css('opacity', '0.5');
-  $('.mf-msg').text(msg);
+      sc.views.hideMessage_;
+  sc.views.clearHideMessageTimeout_();
+  $('.sc-tab-frame').css('opacity', '0.5');
+  $('.sc-msg').text(msg);
 
   callback();
 
-  $('.mf-msg-c').css('opacity', '0').show().animate({
+  $('.sc-msg-c').css('opacity', '0').show().animate({
     opacity: 1
   }, 300, 'linear', callback);
 
@@ -161,37 +161,37 @@ mf.views.showMessage = function(msg, opt_autoHide) {
 /**
  * @private {number}
  */
-mf.views.hideMessageTimeout_ = null;
+sc.views.hideMessageTimeout_ = null;
 
 
 /**
  * @private
  */
-mf.views.clearHideMessageTimeout_ = function() {
-  if (mf.views.hideMessageTimeout_ !== null) {
-    window.clearTimeout(mf.views.hideMessageTimeout_);
-    mf.views.hideMessageTimeout_ = null;
+sc.views.clearHideMessageTimeout_ = function() {
+  if (sc.views.hideMessageTimeout_ !== null) {
+    window.clearTimeout(sc.views.hideMessageTimeout_);
+    sc.views.hideMessageTimeout_ = null;
   }
 };
 
 
 /** Hide it */
-mf.views.hideMessage = function() {
-  mf.log('mf.views.hideMessage');
-  mf.views.clearHideMessageTimeout_();
-  $('.mf-msg-c').css('opacity', '1');
-  $('.mf-msg-c').animate(
+sc.views.hideMessage = function() {
+  sc.log('sc.views.hideMessage');
+  sc.views.clearHideMessageTimeout_();
+  $('.sc-msg-c').css('opacity', '1');
+  $('.sc-msg-c').animate(
       {
         opacity: 0
       },
       500,
       'linear',
       function() {
-        $('.mf-msg-c').hide();
+        $('.sc-msg-c').hide();
       });
-  $('.mf-tab-frame').css('opacity', '');
+  $('.sc-tab-frame').css('opacity', '');
   /*
-  $('.mf-tab-frame').animate(
+  $('.sc-tab-frame').animate(
       {
         opacity: 1
       },
@@ -207,15 +207,15 @@ mf.views.hideMessage = function() {
 /**
  * @private
  */
-mf.views.hideMessage_ = function() {
-  mf.views.clearHideMessageTimeout_();
-  mf.views.hideMessageTimeout_ = _.delay(
-      mf.views.hideMessage, 1500);
+sc.views.hideMessage_ = function() {
+  sc.views.clearHideMessageTimeout_();
+  sc.views.hideMessageTimeout_ = _.delay(
+      sc.views.hideMessage, 1500);
 };
 
 
 /****** MF VIEW ********/
-mf.views.View = Backbone.View.extend();
+sc.views.View = Backbone.View.extend();
 
 
 /**
@@ -223,13 +223,13 @@ mf.views.View = Backbone.View.extend();
  * @param {Zepto} $el A zepto.
  * @return {number} The new height.
  */
-mf.views.View.setHeightAsAvailable = function($el) {
+sc.views.View.setHeightAsAvailable = function($el) {
   var screenW = document.documentElement.clientWidth;
   var screenH = document.documentElement.clientHeight;
   var offset = $el.offset();
   var PADDING_BOTTOM = 15;
   var availHeight = screenH - offset.top - PADDING_BOTTOM;
-  mf.log('mf.views.View setHeightAsAvailable',
+  sc.log('sc.views.View setHeightAsAvailable',
       $el, availHeight, offset);
 
   $el.css('height', availHeight + 'px');
@@ -240,9 +240,9 @@ mf.views.View.setHeightAsAvailable = function($el) {
 /**
  * Makes the data container independently scrollable.
  */
-mf.views.View.prototype.makeScrollTables = function() {
-  var $tables = this.$('table.mf-scroll-table:not(.mf-scroll-table-ready)');
-  mf.log('mf.views.View makeScrollTables', $tables);
+sc.views.View.prototype.makeScrollTables = function() {
+  var $tables = this.$('table.sc-scroll-table:not(.sc-scroll-table-ready)');
+  sc.log('sc.views.View makeScrollTables', $tables);
 
   var that = this;
   $tables.each(function(i, table) {
@@ -270,7 +270,7 @@ mf.views.View.prototype.makeScrollTables = function() {
 
     var $td = $('<td>');
     $td.attr('colspan', $table.find('th').length);
-    $td.addClass('mf-scroll-table-td');
+    $td.addClass('sc-scroll-table-td');
 
     var $newTable = $('<table>').
         append($theadClone).
@@ -288,7 +288,7 @@ mf.views.View.prototype.makeScrollTables = function() {
     $tr.append($td);
     $tbody.append($tr);
 
-    $table.addClass('mf-scroll-table-ready');
+    $table.addClass('sc-scroll-table-ready');
 
     $table.find('img').each(function(i, img) {
       $('img').on('load', function() {
@@ -301,18 +301,18 @@ mf.views.View.prototype.makeScrollTables = function() {
 };
 
 /** @private */
-mf.views.View.prototype.resizeScrollTables_ = function() {
-  this.$('table.mf-scroll-table').each(function(i, table) {
+sc.views.View.prototype.resizeScrollTables_ = function() {
+  this.$('table.sc-scroll-table').each(function(i, table) {
     var $table = $(table);
-    var $div = $table.find('.mf-scroll-table-td > div');
-    $div.removeClass('mf-scroll-y');
+    var $div = $table.find('.sc-scroll-table-td > div');
+    $div.removeClass('sc-scroll-y');
 
     var theadHeight = $table.find('thead').offset().height;
     var tfootHeight = $table.find('tfoot').offset().height;
-    var tableHeight = mf.views.View.setHeightAsAvailable($table);
+    var tableHeight = sc.views.View.setHeightAsAvailable($table);
 
     var divHeight = tableHeight - theadHeight - tfootHeight;
     $div.css('height', divHeight + 'px');
-    $div.addClass('mf-scroll-y');
+    $div.addClass('sc-scroll-y');
   });
 };

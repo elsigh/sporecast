@@ -34,16 +34,16 @@ select {
   -webkit-appearance: none;
 }
 
-label.mf-select-c {
+label.sc-select-c {
   display: inline-block;
   position: relative;
 }
 
-label.mf-select-c ~ label.mf-select-c {
+label.sc-select-c ~ label.sc-select-c {
   margin-left: 0.1em;
 }
 
-label.mf-select-c::after {
+label.sc-select-c::after {
   color: #333;
   content: '\00a0\25be';  /* Down arrow hexadecimal. */
   position: absolute;
@@ -51,7 +51,7 @@ label.mf-select-c::after {
   top: 0.75em;
 }
 
-label.mf-select-c > span {
+label.sc-select-c > span {
   position: absolute;
   top: -9999px;
 }
@@ -63,7 +63,7 @@ footer {
   text-align: center;
 }
 
-.mf-app h1 {
+.sc-app h1 {
   position: fixed;
   font-size: 1.2em;
   box-sizing: border-box;
@@ -145,7 +145,7 @@ input[type="text"] {
   width: 60%;
 }
 
-.mf-btn,
+.sc-btn,
 input[type="submit"],
 button {
   background: #3b97d1;
@@ -163,14 +163,14 @@ button {
   border-radius: 2px;
 }
 
-.mf-btn:active,
+.sc-btn:active,
 input[type="submit"]:active,
 button:active {
   -webkit-box-shadow: inset 0 0 0.6em rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 0.6em rgba(0, 0, 0, 0.2);
 }
 
-.mf-remove {
+.sc-remove {
   position: absolute;
   display: inline-block;
   font: inherit;
@@ -184,12 +184,12 @@ button:active {
   border-radius: 2px;
 }
 
-.mf-remove:active {
+.sc-remove:active {
   -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
-.mf-msg-c {
+.sc-msg-c {
   display: none;
   position: fixed;
   z-index: 2;
@@ -198,7 +198,7 @@ button:active {
   text-align: center;
 }
 
-.mf-msg {
+.sc-msg {
   display: inline-block;
   margin: 0 auto;
   padding: 0.5em 1.5em;
@@ -214,7 +214,7 @@ button:active {
 /** end scroll table **/
 
 
-.mf-app nav {
+.sc-app nav {
   top: 46px;
   position: fixed;
   width: 100%;
@@ -222,21 +222,21 @@ button:active {
   -webkit-transform: translateZ(0);
 }
 
-html.mf-app-container,
-body.mf-app-container,
-.mf-app {
+html.sc-app-container,
+body.sc-app-container,
+.sc-app {
   overflow: hidden;
 }
 
-.mf-app form {
+.sc-app form {
   margin-bottom: 10px;
 }
 
-.mf-app table {
+.sc-app table {
   margin-bottom: 10px;
 }
 
-.mf-tab-frame-c {
+.sc-tab-frame-c {
   position: absolute;
   top: 85px;  /* 37 + 46 + boxshadow 2px */
   right: 0;
@@ -245,7 +245,7 @@ body.mf-app-container,
   overflow: hidden;
 }
 
-.mf-tab-frame {
+.sc-tab-frame {
   white-space: nowrap;
   height: 100%;
 
@@ -253,12 +253,12 @@ body.mf-app-container,
   -webkit-transform: translateZ(0);
 }
 
-.mf-tab-frame.mf-active {
+.sc-tab-frame.sc-active {
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
 
-.mf-tab {
+.sc-tab {
   box-sizing: border-box;
   padding: 10px 10px 0;
   height: 100%;
@@ -273,14 +273,14 @@ body.mf-app-container,
   overflow-x: hidden;
 }
 
-.mf-tab-header h2 {
+.sc-tab-header h2 {
   display: inline-block;
   margin: 0 1em 0 0;
   padding: 0;
   vertical-align: bottom;
 }
 
-.mf-tabs {
+.sc-tabs {
   background: #ccc;
   width: 100%;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -288,8 +288,8 @@ body.mf-app-container,
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
-.mf-tabs a,
-.mf-tabs span {
+.sc-tabs a,
+.sc-tabs span {
   display: inline-block;
   color: #111;
   text-align: center;
@@ -302,15 +302,15 @@ body.mf-app-container,
   border-right: 1px solid #eee;
   border-bottom: 1px solid #bbb;
 }
-.mf-tabs a:last-child,
-.mf-tabs span:last-child {
+.sc-tabs a:last-child,
+.sc-tabs span:last-child {
   border-right: 0;
 }
 
 .Xtabs a:active,
 .Xtabs span:active,
-.mf-tabs a.selected,
-.mf-tabs span.selected {
+.sc-tabs a.selected,
+.sc-tabs span.selected {
   -moz-box-shadow: inset 0 0 1em rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: inset 0 0 1em rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 0 1em rgba(0, 0, 0, 0.2);
@@ -320,11 +320,11 @@ body.mf-app-container,
   padding: 10px;
 }
 
-.mf-button-c {
+.sc-button-c {
   padding: 10px;
 }
 
-.mf-scroll-y {
+.sc-scroll-y {
   overflow: auto;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -334,23 +334,23 @@ body.mf-app-container,
 
 
 /* Scroll table */
-.mf-scroll-table table {
+.sc-scroll-table table {
   border: 0;
   margin: 0;
 }
 
-.mf-scroll-table-td {
+.sc-scroll-table-td {
   border: 0;
   padding: 0;
   vertical-align: top;
 }
 
-.mf-scroll-table-td th {
+.sc-scroll-table-td th {
   border: 0;
   padding: 0;
 }
 
-.mf-scroll-table-td tr:first-child td {
+.sc-scroll-table-td tr:first-child td {
   border: 0;
 }
 
@@ -362,62 +362,62 @@ body.mf-app-container,
 
 /* Weather */
 
-.mf-weather .total-rain {
+.sc-weather .total-rain {
   position: absolute;
   opacity: 0.6;
   margin-top: 0.5em;
   font-size: 90%;
 }
 
-.mf-weather-prefs {
+.sc-weather-prefs {
   font-size: 13px;
 }
 
-.mf-weather-data img {
+.sc-weather-data img {
   width: 100%;
 }
 
-.mf-weather-data th,
-.mf-weather-data td {
+.sc-weather-data th,
+.sc-weather-data td {
   xwidth: 25%;
 }
 
-.mf-weather-data .forecast td {
+.sc-weather-data .forecast td {
   background: #FFFFE0;
   opacity: 0.6;
 }
 
-.mf-weather-data {
+.sc-weather-data {
   font-family: "Lucida Console", Monaco, monospace;
 }
 
-.mf-weather-data .precip:not(.precip-0) {
+.sc-weather-data .precip:not(.precip-0) {
   background-color: #33FF99;
 }
 
-.mf-weather-data .forecast td {
+.sc-weather-data .forecast td {
   border-top-width: 2px;
 }
-.mf-weather-data .forecast ~ .forecast td {
+.sc-weather-data .forecast ~ .forecast td {
   border-top-width: 1px;
 }
 
 /* MO */
-.mf-mob .mf-scroll-y {
+.sc-mob .sc-scroll-y {
   border: 1px solid #aaa;
   border-radius: 3px;
 }
-.mf-mob .credit {
+.sc-mob .credit {
   float: right;
   font-size: 90%;
   margin-top: 1em;
 }
 
-.mf-mob-data h3 {
+.sc-mob-data h3 {
   padding: 10px;
 }
 
-.mf-mob-data .observation {
+.sc-mob-data .observation {
   border: 1px solid #aaa;
   border-left: 0;
   border-right: 0;
@@ -425,27 +425,27 @@ body.mf-app-container,
 }
 
 
-.mf-mob-data .observation:first-child {
+.sc-mob-data .observation:first-child {
   border-top: 0;
 }
 
-.mf-mob-data .observation:last-child {
+.sc-mob-data .observation:last-child {
   border-bottom: 0;
 }
 
-.mf-mob-data .observation:last-child {
+.sc-mob-data .observation:last-child {
   margin-bottom: 0;
 }
 
-.mf-mob-data .observation a {
+.sc-mob-data .observation a {
   display: block;
 }
 
-.mf-mob-data .observation > div {
+.sc-mob-data .observation > div {
   margin: 1em 0;
 }
 
-.mf-mob-data .observation img {
+.sc-mob-data .observation img {
   width: 100%;
   min-height: 100px;
 }

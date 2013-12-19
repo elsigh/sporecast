@@ -3,31 +3,31 @@
 /**
  * @type {Object} Models namespace.
  */
-mf.models = {};
+sc.models = {};
 
 
 /**
  * @type {string}
  */
-mf.models.SERVER_LOCAL = 'http://localhost:8090';
+sc.models.SERVER_LOCAL = 'http://localhost:8090';
 
 
 /**
  * @type {string}
  */
-mf.models.SERVER_PROD = 'https://mushroomobserver.appspot.com';
+sc.models.SERVER_PROD = 'https://mushroomforecast.appspot.com';
 
 // Useful for testing from the filesystem locally.
-//mf.models.SERVER_PROD = mf.models.SERVER_LOCAL;
-//mf.models.SERVER_LOCAL = mf.models.SERVER_PROD;
+//sc.models.SERVER_PROD = sc.models.SERVER_LOCAL;
+//sc.models.SERVER_LOCAL = sc.models.SERVER_PROD;
 
 
 /**
  * @return {string} The server endpoint.
  */
-mf.models.getServer = function() {
-  return (mf.ua.IS_APP || mf.ua.IS_PROD_WEB_APP) && !mf.ua.isSimulator() ?
-      mf.models.SERVER_PROD : mf.models.SERVER_LOCAL;
+sc.models.getServer = function() {
+  return (sc.ua.IS_APP || sc.ua.IS_PROD_WEB_APP) && !sc.ua.isSimulator() ?
+      sc.models.SERVER_PROD : sc.models.SERVER_LOCAL;
 };
 
 
@@ -36,11 +36,11 @@ mf.models.getServer = function() {
 
 
 /**
- * @extends {mf.Model}
+ * @extends {sc.Model}
  * @constructor
  */
-mf.models.AjaxSyncModel = Backbone.Model.extend({
-  sync: mf.models.sync
+sc.models.AjaxSyncModel = Backbone.Model.extend({
+  sync: sc.models.sync
 });
 
 
@@ -52,13 +52,13 @@ mf.models.AjaxSyncModel = Backbone.Model.extend({
  * @extends {Backbone.Model}
  * @constructor
  */
-mf.Model = Backbone.Model.extend();
+sc.Model = Backbone.Model.extend();
 
 
 /**
  * @return {Object} A template data object.
  */
-mf.Model.prototype.getTemplateData = function() {
+sc.Model.prototype.getTemplateData = function() {
   var templateData = {};
 
   _.each(this.toJSON(), function(val, key) {
@@ -75,8 +75,8 @@ mf.Model.prototype.getTemplateData = function() {
  * @param {Object=} opt_data Data to save.
  * @param {Object=} opt_options Options config.
  */
-mf.Model.prototype.saveToServer = function(opt_data, opt_options) {
-  mf.log('mf.Model saveToServer id', this.id);
+sc.Model.prototype.saveToServer = function(opt_data, opt_options) {
+  sc.log('sc.Model saveToServer id', this.id);
   var options = opt_options || {};
   options['server_only'] = true;
   this.save(opt_data, options);
@@ -88,9 +88,9 @@ mf.Model.prototype.saveToServer = function(opt_data, opt_options) {
  * function's existence.
  * @return {Object} Overridable by subclasses.
  */
-mf.Model.prototype.getStorageData = function() {
-  //mf.log('mf.Model getStorageData');
-  var data = mf.clone(this.toJSON());
+sc.Model.prototype.getStorageData = function() {
+  //sc.log('sc.Model getStorageData');
+  var data = sc.clone(this.toJSON());
   return data;
 };
 
@@ -99,8 +99,8 @@ mf.Model.prototype.getStorageData = function() {
  * @param {Object=} opt_data A data obj.
  * @param {Object=} opt_options An options config.
  */
-mf.Model.prototype.saveToStorage = function(opt_data, opt_options) {
-  mf.log('mf.Model saveToStorage id', this.id);
+sc.Model.prototype.saveToStorage = function(opt_data, opt_options) {
+  sc.log('sc.Model saveToStorage id', this.id);
   var options = opt_options || {};
   options['local_storage_only'] = true;
   this.save(opt_data, options);
@@ -110,13 +110,13 @@ mf.Model.prototype.saveToStorage = function(opt_data, opt_options) {
 /**
  * @param {Object=} opt_options Options config.
  */
-mf.Model.prototype.fetchFromStorage = function(opt_options) {
+sc.Model.prototype.fetchFromStorage = function(opt_options) {
   // Pretend to be async.
   _.defer(_.bind(function() {
     var results = this.localStorage.findAll();
-    //mf.log('mf.Model fetchFromStorage RESULTS:', results);
+    //sc.log('sc.Model fetchFromStorage RESULTS:', results);
     if (results.length) {
-      //mf.log('mf.Model fetchFromStorage set', results[results.length - 1]);
+      //sc.log('sc.Model fetchFromStorage set', results[results.length - 1]);
       this.set(results[results.length - 1], opt_options);
     }
     opt_options && opt_options.fetchComplete &&

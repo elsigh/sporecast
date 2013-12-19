@@ -9,16 +9,16 @@
  * @extends {Backbone.Model}
  * @constructor
  */
-mf.models.App = Backbone.Model.extend();
+sc.models.App = Backbone.Model.extend();
 
 
 
 /** @inheritDoc */
-mf.models.App.prototype.initialize = function(opt_data, opt_options) {
-  mf.log('mf.models.App.initialize');
+sc.models.App.prototype.initialize = function(opt_data, opt_options) {
+  sc.log('sc.models.App.initialize');
 
-  this.weatherData = new mf.models.WeatherData();
-  this.mobData = new mf.models.MobData();
+  this.weatherData = new sc.models.WeatherData();
+  this.mobData = new sc.models.MobData();
 };
 
 
@@ -26,7 +26,7 @@ mf.models.App.prototype.initialize = function(opt_data, opt_options) {
 
 
 /** @type {Array.<string>} */
-mf.models.WeatherPrefsCities = [
+sc.models.WeatherPrefsCities = [
   {
     'pws': 'KCAEUREK5',
     'name': 'Eureka'
@@ -51,7 +51,7 @@ mf.models.WeatherPrefsCities = [
 
 
 /** @type {Array.<string>} */
-mf.models.WeatherPrefsMonths = [
+sc.models.WeatherPrefsMonths = [
   'January',
   'February',
   'March',
@@ -68,7 +68,7 @@ mf.models.WeatherPrefsMonths = [
 
 
 /** @type {Array.<number>} */
-mf.models.WeatherPrefsYears = [2013];
+sc.models.WeatherPrefsYears = [2013];
 
 
 /******************************************************************************/
@@ -79,10 +79,10 @@ mf.models.WeatherPrefsYears = [2013];
  * @extends {Backbone.Model}
  * @constructor
  */
-mf.models.WeatherPrefs = mf.Model.extend({
+sc.models.WeatherPrefs = sc.Model.extend({
   defaults: {
-    'city': mf.models.WeatherPrefsCities[0]['name'],
-    'month': mf.models.WeatherPrefsMonths[(new Date()).getMonth()],
+    'city': sc.models.WeatherPrefsCities[0]['name'],
+    'month': sc.models.WeatherPrefsMonths[(new Date()).getMonth()],
     'year': (new Date()).getFullYear()
   }
 });
@@ -92,8 +92,8 @@ mf.models.WeatherPrefs = mf.Model.extend({
  * @param {string} city A city name.
  * @return {string} A station.
  */
-mf.models.WeatherPrefs.getStation = function(city) {
-  for (var i = 0, cityObj; cityObj = mf.models.WeatherPrefsCities[i]; i++) {
+sc.models.WeatherPrefs.getStation = function(city) {
+  for (var i = 0, cityObj; cityObj = sc.models.WeatherPrefsCities[i]; i++) {
     if (cityObj['name'] == city) {
       return cityObj['pws'];
     }
@@ -105,9 +105,9 @@ mf.models.WeatherPrefs.getStation = function(city) {
  * @param {string} station A station name.
  * @return {string} A city.
  */
-mf.models.WeatherPrefs.getCity = function(station) {
-  mf.log('mf.models.WeatherPrefs.getCity', station);
-  for (var i = 0, cityObj; cityObj = mf.models.WeatherPrefsCities[i]; i++) {
+sc.models.WeatherPrefs.getCity = function(station) {
+  sc.log('sc.models.WeatherPrefs.getCity', station);
+  for (var i = 0, cityObj; cityObj = sc.models.WeatherPrefsCities[i]; i++) {
     if (cityObj['pws'] == station) {
       return cityObj['name'];
     }
@@ -118,18 +118,18 @@ mf.models.WeatherPrefs.getCity = function(station) {
 /**
  * @return {Object} A weather prefs obj if matches in the URL.
  */
-mf.models.WeatherPrefs.getFromUrl = function() {
+sc.models.WeatherPrefs.getFromUrl = function() {
   var weatherPrefs;
   var re = new RegExp(/weather\/(.+)\/(.+)\/(.+)/);
   var matches = re.exec(window.location.href);
   if (matches) {
     weatherPrefs = {
-      'city': mf.models.WeatherPrefs.getCity(matches[1]),
+      'city': sc.models.WeatherPrefs.getCity(matches[1]),
       'year': matches[2],
-      'month': mf.models.WeatherPrefsMonths[matches[3] - 1]
+      'month': sc.models.WeatherPrefsMonths[matches[3] - 1]
     };
   }
-  mf.log('mf.models.WeatherData getPrefsFromUrl', weatherPrefs);
+  sc.log('sc.models.WeatherData getPrefsFromUrl', weatherPrefs);
   return weatherPrefs;
 };
 
@@ -138,29 +138,29 @@ mf.models.WeatherPrefs.getFromUrl = function() {
  * Based on prefs, we should be on this URL.
  * @return {string} The url.
  */
-mf.models.WeatherPrefs.prototype.getUrlState = function() {
+sc.models.WeatherPrefs.prototype.getUrlState = function() {
   return 'weather/' + this.getStation() +
         '/' + this.get('year') + '/' +
-        mf.models.WeatherData.padMonth(this.getMonthNum());
+        sc.models.WeatherData.padMonth(this.getMonthNum());
 };
 
 
 /** @return {string} A station name. */
-mf.models.WeatherPrefs.prototype.getStation = function() {
-  return mf.models.WeatherPrefs.getStation(this.get('city'));
+sc.models.WeatherPrefs.prototype.getStation = function() {
+  return sc.models.WeatherPrefs.getStation(this.get('city'));
 };
 
 
 /** @return {string} The month as a number starting from 1, not 0 index. */
-mf.models.WeatherPrefs.prototype.getMonthNum = function() {
-  return _.indexOf(mf.models.WeatherPrefsMonths, this.get('month')) + 1;
+sc.models.WeatherPrefs.prototype.getMonthNum = function() {
+  return _.indexOf(sc.models.WeatherPrefsMonths, this.get('month')) + 1;
 };
 
 
 
 /** @inheritDoc */
-mf.models.WeatherPrefs.prototype.getTemplateData = function() {
-  var data = mf.Model.prototype.getTemplateData.call(this);
+sc.models.WeatherPrefs.prototype.getTemplateData = function() {
+  var data = sc.Model.prototype.getTemplateData.call(this);
   data['station'] = this.getStation();
   return data;
 };
@@ -174,35 +174,35 @@ mf.models.WeatherPrefs.prototype.getTemplateData = function() {
  * @extends {Backbone.Model}
  * @constructor
  */
-mf.models.WeatherData = mf.Model.extend();
+sc.models.WeatherData = sc.Model.extend();
 
 
 /**
  * @param {number} number A number to pad.
  * @return {string} A padded number.
  */
-mf.models.WeatherData.padMonth = function(number) {
+sc.models.WeatherData.padMonth = function(number) {
   return (number < 10 ? '0' : '') + number;
 };
 
 
 /** @inheritDoc */
-mf.models.WeatherData.prototype.initialize = function(opt_data, opt_options) {
-  mf.log('mf.models.WeatherData initialize');
-  this.prefs = new mf.models.WeatherPrefs(
-      mf.models.WeatherPrefs.getFromUrl());
+sc.models.WeatherData.prototype.initialize = function(opt_data, opt_options) {
+  sc.log('sc.models.WeatherData initialize');
+  this.prefs = new sc.models.WeatherPrefs(
+      sc.models.WeatherPrefs.getFromUrl());
   this.listenTo(this.prefs, 'change', this.fetch);
 };
 
 
 
 /** @inheritDoc */
-mf.models.WeatherData.prototype.fetch = function(opt_options) {
-  mf.log('mf.models.WeatherData fetch');
+sc.models.WeatherData.prototype.fetch = function(opt_options) {
+  sc.log('sc.models.WeatherData fetch');
 
-  mf.Model.prototype.fetch.call(this, {
+  sc.Model.prototype.fetch.call(this, {
     error: _.bind(function() {
-      mf.log('Error in WeatherData fetch.');
+      sc.log('Error in WeatherData fetch.');
       this.clear();
     }, this)
   });
@@ -213,11 +213,12 @@ mf.models.WeatherData.prototype.fetch = function(opt_options) {
 /**
  * @return {string} An url.
  */
-mf.models.WeatherData.prototype.url = function() {
-  var monthAsString = mf.models.WeatherData.padMonth(this.prefs.getMonthNum());
-  var url = window.location.origin + '/wunderground/output/' +
+sc.models.WeatherData.prototype.url = function() {
+  var monthAsString = sc.models.WeatherData.padMonth(this.prefs.getMonthNum());
+  var url = sc.models.getServer() + '/wunderground/output/' +
       this.prefs.getStation() + '/' + this.prefs.get('year') + '/' +
       monthAsString + '/data.json';
+  sc.log('sc.models.WeatherData url', url);
   return url;
 };
 
@@ -226,16 +227,16 @@ mf.models.WeatherData.prototype.url = function() {
 
 
 /** @type {Array.<string>} */
-mf.models.MobPrefsStates = ['CA'];
+sc.models.MobPrefsStates = ['CA'];
 
 
 /**
  * @extends {Backbone.Model}
  * @constructor
  */
-mf.models.MobPrefs = mf.Model.extend({
+sc.models.MobPrefs = sc.Model.extend({
   defaults: {
-    'state': mf.models.MobPrefsStates[0]
+    'state': sc.models.MobPrefsStates[0]
   }
 });
 
@@ -248,23 +249,23 @@ mf.models.MobPrefs = mf.Model.extend({
  * @extends {Backbone.Model}
  * @constructor
  */
-mf.models.MobData = mf.Model.extend();
+sc.models.MobData = sc.Model.extend();
 
 
 /** @inheritDoc */
-mf.models.MobData.prototype.initialize = function(opt_data, opt_options) {
-  mf.log('mf.models.MobData.initialize');
-  this.prefs = new mf.models.MobPrefs();
+sc.models.MobData.prototype.initialize = function(opt_data, opt_options) {
+  sc.log('sc.models.MobData.initialize');
+  this.prefs = new sc.models.MobPrefs();
   this.listenTo(this.prefs, 'change', this.fetch);
 };
 
 
 /** @inheritDoc */
-mf.models.MobData.prototype.fetch = function(opt_options) {
-  mf.log('mf.models.MobData.fetch');
-  mf.Model.prototype.fetch.call(this, {
+sc.models.MobData.prototype.fetch = function(opt_options) {
+  sc.log('sc.models.MobData.fetch');
+  sc.Model.prototype.fetch.call(this, {
     error: _.bind(function() {
-      mf.log('Error in MobData fetch.');
+      sc.log('Error in MobData fetch.');
       this.clear();
     }, this)
   });
@@ -274,8 +275,8 @@ mf.models.MobData.prototype.fetch = function(opt_options) {
 /**
  * @return {string} An url.
  */
-mf.models.MobData.prototype.url = function() {
-  var url = window.location.origin + '/mushroomobserver/' +
+sc.models.MobData.prototype.url = function() {
+  var url = sc.models.getServer() + '/mushroomobserver/' +
       this.prefs.get('state') + '/data.json';
   return url;
 };
