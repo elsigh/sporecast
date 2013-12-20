@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+  <!--<html manifest="/app/manifest.appcache">-->
+  <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="format-detection"
+      content="telephone=no,email=no,address=no">
+    <meta name="viewport"
+      content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/offline-theme-slide.css">
+
+    <!--<script src="http://clipport.net/target/target-script-min.js#R6b6Cp06"></script>-->
+    <title>Sporecast</title>
+
+  </head>
+  <body>
+    <div class="sc-app">
+
+      <h1><span>Sporecast</span></h1>
+
+      <nav class="sc-tabs-c">
+        <div class="sc-tabs">
+          <a href="weather" class="weather sc-app-link">Weather</a
+            ><a href="mob" class="mob sc-app-link"
+            >M. Observer</a>
+        </div>
+      </nav>
+
+      <div class="sc-tab-frame-c">
+        <div class="sc-tab-frame">
+          <section class="sc-tab sc-tab-weather">
+            <div class="sc-weather"></div>
+          </section
+          ><section class="sc-tab sc-tab-mob">
+            <div class="sc-mob"></div>
+          </section>
+        </div>
+      </div>
+
+      <div class="sc-loading" style="display:none;"></div>
+      <div class="sc-msg-c" style="display:none;"><div class="sc-msg"></div></div>
+    </div>
+
+    <script>
+      // When loaded via the file protocol, assume we're in "Phonegap" land.
+      var cordovaSrc_;
+      if (window.location.protocol === 'file:') {
+        cordovaSrc_ = 'cordova.js';
+      }
+
+      if (cordovaSrc_) {
+        document.write('<scr'+'ipt src="' + cordovaSrc_ + '"></sc'+'ript>');
+
+      } else {
+        // Stubs cordova so we can run this page on the web not as a
+        // cordova app.
+        cordova = {
+          addConstructor: function() {},
+          require: function() {},
+          define: function() {}
+        };
+      }
+    </script>
+
+    <script src="js/zepto.js"></script>
+    <script src="js/touch.js"></script>
+    <script src="js/fx.js"></script>
+    <script src="js/lodash.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/offline.min.js"></script>
+    <script src="js/hogan.js"></script>
+
+    <script src="js/sc.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/models_sc.js"></script>
+    <script src="js/models.js"></script>
+    <script src="js/views_sc.js"></script>
+    <script src="js/views.js"></script>
+
+
+    <!-- START Hogan templates -->
+    <script id="tpl_weather" type="text/html">
+      <form class="sc-weather-prefs">
+        <label class="sc-select-c">
+          <span>Choose a city:</span>
+          <select name="city">
+            {{#cities}}
+              <option val="{{pws}}">{{name}}</option>
+            {{/cities}}
+          </select>
+        </label>
+
+        <label class="sc-select-c">
+          <span>Choose a month:</span>
+          <select name="month">
+            {{#months}}
+              <option>{{.}}</option>
+            {{/months}}
+          </select>
+        </label>
+
+        <label class="sc-select-c">
+          <span>Choose a year:</span>
+          <select name="year">
+            {{#years}}
+              <option>{{.}}</option>
+            {{/years}}
+          </select>
+        </label>
+
+      </form>
+
+      <div class="data-c"></div>
+    </script>
+
+
+    <script id="tpl_weather_data" type="text/html">
+      <table class="sc-weather-data sc-scroll-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Rain</th>
+            <th>Low</th>
+            <th>High</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#data}}
+            <tr {{#is_forecast}}class="forecast"{{/is_forecast}}>
+              <td class="day">{{dayname}} {{daynum}}</td>
+              <td class="precip precip-{{precipi}}">
+                {{#precipi_is_zero}}
+                  -
+                {{/precipi_is_zero}}
+                {{^precipi_is_zero}}
+                  {{precipi}}{{#is_forecast}}%{{/is_forecast}}
+                {{/precipi_is_zero}}
+              </td>
+              <td>{{mintempi}}°</td>
+              <td>{{maxtempi}}°</td>
+            </tr>
+          {{/data}}
+          {{^data}}
+            <tr>
+              <td colspan="4">No data</td>
+            </tr>
+          {{/data}}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">
+              {{#total_rain}}
+                <div class="total-rain">Monthly total: {{total_rain}}</div>
+              {{/total_rain}}
+              <img
+                alt="Weather Underground"
+                src="http://icons.wxug.com/logos/PNG/wundergroundLogo_white_horz.png">
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </script>
+
+
+    <script id="tpl_mob" type="text/html">
+      <div class="credit">
+        <a href="http://www.mushroomobserver.org/"
+          target="_blank">visit mushroomobserver.org</a>
+      </div>
+
+      <form class="sc-mob-prefs">
+        <label class="sc-select-c">
+          <span>Choose a state:</span>
+          <select name="state">
+            {{#states}}
+              <option>{{.}}</option>
+            {{/states}}
+          </select>
+        </label>
+      </form>
+
+      <div class="data-c"></div>
+    </script>
+
+
+    <script id="tpl_mob_data" type="text/html">
+      <div class="sc-mob-data">
+        {{#data}}
+          <div class="observation">
+            <div>{{{when}}}</div>
+            <div>{{{img}}}</div>
+            <div>{{{what}}}</div>
+            <div>{{{where}}} {{{who}}}</div>
+          </div>
+        {{/data}}
+        {{^data}}
+          <h3>No data yet ...</h3>
+        {{/data}}
+      </div>
+    </script>
+
+    <!-- END Hogan templates -->
+
+
+    <script>
+      // Catch-all for whatever goes wrong.
+      window.onerror = function(message, url, lineNumber) {
+        window.console.log('window.onerror GLOBAL FAIL: ' + message + ', ' +
+            url + ', ' + lineNumber);
+      };
+
+      // Set up Hogan templates namespace.
+      window.templates = {};
+      $('script[type="text/html"]').each(function(i, script) {
+        var name = script.id.replace('tpl_', '');
+        var html = $(script).html().trim();
+        window.templates[name] = Hogan.compile(html);
+      });
+
+      // Super-wild-west-runtime-unit-testing.
+      if (window.location.search.indexOf('?test=1') !== -1) {
+        var testFiles = [
+          'closure_jsunit.js',
+          'sinon.js',
+          'app_test.js'
+        ];
+        $.each(testFiles, function(i, src) {
+          document.write('<scr'+'ipt src="' + src + '"></sc'+'ript>');
+        });
+
+      // Initializes the app as a Cordova app.
+      } else if (cordovaSrc_) {
+        document.addEventListener('deviceready', function() {
+          window['app'] = new sc.App();
+        }, false);
+
+      // Initialize WebApp style.
+      } else {
+        $(document).ready(function() {
+          window['app'] = new sc.App();
+        });
+      }
+
+      /*
+      if (window.location.href.match(/mushroomforecast.com/i)) {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', '', 'mushroomforecast.com');
+        ga('send', 'pageview');
+      }
+      */
+    </script>
+  </body>
+  </html>
