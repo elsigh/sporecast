@@ -3,21 +3,13 @@
 ###################
 *.pyc
 
-phonegap/platforms/android/bin
-phonegap/platforms/android/gen
-phonegap/platforms/android/local.properties
-phonegap/.cordova
+# Don't check in platform build code.
+client/platforms/android
 
-client/android/bin
-client/android/gen
-client/android/local.properties
-
-client/ios/CordovaLib/CordovaLib.xcodeproj/xcuserdata
-client/ios/Levels.xcodeproj/project.xcworkspace
-client/ios/Levels.xcodeproj/xcuserdata
-
-server/data.sqlite3
-server/update.sh
+# Symlinks to be created by our cordova hooks.
+client/www/css
+client/www/js
+client/www/img
 
 
 # OS generated files #
