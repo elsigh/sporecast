@@ -8,8 +8,8 @@
     <meta name="viewport"
       content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
 
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/offline-theme-slide.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/offline-theme-slide.css">
 
     <!--<script src="http://clipport.net/target/target-script-min.js#R6b6Cp06"></script>-->
     <title>Sporecast</title>
@@ -64,20 +64,20 @@
       }
     </script>
 
-    <script src="js/zepto.js"></script>
-    <script src="js/touch.js"></script>
-    <script src="js/fx.js"></script>
-    <script src="js/lodash.js"></script>
-    <script src="js/backbone.js"></script>
-    <script src="js/offline.min.js"></script>
-    <script src="js/hogan.js"></script>
+    <script src="/js/zepto.js"></script>
+    <script src="/js/touch.js"></script>
+    <script src="/js/fx.js"></script>
+    <script src="/js/lodash.js"></script>
+    <script src="/js/backbone.js"></script>
+    <script src="/js/offline.min.js"></script>
+    <script src="/js/hogan.js"></script>
 
-    <script src="js/sc.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/models_sc.js"></script>
-    <script src="js/models.js"></script>
-    <script src="js/views_sc.js"></script>
-    <script src="js/views.js"></script>
+    <script src="/js/sc.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/models_sc.js"></script>
+    <script src="/js/models.js"></script>
+    <script src="/js/views_sc.js"></script>
+    <script src="/js/views.js"></script>
 
 
     <!-- START Hogan templates -->
@@ -205,13 +205,13 @@
 
 
     <script>
-      // Catch-all.
+      // Catch-all for whatever goes wrong.
       window.onerror = function(message, url, lineNumber) {
         window.console.log('window.onerror GLOBAL FAIL: ' + message + ', ' +
             url + ', ' + lineNumber);
       };
 
-      // Hogan.
+      // Set up Hogan templates namespace.
       window.templates = {};
       $('script[type="text/html"]').each(function(i, script) {
         var name = script.id.replace('tpl_', '');
@@ -230,13 +230,13 @@
           document.write('<scr'+'ipt src="' + src + '"></sc'+'ript>');
         });
 
-      // Load the app as a cordova app.
+      // Initializes the app as a Cordova app.
       } else if (cordovaSrc_) {
         document.addEventListener('deviceready', function() {
           window['app'] = new sc.App();
         }, false);
 
-      // Load the app ala webapp style.
+      // Initialize WebApp style.
       } else {
         $(document).ready(function() {
           window['app'] = new sc.App();
