@@ -5,6 +5,7 @@
 
 # Don't check in platform build code.
 client/platforms/android
+server/update.sh
 
 # Symlinks to be created by our cordova hooks.
 client/www/css
