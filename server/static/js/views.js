@@ -174,6 +174,8 @@ sc.views.App.prototype.transitionPage = function(route) {
 sc.views.Weather = sc.views.View.extend({
   el: '.sc-weather',
   events: {
+    'tap .month-prev': 'onTapMonthPrev_',
+    'tap .month-next': 'onTapMonthNext_',
     'change select': 'onChangePrefs_'
   }
 });
@@ -189,6 +191,33 @@ sc.views.Weather.prototype.initialize = function(options) {
     this.model.fetch();
   }
 };
+
+
+/** @private */
+sc.views.Weather.prototype.onTapMonthNext_ = function(e) {
+  var $select = this.$('select[name="month"]');
+  var curMonth = $select.val();
+  var curIndex = _.indexOf(sc.models.WeatherPrefsMonths, curMonth);
+  var nextIndex = curIndex + 1;
+  if (sc.models.WeatherPrefsMonths[nextIndex]) {
+    $select.val(sc.models.WeatherPrefsMonths[nextIndex]);
+    this.onChangePrefs_();
+  }
+};
+
+
+/** @private */
+sc.views.Weather.prototype.onTapMonthPrev_ = function(e) {
+  var $select = this.$('select[name="month"]');
+  var curMonth = $select.val();
+  var curIndex = _.indexOf(sc.models.WeatherPrefsMonths, curMonth);
+  var nextIndex = curIndex - 1;
+  if (sc.models.WeatherPrefsMonths[nextIndex]) {
+    $select.val(sc.models.WeatherPrefsMonths[nextIndex]);
+    this.onChangePrefs_();
+  }
+};
+
 
 
 /** @private */

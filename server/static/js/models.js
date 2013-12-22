@@ -33,7 +33,7 @@ sc.models.WeatherPrefsCities = [
   },
   {
     'pws': 'KCAMENDO1',
-    'name': 'Mendocino'
+    'name': 'Mendo'
   },
   {
     'pws': 'KCAINVER2',
@@ -41,7 +41,7 @@ sc.models.WeatherPrefsCities = [
   },
   {
     'pws': 'KCASANFR34',  // Twin Peaks
-    'name': 'San Francisco'
+    'name': 'San Fran'
   },
   {
     'pws': 'KCASANTA134', // Walnut/King
@@ -52,18 +52,18 @@ sc.models.WeatherPrefsCities = [
 
 /** @type {Array.<string>} */
 sc.models.WeatherPrefsMonths = [
-  'January',
-  'February',
-  'March',
-  'April',
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
   'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
 ];
 
 

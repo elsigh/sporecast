@@ -23,16 +23,52 @@ body.android {
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
+
+button.month-prev,
+button.month-next,
 select {
-  font-size: 1em;
+  color: #000;
+  display: inline-block;
   background-color: #efefef;
+  font-size: 1em;
   line-height: 1;
   border: 1px solid #aaa;
   border-radius: 3px;
-  padding: 0.7em 2em 0.7em 1em;
-  width: 100%;
+  text-shadow: none;
+  vertical-align: middle;
   -webkit-appearance: none;
 }
+
+button.month-prev,
+button.month-next {
+  height: 2.5em;
+}
+
+button.month-prev::after,
+button.month-next::after {
+  color: #000;
+  content: '\25be';  /* Down arrow hexadecimal. */
+  margin: -0.5em -0.3em;
+  position: absolute;
+}
+
+button.month-prev {
+  margin: 0 -0.3em 0 0;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+button.month-next {
+  margin: 0 0 0 -0.3em;
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+label.sc-select-c select {
+  padding: 0.7em 1.5em 0.7em 1em;
+  width: 100%;
+}
+
 
 label.sc-select-c {
   display: inline-block;
@@ -44,8 +80,8 @@ label.sc-select-c ~ label.sc-select-c {
 }
 
 label.sc-select-c::after {
-  color: #333;
-  content: '\00a0\25be';  /* Down arrow hexadecimal. */
+  color: #000;
+  content: '\25be';  /* Down arrow hexadecimal. */
   position: absolute;
   right: 0.75em;
   top: 0.75em;
@@ -373,13 +409,12 @@ body.sc-app-container,
   font-size: 13px;
 }
 
-.sc-weather-data img {
-  width: 100%;
+.sc-weather-prefs form button {
+  padding: 0.1em;
 }
 
-.sc-weather-data th,
-.sc-weather-data td {
-  xwidth: 25%;
+.sc-weather-data img {
+  width: 100%;
 }
 
 .sc-weather-data .forecast td {
