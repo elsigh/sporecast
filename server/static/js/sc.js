@@ -67,7 +67,7 @@ sc.ua.IS_APP = window.location.protocol === 'file:' &&
  * The hosted web app.
  * @type {boolean}
  */
-sc.ua.IS_PROD_WEB_APP = window.location.hostname == '';
+sc.ua.IS_PROD_WEB_APP = window.location.hostname.indexOf('appspot') != -1;
 
 
 /******************************************************************************/

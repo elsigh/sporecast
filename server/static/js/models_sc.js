@@ -15,7 +15,7 @@ sc.models.SERVER_LOCAL = 'http://localhost:8090';
 /**
  * @type {string}
  */
-sc.models.SERVER_PROD = 'https://mushroomforecast.appspot.com';
+sc.models.SERVER_PROD = 'http://mushroomforecast.appspot.com';
 
 // Useful for testing from the filesystem locally.
 //sc.models.SERVER_PROD = sc.models.SERVER_LOCAL;
