@@ -41,15 +41,11 @@ select {
 
 button.month-prev,
 button.month-next {
+  background-image: url(../img/down_triangle.png);
+  background-position: 0.6em 0.6em;
+  background-repeat: no-repeat;
+  background-size: 1.2em;
   height: 2.5em;
-}
-
-button.month-prev::after,
-button.month-next::after {
-  color: #000;
-  content: '\25be';  /* Down arrow hexadecimal. */
-  margin: -0.5em -0.3em;
-  position: absolute;
 }
 
 button.month-prev {
@@ -59,13 +55,13 @@ button.month-prev {
 }
 
 button.month-next {
-  margin: 0 0 0 -0.3em;
+  margin: 0 0 0 -0.25em;
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
 
 label.sc-select-c select {
-  padding: 0.7em 1.5em 0.7em 1em;
+  padding: 0.7em 1.8em 0.7em 0.5em;
   width: 100%;
 }
 
@@ -81,10 +77,16 @@ label.sc-select-c ~ label.sc-select-c {
 
 label.sc-select-c::after {
   color: #000;
-  content: '\25be';  /* Down arrow hexadecimal. */
+  content: '';
+  display: block;
+  height: 1.5em;
+  width: 1.5em;
+  background-image: url(../img/down_triangle.png);
+  background-repeat: no-repeat;
+  background-size: 1.2em;
   position: absolute;
-  right: 0.75em;
-  top: 0.75em;
+  right: 0.2em;
+  top: 0.9em;
 }
 
 label.sc-select-c > span {

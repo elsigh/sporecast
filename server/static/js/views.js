@@ -194,28 +194,43 @@ sc.views.Weather.prototype.initialize = function(options) {
 
 
 /** @private */
-sc.views.Weather.prototype.onTapMonthNext_ = function(e) {
-  var $select = this.$('select[name="month"]');
-  var curMonth = $select.val();
-  var curIndex = _.indexOf(sc.models.WeatherPrefsMonths, curMonth);
-  var nextIndex = curIndex + 1;
-  if (sc.models.WeatherPrefsMonths[nextIndex]) {
-    $select.val(sc.models.WeatherPrefsMonths[nextIndex]);
-    this.onChangePrefs_();
-  }
+sc.views.Weather.prototype.onTapMonthNext_ = function() {
+  this.setMonthIndex_(1);
 };
 
 
 /** @private */
-sc.views.Weather.prototype.onTapMonthPrev_ = function(e) {
-  var $select = this.$('select[name="month"]');
-  var curMonth = $select.val();
+sc.views.Weather.prototype.onTapMonthPrev_ = function() {
+  this.setMonthIndex_(-1);
+};
+
+
+/**
+ * @param {number} delta The delta to change the month index.
+ * @private
+ */
+sc.views.Weather.prototype.setMonthIndex_ = function(delta) {
+  sc.log('sc.views.Weather setMonthIndex_', delta);
+  var $selectMonth = this.$('select[name="month"]');
+  var $selectYear = this.$('select[name="year"]');
+  var currentYear = window.parseInt($selectYear.val(), 10);
+  var curMonth = $selectMonth.val();
   var curIndex = _.indexOf(sc.models.WeatherPrefsMonths, curMonth);
-  var nextIndex = curIndex - 1;
+  var nextIndex = curIndex + delta;
   if (sc.models.WeatherPrefsMonths[nextIndex]) {
-    $select.val(sc.models.WeatherPrefsMonths[nextIndex]);
-    this.onChangePrefs_();
+    $selectMonth.val(sc.models.WeatherPrefsMonths[nextIndex]);
+
+  } else if (delta > 0) {
+    $selectYear.val(currentYear + delta);
+    $selectMonth.val(sc.models.WeatherPrefsMonths[0]);
+
+  } else if (delta < 0) {
+    $selectYear.val(currentYear + delta);
+    $selectMonth.val(sc.models.WeatherPrefsMonths[
+        sc.models.WeatherPrefsMonths.length - 1]);
   }
+
+  this.onChangePrefs_();
 };
 
 

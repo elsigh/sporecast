@@ -68,7 +68,7 @@ sc.models.WeatherPrefsMonths = [
 
 
 /** @type {Array.<number>} */
-sc.models.WeatherPrefsYears = [2013];
+sc.models.WeatherPrefsYears = [2014, 2013];
 
 
 /******************************************************************************/
