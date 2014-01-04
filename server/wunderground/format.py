@@ -74,9 +74,9 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                         'daynum': forecast_day_num,
                         'dayname': forecast_day_name,
                         'precipi': daily_data['pop'],
-                        'precipi_is_zero': int(daily_data['pop']) == 0,
-                        'mintempi': int(float(daily_data['high']['fahrenheit'])),
-                        'maxtempi': int(float(daily_data['low']['fahrenheit'])),
+                        'precipi_is_zero': int(daily_data['pop'] or 0) == 0,
+                        'mintempi': int(float(daily_data['high']['fahrenheit'] or 0)),
+                        'maxtempi': int(float(daily_data['low']['fahrenheit'] or 0)),
                     })
                     #print 'Adding forecast for %s' % daynum
 
@@ -88,13 +88,13 @@ for (dirpath, dirnames, filenames) in walk(data_path):
             monthly_data['data'].append({
                 'daynum': int(daynum),
                 'dayname': from_date.strftime('%a'),
-                'precipi': float(daily_data['precipi']),
+                'precipi': float(daily_data['precipi'] or 0),
                 'precipi_is_zero': int(
-                    math.ceil(float(daily_data['precipi']))) == 0,
-                'mintempi': int(float(daily_data['mintempi'])),
-                'maxtempi': int(float(daily_data['maxtempi'])),
+                    math.ceil(float(daily_data['precipi'] or 0))) == 0,
+                'mintempi': int(float(daily_data['mintempi'] or 0)),
+                'maxtempi': int(float(daily_data['maxtempi'] or 0)),
             })
-            monthly_data['total_rain'] += float(daily_data['precipi'])
+            monthly_data['total_rain'] += float(daily_data['precipi'] or 0)
             #print 'Adding past for %s' % daynum
 
     monthly_data['data'].sort(key=operator.itemgetter('daynum'))
