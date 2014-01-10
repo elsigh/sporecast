@@ -4,6 +4,7 @@
 *.pyc
 
 # Don't check in platform build code.
+client/plugins
 client/platforms/android
 server/update.sh
 
