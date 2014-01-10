@@ -20,11 +20,15 @@
 
       <h1><span>Sporecast</span></h1>
 
+      <div class="sc-take-photo"></div>
+
       <nav class="sc-tabs-c">
         <div class="sc-tabs">
           <a href="weather" class="weather sc-app-link">Weather</a
             ><a href="mob" class="mob sc-app-link"
-            >M. Observer</a>
+            >M. Observer</a
+            ><a href="photos" class="photos sc-app-link"
+            >Photos</a>
         </div>
       </nav>
 
@@ -35,6 +39,9 @@
           </section
           ><section class="sc-tab sc-tab-mob">
             <div class="sc-mob"></div>
+          </section
+          ><section class="sc-tab sc-tab-photos">
+            <div class="sc-photos"></div>
           </section>
         </div>
       </div>
@@ -69,6 +76,7 @@
     <script src="js/fx.js"></script>
     <script src="js/lodash.js"></script>
     <script src="js/backbone.js"></script>
+    <script src="js/backbone.localStorage-min.js"></script>
     <script src="js/offline.min.js"></script>
     <script src="js/hogan.js"></script>
 
@@ -92,6 +100,8 @@
           </select>
         </label>
 
+        <button class="month-prev" type="button"></button>
+
         <label class="sc-select-c">
           <span>Choose a month:</span>
           <select name="month">
@@ -100,6 +110,8 @@
             {{/months}}
           </select>
         </label>
+
+        <button class="month-next" type="button"></button>
 
         <label class="sc-select-c">
           <span>Choose a year:</span>
@@ -199,6 +211,28 @@
           <h3>No data yet ...</h3>
         {{/data}}
       </div>
+    </script>
+
+
+    <script id="tpl_photos" type="text/html">
+      <div class="data-c"></div>
+    </script>
+
+
+    <script id="tpl_photos_data" type="text/html">
+      <ul class="sc-photos-data">
+        {{#data}}
+          <li>
+            <div>
+              <img src="{{{uri}}}">
+            </div>
+            <a href="{{{uri}}}">{{{uri}}}</a>
+          </li>
+        {{/data}}
+        {{^data}}
+          <li><h3>No data yet ...</h3></li>
+        {{/data}}
+      </ul>
     </script>
 
     <!-- END Hogan templates -->

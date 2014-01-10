@@ -496,3 +496,7 @@ body.sc-app-container,
   width: 100%;
   min-height: 100px;
 }
+
+.sc-photos-data img {
+  width: 100%;
+}

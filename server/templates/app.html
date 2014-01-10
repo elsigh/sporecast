@@ -222,7 +222,12 @@
     <script id="tpl_photos_data" type="text/html">
       <ul class="sc-photos-data">
         {{#data}}
-          <li><a href="{{{url}}}">{{{url}}}</a></li>
+          <li>
+            <div>
+              <img src="{{{uri}}}">
+            </div>
+            <a href="{{{uri}}}">{{{uri}}}</a>
+          </li>
         {{/data}}
         {{^data}}
           <li><h3>No data yet ...</h3></li>

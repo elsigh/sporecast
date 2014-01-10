@@ -186,11 +186,11 @@ sc.views.App.prototype.onClickTakePhoto_ = function(e) {
   }
 
   var cameraOptions = {
-    quality: 75,
-    destinationType: navigator.camera.DestinationType.DATA_URL, //FILE_URI
-    sourceType: navigator.camera.PictureSourceType.CAMERA,
+    quality: 100,
+    destinationType: Camera.DestinationType.FILE_URI,
+    sourceType: Camera.PictureSourceType.CAMERA,
     allowEdit: true,
-    encodingType: navigator.camera.EncodingType.JPEG,
+    encodingType: Camera.EncodingType.JPEG,
     targetWidth: 800,
     //targetHeight: 800,
     //popoverOptions: CameraPopoverOptions,
