@@ -229,8 +229,8 @@ sc.views.View.setHeightAsAvailable = function($el) {
   var offset = $el.offset();
   var PADDING_BOTTOM = 15;
   var availHeight = screenH - offset.top - PADDING_BOTTOM;
-  sc.log('sc.views.View setHeightAsAvailable',
-      $el, availHeight, offset);
+  //sc.log('sc.views.View setHeightAsAvailable',
+  //    $el, availHeight, offset);
 
   $el.css('height', availHeight + 'px');
   return availHeight;
@@ -242,7 +242,7 @@ sc.views.View.setHeightAsAvailable = function($el) {
  */
 sc.views.View.prototype.makeScrollTables = function() {
   var $tables = this.$('table.sc-scroll-table:not(.sc-scroll-table-ready)');
-  sc.log('sc.views.View makeScrollTables', $tables);
+  //sc.log('sc.views.View makeScrollTables', $tables);
 
   var that = this;
   $tables.each(function(i, table) {

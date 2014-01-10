@@ -8,7 +8,8 @@
 sc.views.App = Backbone.View.extend({
   el: '.sc-app',
   events: {
-    'tap .sc-app-link': 'onClickAppLink_'
+    'tap .sc-app-link': 'onClickAppLink_',
+    'tap .sc-take-photo': 'onClickTakePhoto_'
   }
 });
 
@@ -155,11 +156,69 @@ sc.views.App.prototype.transitionPage = function(route) {
     newTab = 'mob';
     newView = this.viewMob;
 
+  } else if (_.isEqual(sc.App.Routes.PHOTOS, route)) {
+
+    if (!this.viewPhotos) {
+      this.viewPhotos = new sc.views.Photos({
+        model: this.model.photosData
+      });
+      this.viewPhotos.render();
+    }
+    newTab = 'photos';
+    newView = this.viewPhotos;
+
   }
 
   this.$('.sc-tabs .' + newTab).addClass('selected');
   this.$('.sc-tab.sc-tab-' + newTab).addClass('sc-active');
   this.setCurrentView(newView);
+};
+
+
+/**
+ * @param {Event} e A click event.
+ * @private
+ */
+sc.views.App.prototype.onClickTakePhoto_ = function(e) {
+  if (!navigator.camera) {
+    alert('Try installing the mobile App!');
+    return;
+  }
+
+  var cameraOptions = {
+    quality: 75,
+    destinationType: navigator.camera.DestinationType.DATA_URL, //FILE_URI
+    sourceType: navigator.camera.PictureSourceType.CAMERA,
+    allowEdit: true,
+    encodingType: navigator.camera.EncodingType.JPEG,
+    targetWidth: 800,
+    //targetHeight: 800,
+    //popoverOptions: CameraPopoverOptions,
+    saveToPhotoAlbum: true
+  };
+  navigator.camera.getPicture(
+      _.bind(this.onPhotoSuccess_, this),
+      _.bind(this.onPhotoError_, this),
+      cameraOptions);
+};
+
+
+/**
+ * update this.model.photosData
+ * @param {string} photoUri The path to the photo.
+ * @private
+ */
+sc.views.App.prototype.onPhotoSuccess_ = function(photoUri) {
+  this.model.photosData.create({'uri': photoUri});
+};
+
+
+/**
+ * @param {string} errorMessage An error message.
+ * @private
+ */
+sc.views.App.prototype.onPhotoError_ = function(errorMessage) {
+  alert(error);
 };
 
 
@@ -392,3 +451,72 @@ sc.views.MobData.prototype.render = function() {
   this.$el.addClass('sc-scroll-y');
 };
 
+
+/******************************************************************************/
+
+
+
+/**
+ * @extends {Backbone.View}
+ * @constructor
+ */
+sc.views.Photos = sc.views.View.extend({
+  el: '.sc-photos',
+  events: {}
+});
+
+
+/** @inheritDoc */
+sc.views.Photos.prototype.initialize = function(options) {
+  sc.log('sc.views.Photos initialize');
+  this.subView = new sc.views.PhotosData({
+    model: this.model
+  });
+};
+
+/** @inheritDoc */
+sc.views.Photos.prototype.render = function() {
+  sc.log('sc.views.Photos render');
+
+  this.$el.html(sc.views.getTemplateHtml('photos', {
+    prefs: this.model.prefs.getTemplateData()
+  }));
+
+  this.$data = this.$('.data-c');
+  this.subView.setElement(this.$data);
+  this.subView.render();
+
+  return this;
+};
+
+
+/******************************************************************************/
+
+
+
+/**
+ * @extends {Backbone.View}
+ * @constructor
+ */
+sc.views.PhotosData = sc.views.View.extend();
+
+
+/** @inheritDoc */
+sc.views.PhotosData.prototype.initialize = function(options) {
+  sc.log('views.PhotosData initialize');
+  this.listenTo(this.model, 'change', this.render);
+};
+
+
+/** @inheritDoc */
+sc.views.PhotosData.prototype.render = function() {
+  sc.log('sc.views.PhotosData render');
+
+  this.$el.html(sc.views.getTemplateHtml('photos_data', {
+    'data': this.model.getTemplateData()
+  }));
+
+  this.$el.removeClass('sc-scroll-y');
+  sc.views.View.setHeightAsAvailable(this.$el);
+  this.$el.addClass('sc-scroll-y');
+};

@@ -19,6 +19,7 @@ sc.models.App.prototype.initialize = function(opt_data, opt_options) {
 
   this.weatherData = new sc.models.WeatherData();
   this.mobData = new sc.models.MobData();
+  this.photosData = new sc.models.PhotosData();
 };
 
 
@@ -81,10 +82,12 @@ sc.models.WeatherPrefsYears = [2014, 2013];
  */
 sc.models.WeatherPrefs = sc.Model.extend({
   defaults: {
+    'id': 'weather-prefs-model',
     'city': sc.models.WeatherPrefsCities[0]['name'],
     'month': sc.models.WeatherPrefsMonths[(new Date()).getMonth()],
     'year': (new Date()).getFullYear()
-  }
+  },
+  localStorage: new Backbone.LocalStorage('weather-prefs')
 });
 
 
@@ -131,6 +134,20 @@ sc.models.WeatherPrefs.getFromUrl = function() {
   }
   sc.log('sc.models.WeatherData getPrefsFromUrl', weatherPrefs);
   return weatherPrefs;
+};
+
+
+/** @inheritDoc */
+sc.models.WeatherPrefs.prototype.initialize = function(opt_data, opt_options) {
+  this.fetch();  // get from localStorage.
+  this.listenTo(this, 'change', this.onChange_);
+};
+
+
+/** @private */
+sc.models.WeatherPrefs.prototype.onChange_ = function() {
+  sc.log('sc.models.WeatherPrefs onChange_', this.toJSON());
+  _.defer(_.bind(this.save, this));  // update localStorage
 };
 
 
@@ -237,8 +254,15 @@ sc.models.MobPrefsStates = ['CA'];
 sc.models.MobPrefs = sc.Model.extend({
   defaults: {
     'state': sc.models.MobPrefsStates[0]
-  }
+  },
+  localStorage: new Backbone.LocalStorage('mob-prefs')
 });
+
+
+/** @inheritDoc */
+sc.models.MobPrefs.prototype.initialize = function() {
+  this.fetch();
+};
 
 
 /******************************************************************************/
@@ -281,3 +305,72 @@ sc.models.MobData.prototype.url = function() {
   return url;
 };
 
+
+
+/******************************************************************************/
+
+
+/**
+ * @extends {Backbone.Model}
+ * @constructor
+ */
+sc.models.PhotosPrefs = sc.Model.extend({
+  defaults: {
+    'id': 'photos-prefs-model'
+  },
+  localStorage: new Backbone.LocalStorage('photos-prefs')
+});
+
+
+
+/******************************************************************************/
+
+
+/**
+ * @extends {Backbone.Model}
+ * @constructor
+ */
+sc.models.Photo = sc.Model.extend();
+
+
+/** @inheritDoc */
+sc.models.Photo.prototype.initialize = function() {
+  this.listenTo(this, 'change', this.onChange_);
+};
+
+
+/** @private */
+sc.models.Photo.prototype.onChange_ = function() {
+  sc.log('sc.models.Photo onChange_', this.toJSON());
+  _.defer(_.bind(this.save, this));  // update localStorage
+};
+
+
+/******************************************************************************/
+
+
+
+/**
+ * @extends {Backbone.Model}
+ * @constructor
+ */
+sc.models.PhotosData = sc.Collection.extend({
+  localStorage: new Backbone.LocalStorage('photos-data'),
+  model: sc.models.Photo
+});
+
+
+/** @inheritDoc */
+sc.models.PhotosData.prototype.initialize = function(opt_data, opt_options) {
+  sc.log('sc.models.PhotosData.initialize');
+  this.prefs = new sc.models.PhotosPrefs();
+  this.fetch();  // get from localStorage.
+  sc.log('.. fetched length', this.length);
+  this.listenTo(this, 'change', this.onChange_);
+};
+
+
+/** @private */
+sc.models.PhotosData.prototype.onChange_ = function() {
+  sc.log('sc.models.PhotosData onChange_', this.toJSON());
+};

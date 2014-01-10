@@ -335,7 +335,7 @@ body.sc-app-container,
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   -webkit-box-sizing: border-box;
-  width: 49.9%;
+  width: 33.2%;
   text-decoration: none;
   border-right: 1px solid #eee;
   border-bottom: 1px solid #bbb;
@@ -392,6 +392,16 @@ body.sc-app-container,
   border: 0;
 }
 
+.sc-take-photo {
+  background-image: url(../img/camera.png);
+  background-size: 100%;
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  z-index: 3;
+}
 
 /******************************************************************************/
 

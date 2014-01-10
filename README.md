@@ -33,7 +33,7 @@ Be sure that you have the Phonegap/Cordova CLI installed.
 ```js
 cd sporceast/client
 cordova platform add android
-cordova emalate android
+cordova emulate android
 ```
 
 You should be up and running!

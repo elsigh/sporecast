@@ -26,6 +26,7 @@ routes = [
     Route('/app/weather/<station>/<year>/<month>',
           handler='lib.www.AppHandler'),
     Route('/app/mob', handler='lib.www.AppHandler'),
+    Route('/app/photos', handler='lib.www.AppHandler'),
 
     Route('/mushroomobserver/<state>/data.json',
           handler='lib.www.MushroomObserverHandler'),

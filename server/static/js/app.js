@@ -19,6 +19,10 @@ sc.App.Routes = {
   MUSHROOM_OBSERVER: {
     url: 'mob',
     handler: 'routeMob_'
+  },
+  PHOTOS: {
+    url: 'photos',
+    handler: 'routePhotos_'
   }
 };
 
@@ -102,4 +106,13 @@ sc.App.prototype.routeWeather_ = function() {
 sc.App.prototype.routeMob_ = function() {
   sc.log('sc.App routeMob_');
   this.view.transitionPage(sc.App.Routes.MUSHROOM_OBSERVER);
+};
+
+
+/**
+ * @private
+ */
+sc.App.prototype.routePhotos_ = function() {
+  sc.log('sc.App routePhotos_');
+  this.view.transitionPage(sc.App.Routes.PHOTOS);
 };
