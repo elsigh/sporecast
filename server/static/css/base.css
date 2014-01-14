@@ -500,3 +500,13 @@ body.sc-app-container,
 .sc-photos-data img {
   width: 100%;
 }
+
+/** Jasmine **/
+.jasmine_reporter {
+  margin: 100px 0% 0 5%;
+  position: fixed;
+  z-index: 1000;
+  background: #fff;
+  width: 90%;
+  padding: 10px;
+}

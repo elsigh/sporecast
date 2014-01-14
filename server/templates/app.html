@@ -256,14 +256,21 @@
 
       // Super-wild-west-runtime-unit-testing.
       if (window.location.search.indexOf('?test=1') !== -1) {
+        document.write(
+            '<link rel="stylesheet" href="/js/jasmine-1.3.1/jasmine.css">');
         var testFiles = [
-          '/js/closure_jsunit.js',
-          '/js/sinon.js',
-          '/js/unit_tests.js'
+          '/js/jasmine-1.3.1/jasmine.js',
+          '/js/jasmine-1.3.1/jasmine-html.js',
+          '/js/spec.js',
+          '/js/jasmine-1.3.1/run.js'
         ];
+
+        window['app'] = new sc.App();
+
         $.each(testFiles, function(i, src) {
           document.write('<scr'+'ipt src="' + src + '"></sc'+'ript>');
         });
+
 
       // Initializes the app as a Cordova app.
       } else if (cordovaSrc_) {
