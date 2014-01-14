@@ -84,19 +84,20 @@ for (dirpath, dirnames, filenames) in walk(data_path):
         else:
             print '-> using daily data.'
             daily_data = json_data['history']['dailysummary'][0]
-
+            precipi = float(daily_data['precipi'] or 0)
+            precipi_rounded = int(precipi * 100 + 0.5) / 100.0
             monthly_data['data'].append({
                 'daynum': int(daynum),
                 'dayname': from_date.strftime('%a'),
-                'precipi': float(daily_data['precipi'] or 0),
-                'precipi_is_zero': int(
-                    math.ceil(float(daily_data['precipi'] or 0))) == 0,
+                'precipi': precipi_rounded,
+                'precipi_is_zero': int(math.ceil(precipi)) == 0,
                 'mintempi': int(float(daily_data['mintempi'] or 0)),
                 'maxtempi': int(float(daily_data['maxtempi'] or 0)),
             })
-            monthly_data['total_rain'] += float(daily_data['precipi'] or 0)
+            monthly_data['total_rain'] += precipi
             #print 'Adding past for %s' % daynum
 
+    monthly_data['total_rain'] = int(monthly_data['total_rain'] * 100 + 0.5) / 100.0
     monthly_data['data'].sort(key=operator.itemgetter('daynum'))
 
     # Update dirpath to point to our output dir.

@@ -31,7 +31,7 @@ routes = [
     Route('/mushroomobserver/<state>/data.json',
           handler='lib.www.MushroomObserverHandler'),
 
-    Route('/', handler='lib.www.IndexHandler'),
+    Route('/', handler='lib.www.AppHandler'),
 ]
 
 is_debug = False

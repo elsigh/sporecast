@@ -192,8 +192,6 @@ sc.views.App.prototype.onClickTakePhoto_ = function(e) {
     allowEdit: true,
     encodingType: Camera.EncodingType.JPEG,
     targetWidth: 800,
-    //targetHeight: 800,
-    //popoverOptions: CameraPopoverOptions,
     saveToPhotoAlbum: true
   };
   navigator.camera.getPicture(
@@ -356,11 +354,13 @@ sc.views.WeatherData.prototype.render = function() {
 
   this.makeScrollTables();
 
-  // Scroll down to today.
+  // Scroll down to yesterday or today.
   var $mfScrollY = this.$('.sc-scroll-y');
   var $forecast = this.$('.forecast');
   if ($mfScrollY.length && $forecast.length) {
-    $mfScrollY[0].scrollTop = $forecast[0].offsetTop;
+    var $yesterday = $forecast.prev();
+    $mfScrollY[0].scrollTop = $yesterday.length ?
+        $yesterday[0].offsetTop : $forecast[0].offsetTop;
   }
 };
 
