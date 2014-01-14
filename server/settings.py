@@ -1,6 +1,6 @@
 import os
 
-MAIL_FROM = 'MushroomForecast <lsimon@commoner.com>'
+MAIL_FROM = 'Sporecast <lsimon@commoner.com>'
 
 ROOT_PATH = os.path.dirname(__file__)
 
