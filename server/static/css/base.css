@@ -410,11 +410,15 @@ body.sc-app-container,
 
 /* Weather */
 
-.sc-weather .total-rain {
+.sc-weather .total-rain,
+.sc-weather .last-updated {
   position: absolute;
   opacity: 0.6;
   margin-top: 0.5em;
   font-size: 90%;
+}
+.sc-weather .last-updated {
+  right: 1.5em;
 }
 
 .sc-weather-prefs {

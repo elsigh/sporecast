@@ -212,6 +212,16 @@ sc.models.WeatherData.prototype.initialize = function(opt_data, opt_options) {
 };
 
 
+/** @inheritDoc */
+sc.models.WeatherData.prototype.getTemplateData = function() {
+  var data = sc.Model.prototype.getTemplateData.call(this);
+  if (data['datetime_utc']) {
+    data['last_updated'] = sc.prettyDate(
+        new Date(data['datetime_utc']).getTime());
+  }
+  return data;
+};
+
 
 /** @inheritDoc */
 sc.models.WeatherData.prototype.fetch = function(opt_options) {

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from datetime import date
+from datetime import date, datetime
 import json
 import os
 from os import walk
@@ -26,9 +26,11 @@ for (dirpath, dirnames, filenames) in walk(data_path):
     if len(filenames) == 0:
         continue
 
+    utcnow = datetime.utcnow()
     monthly_data = {
         'data': [],
-        'total_rain': 0
+        'total_rain': 0,
+        'datetime_utc': '%s %s' % (str(datetime.utcnow()), 'UTC')
     }
 
     for filename in filenames:

@@ -216,7 +216,7 @@ sc.views.App.prototype.onPhotoSuccess_ = function(photoUri) {
  * @private
  */
 sc.views.App.prototype.onPhotoError_ = function(errorMessage) {
-  alert(error);
+  alert(errorMessage);
 };
 
 
@@ -462,7 +462,9 @@ sc.views.MobData.prototype.render = function() {
  */
 sc.views.Photos = sc.views.View.extend({
   el: '.sc-photos',
-  events: {}
+  events: {
+    'tap a': 'onClickPhoto_'
+  }
 });
 
 
@@ -487,6 +489,46 @@ sc.views.Photos.prototype.render = function() {
   this.subView.render();
 
   return this;
+};
+
+
+/**
+ * @param {Event} e An event object.
+ * @private
+ */
+sc.views.Photos.prototype.onClickPhoto_ = function(e) {
+  var $anchor = $(e.currentTarget);
+  var filename = $anchor.attr('href');
+  sc.log('sc.views.Photos onClickPhoto_', filename);
+
+  var exifPlugin = cordova.require('com.elsigh.exif.ExifPlugin');
+  if (exifPlugin) {
+    exifPlugin.removeGeoTags(
+        _.bind(this.onClearExifDataSuccess_, this),
+        _.bind(this.onClearExifDataError_, this),
+        filename);
+    e.preventDefault();
+  } else {
+    sc.log('No cordova plugin available to handle the click.');
+  }
+};
+
+
+/**
+ * @param {Object} response A response.
+ * @private
+ */
+sc.views.Photos.prototype.onClearExifDataSuccess_ = function(response) {
+  sc.log('onClearExifDataSuccess_', response);
+};
+
+
+/**
+ * @param {Object} response A response.
+ * @private
+ */
+sc.views.Photos.prototype.onClearExifDataError_ = function(response) {
+  sc.log('onClearExifDataError_', response);
 };
 
 

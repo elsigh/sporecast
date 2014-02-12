@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="com.elsigh.exif"
+    version="0.1">
+    <name>ExifPlugin</name>
+    <description>Exif Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>exif</keywords>
+
+    <js-module src="www/exif_plugin.js" name="ExifPlugin"></js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ExifPlugin" >
+                <param name="android-package"
+                    value="com.elsigh.exif.ExifPlugin" />
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/ExifPlugin.java"
+            target-dir="src/com/elsigh/exif" />
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+        </config-file>
+    </platform>
+
+    <!-- ios -->
+
+
+</plugin>
