@@ -415,7 +415,7 @@ body.sc-app-container,
   position: absolute;
   opacity: 0.6;
   margin-top: 0.5em;
-  font-size: 90%;
+  font-size: 75%;
 }
 .sc-weather .last-updated {
   right: 1.5em;
