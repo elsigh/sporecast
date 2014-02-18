@@ -1,25 +1,26 @@
 #!/usr/bin/env node
- 
+
 //this hook installs all your plugins
- 
-// add your plugins to this list--either 
-// the identifier, the filesystem location 
+
+// add your plugins to this list--either
+// the identifier, the filesystem location
 // or the URL
 var pluginlist = [
-    "org.apache.cordova.camera" 
+    'org.apache.cordova.camera',
+    'org.apache.cordova.splashscreen'
 ];
- 
+
 // no need to configure below
- 
+
 var fs = require('fs');
 var path = require('path');
-var sys = require('sys')
+var sys = require('sys');
 var exec = require('child_process').exec;
- 
+
 function puts(error, stdout, stderr) {
-    sys.puts(stdout)
+    sys.puts(stdout);
 }
- 
+
 pluginlist.forEach(function(plug) {
-    exec("cordova plugin add " + plug, puts);
+    exec('cordova plugin add ' + plug, puts);
 });

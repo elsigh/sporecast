@@ -8,6 +8,8 @@
     <meta name="viewport"
       content="user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width">
 
+    <link rel="shortcut icon" href="img/favicon.png">
+
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/offline-theme-slide.css">
 
@@ -165,8 +167,11 @@
           <tr>
             <td colspan="4">
               {{#total_rain}}
-                <div class="total-rain">Monthly total: {{total_rain}}</div>
+                <div class="total-rain">Month: {{total_rain}}</div>
               {{/total_rain}}
+              {{#last_updated}}
+                <div class="last-updated">As of: {{last_updated}}</div>
+              {{/last_updated}}
               <img
                 alt="Weather Underground"
                 src="http://icons.wxug.com/logos/PNG/wundergroundLogo_white_horz.png">
