@@ -376,7 +376,8 @@ sc.views.WeatherData.prototype.render = function() {
 sc.views.Mob = sc.views.View.extend({
   el: '.sc-mob',
   events: {
-    'change select': 'onChangePrefs_'
+    'change select': 'onChangePrefs_',
+    'tap a': 'onClickLink_'
   }
 });
 
@@ -398,6 +399,17 @@ sc.views.Mob.prototype.onChangePrefs_ = function() {
   var obj = sc.views.serializeFormToObject(this.$form);
   sc.log('sc.views.Mob onChangePrefs_', obj);
   this.model.prefs.set(obj);
+};
+
+
+/**
+ * @param {Event} e A browser event.
+ * @private
+ */
+sc.views.Mob.prototype.onClickLink_ = function(e) {
+  var href = $(e.currentTarget).attr('href');
+  sc.log('onClickLink_', href);
+  // Why this no work?
 };
 
 
