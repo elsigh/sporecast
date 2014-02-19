@@ -7,6 +7,7 @@
 // or the URL
 var pluginlist = [
     'org.apache.cordova.camera',
+    'org.apache.cordova.inappbrowser',
     'org.apache.cordova.splashscreen'
 ];
 

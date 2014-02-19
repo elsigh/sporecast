@@ -409,7 +409,7 @@ sc.views.Mob.prototype.onChangePrefs_ = function() {
 sc.views.Mob.prototype.onClickLink_ = function(e) {
   var href = $(e.currentTarget).attr('href');
   sc.log('onClickLink_', href);
-  // Why this no work?
+  window.open(href, '_system');  // Uses InAppBrowser to open external browser.
 };
 
 

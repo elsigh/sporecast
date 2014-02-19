@@ -37,6 +37,7 @@ class MushroomObserverHandler(WebRequestHandler):
 
         # Look in memcache first.
         docstring = memcache.get(mob_key)
+        logging.info('docstring: %s' % docstring)
 
         # MO will serve certain non-results pages back under some circumstances
         # so if the length of the page is less than this, then don't cache.
@@ -81,13 +82,20 @@ class MushroomObserverHandler(WebRequestHandler):
             who = ''
             for cell_node in result_node.xpath('.//td'):
                 thumbnail_node = cell_node.xpath('.//*[@class="thumbnail"]/.//a')
+                what_node = cell_node.xpath('.//*[@class="ListWhat"]/.//a')
                 if len(thumbnail_node):
                     img = tostring(thumbnail_node[0])
-                else:
-                    what = tostring(cell_node.xpath('.//*[@class="ListWhat"]/.//a')[0])
+                elif len(what_node):
+                    what = tostring(what_node[0])
                     where = tostring(cell_node.xpath('.//*[@class="ListWhere"]/.//a')[0])
-                    when = cell_node.xpath('.//*[@class="ListWhen"]')[1].text
                     who = tostring(cell_node.xpath('.//*[@class="ListWho"]/.//a')[0])
+
+                    when_node = cell_node.xpath('.//*[@class="ListWhen"]')
+                    if len(when_node) >= 2:
+                        when = when_node[1].text
+                    elif len(when_node):
+                        when = when_node[0].text.replace(':', '')
+
             response_json['data'].append({
                 'img': img.strip(),
                 'what': what.strip(),

@@ -34,12 +34,12 @@ routes = [
     Route('/', handler='lib.www.AppHandler'),
 ]
 
-is_debug = False
+is_debug = True
 if 'SERVER_SOFTWARE' in os.environ:
     is_debug = 'Development' in os.environ['SERVER_SOFTWARE']
 
 app = webapp2.WSGIApplication(routes,
                               debug=is_debug)
 
-app.error_handlers[404] = ErrorNotFoundRequestHandler
-app.error_handlers[500] = ErrorInternalRequestHandler
+#app.error_handlers[404] = ErrorNotFoundRequestHandler
+#app.error_handlers[500] = ErrorInternalRequestHandler
