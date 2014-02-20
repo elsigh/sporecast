@@ -501,6 +501,19 @@ body.sc-app-container,
   min-height: 100px;
 }
 
+.sc-photos-data {
+  margin: 0;
+  padding: 0;
+}
+
+.sc-photos-data li {
+  margin-top: 2em;
+}
+
+.sc-photos-data li:first-child {
+  margin-top: 0;
+}
+
 .sc-photos-data img {
   width: 100%;
 }
