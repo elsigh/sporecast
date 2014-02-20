@@ -526,3 +526,10 @@ body.sc-app-container,
   width: 90%;
   padding: 10px;
 }
+
+/** Offline **/
+.sc-app-container .offline-ui {
+  left: 20px;
+  right: 20px;
+  width: auto;
+}
