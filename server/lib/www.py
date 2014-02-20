@@ -37,7 +37,7 @@ class MushroomObserverHandler(WebRequestHandler):
 
         # Look in memcache first.
         docstring = memcache.get(mob_key)
-        logging.info('docstring: %s' % docstring)
+        #logging.info('docstring: %s' % docstring)
 
         # MO will serve certain non-results pages back under some circumstances
         # so if the length of the page is less than this, then don't cache.
@@ -69,6 +69,7 @@ class MushroomObserverHandler(WebRequestHandler):
             doc = fromstring(html)
             logging.info('Made a lxml doc object %s' % doc)
 
+            # aka 16 minutes
             memcache.set(mob_key, html, time=1000)
             logging.info('Saved docstring to memcache')
 
