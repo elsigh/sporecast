@@ -38,26 +38,26 @@ var filestocopy = [{
     'platforms/android/res/drawable-xxxhdpi/icon.png'
 
 }, {
-    'config/android/res/drawable/splash.png':
-    'platforms/android/res/drawable/splash.png'
+    'config/android/res/drawable/splash.9.png':
+    'platforms/android/res/drawable/splash.9.png'
 }, {
-    'config/android/res/drawable-ldpi/splash.png':
-    'platforms/android/res/drawable-ldpi/splash.png'
+    'config/android/res/drawable-ldpi/splash.9.png':
+    'platforms/android/res/drawable-ldpi/splash.9.png'
 }, {
-    'config/android/res/drawable-mdpi/splash.png':
-    'platforms/android/res/drawable-mdpi/splash.png'
+    'config/android/res/drawable-mdpi/splash.9.png':
+    'platforms/android/res/drawable-mdpi/splash.9.png'
 }, {
-    'config/android/res/drawable-hdpi/splash.png':
-    'platforms/android/res/drawable-hdpi/splash.png'
+    'config/android/res/drawable-hdpi/splash.9.png':
+    'platforms/android/res/drawable-hdpi/splash.9.png'
 }, {
-    'config/android/res/drawable-xhdpi/splash.png':
-    'platforms/android/res/drawable-xhdpi/splash.png'
+    'config/android/res/drawable-xhdpi/splash.9.png':
+    'platforms/android/res/drawable-xhdpi/splash.9.png'
 }, {
-    'config/android/res/drawable-xxhdpi/splash.png':
-    'platforms/android/res/drawable-xxhdpi/splash.png'
+    'config/android/res/drawable-xxhdpi/splash.9.png':
+    'platforms/android/res/drawable-xxhdpi/splash.9.png'
 }, {
-    'config/android/res/drawable-xxxhdpi/splash.png':
-    'platforms/android/res/drawable-xxxhdpi/splash.png'
+    'config/android/res/drawable-xxxhdpi/splash.9.png':
+    'platforms/android/res/drawable-xxxhdpi/splash.9.png'
 
 // IOS
 }, {
