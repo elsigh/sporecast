@@ -81,18 +81,22 @@
     <script src="js/backbone.js"></script>
     <script src="js/backbone.localStorage-min.js"></script>
 
-    <script src="js/offline.min.js"></script>
-    <script>
-      Offline.options = {checks: {image: {url: '/img/icon.png'}}};
-    </script>
-    <script src="js/hogan.js"></script>
-
     <script src="js/sc.js"></script>
     <script src="js/app.js"></script>
     <script src="js/models_sc.js"></script>
     <script src="js/models.js"></script>
     <script src="js/views_sc.js"></script>
     <script src="js/views.js"></script>
+
+
+    <script src="js/offline.min.js"></script>
+    <script>
+      Offline.options = {checks: {
+        image: { url: sc.models.getServer() + '/img/favicon.png'},
+        active: 'image'
+      }};
+    </script>
+    <script src="js/hogan.js"></script>
 
     <!-- START Hogan templates -->
     <script id="tpl_weather" type="text/html">
