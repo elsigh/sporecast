@@ -507,11 +507,10 @@ body.sc-app-container,
 }
 
 .sc-photos-data li {
-  margin-top: 2em;
-}
-
-.sc-photos-data li:first-child {
-  margin-top: 0;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 0 0.5em 2em;
+  width: 49%;
 }
 
 .sc-photos-data img {
