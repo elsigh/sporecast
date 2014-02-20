@@ -41,7 +41,7 @@ select {
 
 button.month-prev,
 button.month-next {
-  background-image: url(../img/down_triangle.png);
+  background-image: url(/img/down_triangle.png);
   background-position: 0.6em 0.6em;
   background-repeat: no-repeat;
   background-size: 1.2em;
@@ -81,7 +81,7 @@ label.sc-select-c::after {
   display: block;
   height: 1.5em;
   width: 1.5em;
-  background-image: url(../img/down_triangle.png);
+  background-image: url(/img/down_triangle.png);
   background-repeat: no-repeat;
   background-size: 1.2em;
   position: absolute;
@@ -109,12 +109,12 @@ footer {
   z-index: 2;
   width: 100%;
   margin: 0;
-  padding: 10px;
+  padding: 10px 10px 10px 45px;
   background-color: #ccc;
-  X-background-image: url(../img/logo.png);
-  background-position: 10px 10px;
+  background-image: url(/img/icon.png);
+  background-position: 10px 5px;
   background-repeat: no-repeat;
-  background-size: 100px auto;
+  background-size: 30px auto;
   font-weight: 400;
   border-bottom: 2px solid #3b97d1;
 
@@ -393,7 +393,7 @@ body.sc-app-container,
 }
 
 .sc-take-photo {
-  background-image: url(../img/camera.png);
+  background-image: url(/img/camera.png);
   background-size: 100%;
   position: absolute;
   top: 5px;
