@@ -67,8 +67,8 @@ sc.ua.IS_APP = window.location.protocol === 'file:' &&
  * The hosted web app.
  * @type {boolean}
  */
-sc.ua.IS_PROD_WEB_APP = window.location.hostname.indexOf('appspot') !== -1 &&
-    window.location.hostname.indexOf('sporecast.net');
+sc.ua.IS_PROD_WEB_APP = window.location.hostname.indexOf('appspot') !== -1 ||
+    window.location.hostname.indexOf('sporecast.net') !== -1;
 
 
 /******************************************************************************/
