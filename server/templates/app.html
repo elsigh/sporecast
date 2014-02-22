@@ -91,10 +91,14 @@
 
     <script src="/js/offline.min.js"></script>
     <script>
-      Offline.options = {checks: {
-        image: { url: sc.models.getServer() + '/img/favicon.png'},
-        active: 'image'
-      }};
+      Offline.options = {
+        checks: {
+          image: {
+            url: sc.models.getServer() + '/img/favicon.png'
+          },
+          active: 'image'
+        }
+      };
     </script>
     <script src="/js/hogan.js"></script>
 

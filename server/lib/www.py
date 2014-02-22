@@ -19,7 +19,7 @@ class IndexHandler(WebRequestHandler):
 class AppHandler(WebRequestHandler):
     def get(self, station=None, year=None, month=None):
         # TODO(elsigh): cache this baby in memory.
-        app_html = open('templates/app.html', 'r').read()
+        app_html = self.add_version_to_template('templates/app.html')
         self.response.out.write(app_html)
 
 

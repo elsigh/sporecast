@@ -46,6 +46,16 @@ class WebRequestHandler(webapp2.RequestHandler):
             version = time.strftime('%H_%M_%S', time.gmtime())
         return version
 
+    def add_version_to_template(self, tpl):
+        html = open(tpl, 'r').read()
+        file_types = ['css', 'js']
+        version = self.version
+        for file_type in file_types:
+            logging.info('replacing %s' % file_type)
+            html = html.replace('.%s"' % file_type,
+                                '.%s?v=%s"' % (file_type, version))
+        return html
+
     def get_full_url(self, path):
         """Return the full url from the provided request handler and path."""
         pr = urlparse(self.request.url)
