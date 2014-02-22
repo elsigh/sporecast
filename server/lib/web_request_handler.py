@@ -51,7 +51,6 @@ class WebRequestHandler(webapp2.RequestHandler):
         file_types = ['css', 'js']
         version = self.version
         for file_type in file_types:
-            logging.info('replacing %s' % file_type)
             html = html.replace('.%s"' % file_type,
                                 '.%s?v=%s"' % (file_type, version))
         return html
