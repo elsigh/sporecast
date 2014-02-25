@@ -1,3 +1,8 @@
+/**
+ * @fileoverview This is a file of base classes and static functions.
+ * The actual app code lives in plain-ole views.js.
+ */
+
 
 $.ajaxSettings['xhrCount'] = 0;
 

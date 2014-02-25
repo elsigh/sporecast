@@ -1,3 +1,6 @@
+/**
+ * @fileoverview This is a file of base classes and static functions.
+ */
 
 
 /**
