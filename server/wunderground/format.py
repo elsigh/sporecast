@@ -80,7 +80,7 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                         'mintempi': int(float(daily_data['high']['fahrenheit'] or 0)),
                         'maxtempi': int(float(daily_data['low']['fahrenheit'] or 0)),
                     })
-                    #print 'Adding forecast for %s' % daynum
+                    print 'Adding forecast for %s %s' % (forecast_day_name, forecast_day_num)
 
         # DAILY DATA
         else:
