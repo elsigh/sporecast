@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-  <!--<html manifest="/app/manifest.appcache">-->
+  <!--TODO(elsigh): <html manifest="/app/manifest.appcache">-->
   <html>
   <head>
+    <title>Sporecast</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Sporecast is a rain-tracking tool for
+        Mushroom hunters.">
+    <meta name="keywords" content="mushroom,foraging,rain-tracking">
     <meta name="format-detection"
       content="telephone=no,email=no,address=no">
     <meta name="viewport"
@@ -12,10 +16,7 @@
 
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/offline-theme.css">
-
-    <!--<script src="http://clipport.net/target/target-script-min.js#R6b6Cp06"></script>-->
-    <title>Sporecast</title>
-
+    <script src="cordova.js"></script>
   </head>
   <body>
     <div class="sc-app">
@@ -52,27 +53,6 @@
       <div class="sc-msg-c" style="display:none;"><div class="sc-msg"></div></div>
     </div>
 
-    <script>
-      // When loaded via the file protocol, assume we're in "Phonegap" land.
-      var cordovaSrc_;
-      if (window.location.protocol === 'file:') {
-        cordovaSrc_ = 'cordova.js';
-      }
-
-      if (cordovaSrc_) {
-        document.write('<scr'+'ipt src="' + cordovaSrc_ + '"></sc'+'ript>');
-
-      } else {
-        // Stubs cordova so we can run this page on the web not as a
-        // cordova app.
-        cordova = {
-          addConstructor: function() {},
-          require: function() {},
-          define: function() {}
-        };
-      }
-    </script>
-
     <script src="js/zepto.js"></script>
     <script src="js/touch.js"></script>
     <script src="js/fx.js"></script>
@@ -91,10 +71,14 @@
 
     <script src="js/offline.min.js"></script>
     <script>
-      Offline.options = {checks: {
-        image: { url: sc.models.getServer() + '/img/favicon.png'},
-        active: 'image'
-      }};
+      Offline.options = {
+        checks: {
+          image: {
+            url: sc.models.getServer() + '/img/favicon.png'
+          },
+          active: 'image'
+        }
+      };
     </script>
     <script src="js/hogan.js"></script>
 
@@ -252,12 +236,6 @@
 
 
     <script>
-      // Catch-all for whatever goes wrong.
-      window.onerror = function(message, url, lineNumber) {
-        window.console.log('window.onerror GLOBAL FAIL: ' + message + ', ' +
-            url + ', ' + lineNumber);
-      };
-
       // Set up Hogan templates namespace.
       window.templates = {};
       $('script[type="text/html"]').each(function(i, script) {
@@ -265,6 +243,7 @@
         var html = $(script).html().trim();
         window.templates[name] = Hogan.compile(html);
       });
+
 
       // Super-wild-west-runtime-unit-testing.
       if (window.location.search.indexOf('?test=1') !== -1) {
@@ -283,31 +262,13 @@
           document.write('<scr'+'ipt src="' + src + '"></sc'+'ript>');
         });
 
-
-      // Initializes the app as a Cordova app.
-      } else if (cordovaSrc_) {
-        document.addEventListener('deviceready', function() {
-          window['app'] = new sc.App();
-        }, false);
-
       // Initialize WebApp style.
       } else {
-        $(document).ready(function() {
+        document.addEventListener("deviceready", function() {
           window['app'] = new sc.App();
         });
       }
 
-
-      /*
-      if (window.location.href.match(/sporecast.net/)) {
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', '', 'mushroomforecast.com');
-        ga('send', 'pageview');
-      }
-      */
     </script>
   </body>
   </html>

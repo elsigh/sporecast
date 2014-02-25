@@ -6,6 +6,19 @@
 var sc = {};
 
 
+/**
+ * Catch-all for whatever goes wrong.
+ * TODO(elsigh): Report to a server.
+ * @param {string} message Error msg.
+ * @param {string} url Error url.
+ * @param {string} lineNumber Error line num.
+ */
+window.onerror = function(message, url, lineNumber) {
+  window.console.log('window.onerror GLOBAL FAIL: ' + message + ', ' +
+      url + ', ' + lineNumber);
+};
+
+
 /******************************************************************************/
 
 
