@@ -1,7 +1,7 @@
 Sporecast
 ================
 
-http://mushroomforecast.appspot.com/app
+Check it out at **<a href="http://www.sporecast.net/" target="_blank">sporecast.net</a>**
 
 Sporecast took the worst rainfall year on record in CA to come into being.
 Every single mushroom season, I've wished I had a way to quickly look up
