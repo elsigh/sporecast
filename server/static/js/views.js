@@ -23,9 +23,14 @@ sc.views.App.prototype.initialize = function(options) {
 
   $('body').addClass('sc-platform-' + sc.ua.getPlatform());
 
-  $(window).on('orientationchange',
+  if (sc.ua.IS_CORDOVA) {
+    this.$el.addClass('sc-app-cordova');
+  }
+
+  var $window = $(window);
+  $window.on('orientationchange',
       _.debounce(_.bind(this.handleResizeOrientationChange_, this), 500), true);
-  $(window).on('resize',
+  $window.on('resize',
       _.debounce(_.bind(this.handleResizeOrientationChange_, this), 500), true);
 
   this.onChangeWeatherDataPrefs_();  // init link w/ correct href.
