@@ -92,7 +92,7 @@ You should read these scripts:
 
 [client/.cordova/hooks/after_platform_add/001_install_plugins.js](client/.cordova/hooks/after_platform_add/001_install_plugins.js)
 
-[client/.cordova/hooks/before_prepare/001_index.js](client/.cordova/hooks/before_prepare/001_index.js)
+[client/.cordova/hooks/before_prepare/001_index_and_assets.js](client/.cordova/hooks/before_prepare/001_index_and_assets.js)
 
 [client/.cordova/hooks/after_prepare/001_splash_and_icons.js](client/.cordova/hooks/after_prepare/001_splash_and_icons.js)
 

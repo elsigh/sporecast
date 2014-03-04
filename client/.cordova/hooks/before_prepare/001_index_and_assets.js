@@ -50,6 +50,7 @@ var copyRecursiveSync = function(src, dest) {
   var stats = exists && fs.statSync(src);
   var isDirectory = exists && stats.isDirectory();
   var isSymbolicLink = exists && stats.isSymbolicLink();
+  console.log(src, 'exists', exists, 'isSymbolicLink?', isSymbolicLink);
   if (exists && isDirectory) {
     fs.mkdirSync(dest);
     fs.readdirSync(src).forEach(function(childItemName) {
@@ -58,7 +59,7 @@ var copyRecursiveSync = function(src, dest) {
     });
   } else if (isSymbolicLink) {
     var realPath = fs.realpathSync(src);
-    console.log('REALPATH for', src, realPath);
+    fs.linkSync(realPath, dest);
 
   } else {
     fs.linkSync(src, dest);
