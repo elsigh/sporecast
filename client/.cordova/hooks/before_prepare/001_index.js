@@ -6,7 +6,7 @@
  *    - Adds a script tag for cordova.js
  *    - Changes absolute asset paths to be relative.
  *    - Changes document.ready to deviceready event.
- *    - Creates symlinks in www for static dirs js, css, and img.
+ *    - Copies over contenst of static asset dirs: js, css, and img.
  */
 
 var fs = require('fs');
@@ -22,20 +22,49 @@ var assetDirs = ['css', 'js', 'img'];
 
 /**
  * Look ma, it's rm -rf.
- * @param {string} itemPath The path to the thing to rm.
+ * @param {string} src The path to the thing to rm.
  */
-var deleteRecursiveSync = function(itemPath) {
-  if (fs.existsSync(itemPath) &&
-      fs.statSync(itemPath).isDirectory() &&
-      !fs.lstatSync(itemPath).isSymbolicLink()) {
-    fs.readdirSync(itemPath).forEach(function(childItemName) {
-      deleteRecursiveSync(path.join(itemPath, childItemName));
+var deleteRecursiveSync = function(src) {
+  var exists = fs.existsSync(src);
+  var stats = exists && fs.statSync(src);
+  var isDirectory = exists && stats.isDirectory();
+  var isSymbolicLink = exists && stats.isSymbolicLink();
+  if (exists && isDirectory && !isSymbolicLink) {
+    fs.readdirSync(src).forEach(function(childItemName) {
+      deleteRecursiveSync(path.join(src, childItemName));
     });
-    fs.rmdirSync(itemPath);
-  } else {
-    fs.unlinkSync(itemPath);
+    fs.rmdirSync(src);
+  } else if (exists) {
+    fs.unlinkSync(src);
   }
 };
+
+
+/**
+ * Look ma, it's cp -R.
+ * @param {string} src The path to the thing to copy.
+ * @param {string} dest The path to the new copy.
+ */
+var copyRecursiveSync = function(src, dest) {
+  var exists = fs.existsSync(src);
+  var stats = exists && fs.statSync(src);
+  var isDirectory = exists && stats.isDirectory();
+  var isSymbolicLink = exists && stats.isSymbolicLink();
+  if (exists && isDirectory) {
+    fs.mkdirSync(dest);
+    fs.readdirSync(src).forEach(function(childItemName) {
+      copyRecursiveSync(path.join(src, childItemName),
+                        path.join(dest, childItemName));
+    });
+  } else if (isSymbolicLink) {
+    var realPath = fs.realpathSync(src);
+    console.log('REALPATH for', src, realPath);
+
+  } else {
+    fs.linkSync(src, dest);
+  }
+};
+
 
 /**
  * Copies app.html from the server and fixes paths, renames to index.html
@@ -68,20 +97,25 @@ var copyAndFixAppTemplate = function() {
 /**
  * Makes symlinks for assets so there is one source of truth.
  */
-var symlinkAssetDirectories = function() {
+var syncAssetDirectories = function() {
   // Clean up asset dirs and then make symlinks to our server dir.
-  var pathServerStatic = path.join('../../server/static');  // relative to www/
+  var pathServerStatic = path.join('../server/static');
   assetDirs.forEach(function(dir) {
     var pathCordovaAsset = path.join(pathToCordovaAssets, dir);
-    //console.log('Nuking ', pathCordovaAsset);
-    deleteRecursiveSync(pathCordovaAsset);
+    var pathToSourceOfTruth = path.join(pathServerStatic, dir);
+    console.log('Synchronizing', pathToSourceOfTruth, '->', pathCordovaAsset);
 
-    var symLinkSrc = path.join(pathServerStatic, dir);
-    //console.log('Symlinking ', symLinkSrc, '->', pathCordovaAsset);
-    fs.symlinkSync(symLinkSrc, pathCordovaAsset);
+    deleteRecursiveSync(pathCordovaAsset);
+    //console.log('Nuked', pathCordovaAsset);
+
+    copyRecursiveSync(pathToSourceOfTruth, pathCordovaAsset);
+    //console.log('Copied', pathToSourceOfTruth);
   });
 };
 
-// Main routine ;0
+
+/**
+ * Main routine ;0
+ */
 copyAndFixAppTemplate();
-symlinkAssetDirectories();
+syncAssetDirectories();

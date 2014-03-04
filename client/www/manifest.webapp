@@ -1,0 +1,16 @@
+{
+  "launch_path": "/index.html",
+  "installs_allowed_from": ["*"],
+  "version": "0.0.1",
+  "pkgName": "com.elsigh.Sporecast",
+  "name": "Sporecast",
+  "description": "Sporecast is a mushroom hunter's best friend.",
+  "icons": {
+    "128": "/img/icon_128.png"
+  },
+  "developer": {
+    "name": "Lindsey Simon",
+    "url": "http://sporecast.net"
+  },
+  "default_locale": "en"
+}
