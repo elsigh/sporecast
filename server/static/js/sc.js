@@ -67,6 +67,13 @@ sc.ua.IS_IOS =
 /**
  * @type {boolean}
  */
+sc.ua.IS_FIREFOX =
+    window.navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
+
+
+/**
+ * @type {boolean}
+ */
 sc.ua.IS_CORDOVA = typeof cordova !== 'undefined';
 
 
@@ -75,8 +82,8 @@ sc.ua.IS_CORDOVA = typeof cordova !== 'undefined';
  * @type {boolean}
  */
 sc.ua.IS_APP = window.location.protocol === 'file:' &&
-                sc.ua.IS_CORDOVA &&
-                (sc.ua.IS_ANDROID || sc.ua.IS_IOS);
+               sc.ua.IS_CORDOVA &&
+               (sc.ua.IS_ANDROID || sc.ua.IS_IOS || sc.ua.IS_FIREFOX);
 
 
 /**
