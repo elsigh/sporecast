@@ -50,7 +50,7 @@ var copyRecursiveSync = function(src, dest) {
   var stats = exists && fs.statSync(src);
   var isDirectory = exists && stats.isDirectory();
   var isSymbolicLink = exists && stats.isSymbolicLink();
-  console.log(src, 'exists', exists, 'isSymbolicLink?', isSymbolicLink);
+  //console.log(src, 'exists', exists, 'isSymbolicLink?', isSymbolicLink);
   if (exists && isDirectory) {
     fs.mkdirSync(dest);
     fs.readdirSync(src).forEach(function(childItemName) {
