@@ -228,8 +228,8 @@ sc.models.WeatherData.prototype.fetch = function(opt_options) {
   sc.log('sc.models.WeatherData fetch');
 
   sc.Model.prototype.fetch.call(this, {
-    error: _.bind(function() {
-      sc.log('Error in WeatherData fetch.');
+    error: _.bind(function(model, response, options) {
+      sc.log('Error in WeatherData fetch.', response.status);
       this.clear();
     }, this)
   });

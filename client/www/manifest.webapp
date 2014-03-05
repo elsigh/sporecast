@@ -12,5 +12,8 @@
     "name": "Lindsey Simon",
     "url": "http://sporecast.net"
   },
-  "default_locale": "en"
+  "default_locale": "en",
+  "permissions": {
+    "systemXHR": {}
+  }
 }
