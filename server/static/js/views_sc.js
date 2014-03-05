@@ -6,9 +6,16 @@
 
 $.ajaxSettings['xhrCount'] = 0;
 
+$.ajaxSettings['xhr'] = function() {
+  // Support X-Domain in FFOS.
+  var xhr = new window.XMLHttpRequest({mozSystem: true});
+  sc.log('XHR object is gettinbg mozSystem setting!');
+  return xhr;
+};
+
 // Yep, we need zepto to work with CORS and cookies.
 $.ajaxSettings['beforeSend'] = function(xhr, settings) {
-  //xhr.withCredentials = true;
+  sc.log('xhr.mozSystem', xhr.mozSystem);
   $.ajaxSettings['xhrCount']++;
   sc.views.showMessage('Loading data ...', false);
 };
@@ -19,6 +26,8 @@ $.ajaxSettings['complete'] = function(xhr, status) {
     sc.views.hideMessage();
   }
 };
+
+sc.log('SET $.ajaxSettings', $.ajaxSettings);
 
 /*
 $.ajaxSettings['success'] = function(xhr, status) {
