@@ -30,13 +30,24 @@ select {
   color: #000;
   display: inline-block;
   background-color: #efefef;
+  font: inherit;
   font-size: 1em;
   line-height: 1;
+  outline: none;
   border: 1px solid #aaa;
   border-radius: 3px;
   text-shadow: none;
   vertical-align: middle;
   -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select:focus,
+button.month-prev:focus,
+button.month-next:focus {
+  -webkit-box-shadow: 0 0 3px 1px #aaa;
+  -moz-box-shadow: 0 0 3px 1px #aaa;
+  box-shadow: 0 0 3px 1px #aaa;
 }
 
 button.month-prev,
@@ -61,8 +72,15 @@ button.month-next {
 }
 
 label.sc-select-c select {
-  padding: 0.7em 1.8em 0.7em 0.5em;
+  margin: 0;
+  padding: 0.7em 0.5em;
   width: 100%;
+}
+/* for Webkit's CSS-only solution */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  label.sc-select-c select {
+    padding-right: 1.7em;
+  }
 }
 
 
@@ -76,17 +94,22 @@ label.sc-select-c ~ label.sc-select-c {
 }
 
 label.sc-select-c::after {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 2px 0;
   color: #000;
   content: '';
   display: block;
-  height: 1.5em;
   width: 1.5em;
+  background-color: #efefef;
   background-image: url(../img/down_triangle.png);
+  background-position: 0 50%;
   background-repeat: no-repeat;
   background-size: 1.2em;
   position: absolute;
   right: 0.2em;
-  top: 0.9em;
+  top: 0;
+  bottom: 0;
 }
 
 label.sc-select-c > span {
@@ -102,9 +125,10 @@ footer {
 }
 
 .sc-app h1 {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   position: fixed;
   font-size: 1.2em;
-  box-sizing: border-box;
   top: 0;
   z-index: 2;
   width: 100%;
@@ -297,6 +321,7 @@ body.sc-app-container,
 }
 
 .sc-tab {
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   padding: 10px 10px 0;
   height: 100%;
@@ -517,11 +542,21 @@ body.sc-app-container,
   box-sizing: border-box;
   display: inline-block;
   padding: 0 0.5em 2em;
+  position: relative;
   width: 49%;
 }
 
 .sc-photos-data img {
   width: 100%;
+}
+
+.sc-photos-data .delete {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  line-height: 1;
+  padding: 10px;
+  border-radius: 20px;
 }
 
 /** Jasmine **/

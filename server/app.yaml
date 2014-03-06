@@ -84,8 +84,9 @@ handlers:
   expiration: "3650d"
 
 # JSON weather data.
-- url: /wunderground/output
-  static_dir: wunderground/output
+# TODO(elsigh): Undo this hack for FFOX.
+#- url: /wunderground/output
+#  static_dir: wunderground/output
 
 # Serve static contents from root paths
 - url: /css
@@ -100,21 +101,6 @@ handlers:
   static_files: static/appcache/\1
   mime_type: text/cache-manifest
   upload: static/appcache/(.*\.appcache)
-- url: /app/css
-  static_dir: static/css
-- url: /app/js
-  static_dir: static/js
-- url: /app/img
-  static_dir: static/img
-
-# TODO(elsigh): Remove these, although they allow for general
-# urls everywhere having lots of paths is bad.
-- url: /app/.*/css
-  static_dir: static/css
-- url: /app/.*/js
-  static_dir: static/js
-- url: /app/.*/img
-  static_dir: static/img
 
 # Serve the tests for automation.
 - url: /tests
