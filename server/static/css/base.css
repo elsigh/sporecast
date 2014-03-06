@@ -26,6 +26,7 @@ body.sc-os-firefoxos {
   font-size: 12px;
 }
 
+button,
 button.month-prev,
 button.month-next,
 select {
@@ -34,6 +35,7 @@ select {
   background-color: #efefef;
   font: inherit;
   font-size: 1em;
+  font-weight: normal;
   line-height: 1;
   outline: none;
   padding: 1em;
@@ -46,8 +48,7 @@ select {
 }
 
 select:focus,
-button.month-prev:focus,
-button.month-next:focus {
+button:focus {
   -webkit-box-shadow: 0 0 3px 1px #aaa;
   -moz-box-shadow: 0 0 3px 1px #aaa;
   box-shadow: 0 0 3px 1px #aaa;
@@ -386,7 +387,7 @@ body.sc-app-container,
 .sc-app:not(.sc-app-cordova) .sc-tabs-c .photos,
 .sc-app:not(.sc-app-cordova) .sc-tab-photos,
 .sc-app:not(.sc-app-cordova) .sc-take-photo {
-  display: none;
+  Xdisplay: none;
 }
 
 .content {
@@ -538,24 +539,39 @@ body.sc-app-container,
 }
 
 .sc-photos-data li {
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   display: inline-block;
   padding: 0 0.5em 2em;
   position: relative;
   width: 49%;
+  vertical-align: top;
 }
 
 .sc-photos-data img {
+  box-shadow: 1px 1px 3px #aaa;
+  min-height: 100px;
   width: 100%;
 }
 
 .sc-photos-data .delete {
-  position: absolute;
-  top: 1em;
-  right: 1em;
+  background: #aaa;
+  border: 0;
+  border-radius: 3em;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 80%;
   line-height: 1;
-  padding: 10px;
-  border-radius: 20px;
+  opacity: 0.8;
+  padding: 0.5em 0.7em;
+  position: absolute;
+  right: 1.5em;
+  top: 1em;
+  vertical-align: middle;
+}
+
+.sc-photos-data .delete:focus {
+
 }
 
 /** Jasmine **/

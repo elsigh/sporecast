@@ -376,7 +376,7 @@ sc.models.PhotosData.prototype.initialize = function(opt_data, opt_options) {
   this.prefs = new sc.models.PhotosPrefs();
   this.fetch();  // get from localStorage.
   sc.log('.. fetched length', this.length);
-  this.listenTo(this, 'change', this.onChange_);
+  this.listenTo(this, 'change add remove', this.onChange_);
 };
 
 

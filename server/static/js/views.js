@@ -203,7 +203,7 @@ sc.views.App.prototype.transitionPage = function(route) {
  */
 sc.views.App.prototype.onClickTakePhoto_ = function(e) {
   if (!navigator.camera) {
-    alert('Try installing the mobile App!');
+    alert('The Cordova camera plugin is not available here, sorry!');
     return;
   }
 
@@ -498,7 +498,7 @@ sc.views.Photos = sc.views.View.extend({
   el: '.sc-photos',
   events: {
     //'tap img': 'onClickPhoto_'
-    'tap delete': 'onClickDelete_'
+    'tap .delete': 'onClickDelete_'
   }
 });
 
@@ -524,6 +524,21 @@ sc.views.Photos.prototype.render = function() {
   this.subView.render();
 
   return this;
+};
+
+
+/**
+ * @param {Event} e An event object.
+ * @private
+ */
+sc.views.Photos.prototype.onClickDelete_ = function(e) {
+  if (!window.confirm('Delete this photo?')) {
+    return;
+  }
+  var $listItem = $(e.currentTarget).parents('li');
+  var id = $listItem.data('id');
+  sc.log('Removing photo with id', id);
+  this.model.get(id).destory();
 };
 
 
@@ -581,7 +596,7 @@ sc.views.PhotosData = sc.views.View.extend();
 /** @inheritDoc */
 sc.views.PhotosData.prototype.initialize = function(options) {
   sc.log('views.PhotosData initialize');
-  this.listenTo(this.model, 'change', this.render);
+  this.listenTo(this.model, 'change add remove', this.render);
 };
 
 
