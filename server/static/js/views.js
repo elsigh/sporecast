@@ -538,7 +538,7 @@ sc.views.Photos.prototype.onClickDelete_ = function(e) {
   var $listItem = $(e.currentTarget).parents('li');
   var id = $listItem.data('id');
   sc.log('Removing photo with id', id);
-  this.model.get(id).destory();
+  this.model.get(id).destroy();
 };
 
 

@@ -376,7 +376,19 @@ sc.models.PhotosData.prototype.initialize = function(opt_data, opt_options) {
   this.prefs = new sc.models.PhotosPrefs();
   this.fetch();  // get from localStorage.
   sc.log('.. fetched length', this.length);
-  this.listenTo(this, 'change add remove', this.onChange_);
+  this.listenTo(this, 'change', this.onChange_);
+  this.listenTo(this, 'add', this.onAdd_);
+};
+
+
+/**
+ * @param {Backbone.Model} model The photo model.
+ * @private
+ */
+sc.models.PhotosData.prototype.onAdd_ = function(model) {
+  sc.log('sc.models.PhotosData onAdd_', model);
+  // TODO(lorin): This would be a great place to call the EXIF plugin to
+  // strip the geo data, and then store it back with the photo model data.
 };
 
 
