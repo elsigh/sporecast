@@ -99,14 +99,20 @@ class WebRequestHandler(webapp2.RequestHandler):
         self.response.headers['Content-Type'] = 'application/json'
         json_out = WebRequestHandler.json_dump(obj)
         logging.info('output_json: %s' % json_out)
+        self.response.headers.add_header("Access-Control-Allow-Origin", "*")
+        self.response.headers['Content-Type'] = '*.*'
         self.response.out.write(json_out)
 
     def output_json_success(self, obj={}):
         obj['status'] = 0
+        self.response.headers.add_header("Access-Control-Allow-Origin", "*")
+        self.response.headers['Content-Type'] = '*.*'
         self.output_json(obj)
 
     def output_json_error(self, obj={}, error_code=404):
         obj['status'] = 1
+        self.response.headers.add_header("Access-Control-Allow-Origin", "*")
+        self.response.headers['Content-Type'] = '*.*'
         self.response.set_status(error_code)
         self.output_json(obj)
 

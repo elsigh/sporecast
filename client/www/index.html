@@ -219,11 +219,11 @@
     <script id="tpl_photos_data" type="text/html">
       <ul class="sc-photos-data">
         {{#data}}
-          <li>
+          <li data-uri="{{{uri}}}">
             <div>
+              <div class="delete">✕</div>
               <img src="{{{uri}}}">
             </div>
-            <a href="{{{uri}}}">{{{uri}}}</a>
           </li>
         {{/data}}
         {{^data}}

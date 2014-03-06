@@ -35,7 +35,8 @@ sc.ua = {};
  * @return {boolean}
  */
 sc.ua.getPlatform = function() {
-  return window.device ? window.device.platform.toLowerCase() : 'desktop';
+  return window.device ?
+      window.device.platform.toLowerCase() : 'desktop';
 };
 
 
@@ -67,8 +68,8 @@ sc.ua.IS_IOS =
 /**
  * @type {boolean}
  */
-sc.ua.IS_FIREFOX =
-    window.navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
+sc.ua.IS_FIREFOX_OS = 'mozApps' in navigator &&
+    window.navigator.userAgent.search('Mobile') !== -1;
 
 
 /**
@@ -83,7 +84,7 @@ sc.ua.IS_CORDOVA = typeof cordova !== 'undefined';
  */
 sc.ua.IS_APP = window.location.protocol === 'file:' &&
                sc.ua.IS_CORDOVA &&
-               (sc.ua.IS_ANDROID || sc.ua.IS_IOS || sc.ua.IS_FIREFOX);
+               (sc.ua.IS_ANDROID || sc.ua.IS_IOS || sc.ua.IS_FIREFOX_OS);
 
 
 /**

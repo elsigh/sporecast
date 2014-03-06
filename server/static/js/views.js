@@ -21,7 +21,24 @@ sc.views.App.prototype.initialize = function(options) {
   // For some special scroll/overflow control.
   $('html,body').addClass('sc-app-container');
 
-  $('body').addClass('sc-platform-' + sc.ua.getPlatform());
+  var renderer = 'webkit';
+  if (sc.ua.IS_FIREFOX_OS) {
+    renderer = 'gecko';
+  }
+
+  var os = 'unknown';
+  if (sc.ua.IS_ANDROID) {
+    os = 'android';
+  } else if (sc.ua.IS_IOS) {
+    os = 'ios';
+  } else if (sc.ua.IS_FIREFOX_OS) {
+    os = 'firefoxos';
+  }
+
+  $('body').
+      addClass('sc-platform-' + sc.ua.getPlatform()).
+      addClass('sc-renderer-' + renderer).
+      addClass('sc-os-' + os);
 
   if (sc.ua.IS_CORDOVA) {
     this.$el.addClass('sc-app-cordova');
@@ -480,7 +497,8 @@ sc.views.MobData.prototype.render = function() {
 sc.views.Photos = sc.views.View.extend({
   el: '.sc-photos',
   events: {
-    'tap a': 'onClickPhoto_'
+    //'tap img': 'onClickPhoto_'
+    'tap delete': 'onClickDelete_'
   }
 });
 

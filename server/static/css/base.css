@@ -18,11 +18,13 @@ html, body {
   -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
 }
 
-body.ios,
-body.android {
+body.sc-renderer-webkit {
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
+body.sc-os-firefoxos {
+  font-size: 12px;
+}
 
 button.month-prev,
 button.month-next,
@@ -34,6 +36,7 @@ select {
   font-size: 1em;
   line-height: 1;
   outline: none;
+  padding: 1em;
   border: 1px solid #aaa;
   border-radius: 3px;
   text-shadow: none;
@@ -53,9 +56,9 @@ button.month-next:focus {
 button.month-prev,
 button.month-next {
   background-image: url(../img/down_triangle.png);
-  background-position: 0.6em 0.6em;
+  background-position: 50% 50%;
   background-repeat: no-repeat;
-  background-size: 1.2em;
+  background-size: 50% 50%;
   height: 2.5em;
 }
 
@@ -79,7 +82,7 @@ label.sc-select-c select {
 /* for Webkit's CSS-only solution */
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   label.sc-select-c select {
-    padding-right: 1.7em;
+    padding-right: 2em;
   }
 }
 
@@ -454,11 +457,7 @@ body.sc-app-container,
 }
 
 .sc-weather-prefs {
-  font-size: 13px;
-}
-
-.sc-weather-prefs form button {
-  padding: 0.1em;
+  font-size: 85%;
 }
 
 .sc-weather-data img {
