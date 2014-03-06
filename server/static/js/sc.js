@@ -31,11 +31,15 @@ window.onerror = function(message, url, lineNumber) {
 sc.ua = {};
 
 
+/** @type {string} */
+sc.ua.LOWER_CASE = window.navigator.userAgent.toLowerCase();
+
+
 /**
  * @return {boolean}
  */
 sc.ua.getPlatform = function() {
-  return window.device ?
+  return window.device && window.device.platform ?
       window.device.platform.toLowerCase() : 'desktop';
 };
 
@@ -53,23 +57,21 @@ sc.ua.isSimulator = function() {
 /**
  * @type {boolean}
  */
-sc.ua.IS_ANDROID =
-    window.navigator.userAgent.toLowerCase().indexOf('android') !== -1;
+sc.ua.IS_ANDROID = sc.ua.LOWER_CASE.indexOf('android') !== -1;
 
 
 /**
  * @type {boolean}
  */
-sc.ua.IS_IOS =
-    window.navigator.userAgent.toLowerCase().indexOf('iphone') !== -1 ||
-    window.navigator.userAgent.toLowerCase().indexOf('ipad') !== -1;
+sc.ua.IS_IOS = sc.ua.LOWER_CASE.indexOf('iphone') !== -1 ||
+               sc.ua.LOWER_CASE.indexOf('ipad') !== -1;
 
 
 /**
  * @type {boolean}
  */
-sc.ua.IS_FIREFOX_OS = 'mozApps' in navigator &&
-    window.navigator.userAgent.search('Mobile') !== -1;
+sc.ua.IS_FIREFOX_OS = 'mozApps' in window.navigator &&
+                      sc.ua.LOWER_CASE.indexOf('mobile') !== -1;
 
 
 /**
@@ -82,7 +84,8 @@ sc.ua.IS_CORDOVA = typeof cordova !== 'undefined';
  * The running app, and not the simulator.
  * @type {boolean}
  */
-sc.ua.IS_APP = window.location.protocol === 'file:' &&
+sc.ua.IS_APP = (window.location.protocol === 'file:' ||
+                window.location.protocol === 'app:') &&
                sc.ua.IS_CORDOVA &&
                (sc.ua.IS_ANDROID || sc.ua.IS_IOS || sc.ua.IS_FIREFOX_OS);
 
