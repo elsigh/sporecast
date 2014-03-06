@@ -23,6 +23,9 @@ from lib.cors_request_handler import CORSWunderGroundRequestHandler
 import settings
 
 routes = [
+    # Warmup
+    Route('/_ah/warmup', handler='lib.www.MushroomObserverHandler'),
+
     # App
     Route('/app', handler='lib.www.AppHandler'),
     Route('/app/weather/<station>/<year>/<month>',
