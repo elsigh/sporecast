@@ -66,6 +66,7 @@
     <script src="/js/models.js"></script>
     <script src="/js/views_sc.js"></script>
     <script src="/js/views.js"></script>
+    <script src="/js/views_html5_camera.js"></script>
 
 
     <script src="/js/offline.min.js"></script>
@@ -229,6 +230,24 @@
           <li><h3>No photos, yet.</h3></li>
         {{/data}}
       </ul>
+    </script>
+
+
+    <script id="tpl_html5camera" type="text/html">
+      <div class="sc-html5-camera">
+        <div class="contents">
+          <button class="close">✕</button>
+          <div>
+            <video autoplay></video>
+            <img src="">
+            <canvas style="display:none;"></canvas>
+          </div>
+          <div class="controls">
+            <button class="take-photo">Capture</button>
+            <button class="take-snapshot">Snapshot</button>
+          </div>
+        </div>
+      </div>
     </script>
 
     <!-- END Hogan templates -->

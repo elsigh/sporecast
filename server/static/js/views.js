@@ -202,11 +202,16 @@ sc.views.App.prototype.transitionPage = function(route) {
  * @private
  */
 sc.views.App.prototype.onClickTakePhoto_ = function(e) {
-  if (!navigator.camera) {
-    alert('The Cordova camera plugin is not available here, sorry!');
-    return;
+  if (navigator.camera) {
+    this.takePhotoCordova_();
+  } else {
+    this.takePhotoHtml5_();
   }
+};
 
+
+/** @private */
+sc.views.App.prototype.takePhotoCordova_ = function() {
   var cameraOptions = {
     quality: 100,
     destinationType: Camera.DestinationType.FILE_URI,
@@ -220,6 +225,13 @@ sc.views.App.prototype.onClickTakePhoto_ = function(e) {
       _.bind(this.onPhotoSuccess_, this),
       _.bind(this.onPhotoError_, this),
       cameraOptions);
+};
+
+
+/** @private */
+sc.views.App.prototype.takePhotoHtml5_ = function() {
+  var html5Camera = new sc.views.Html5Camera();
+  html5Camera.render();
 };
 
 
