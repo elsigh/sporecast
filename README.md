@@ -63,17 +63,41 @@ choose the sporceast/server dir.
 ```
 
 
-Cordova - Getting Started (Android)
+Cordova - Getting Started
 ------------------------------------
 
 Be sure that you have the Android SDK installed.
 Be sure that you have the Phonegap/Cordova CLI installed.
 
+Android
+=======
 ```js
 cd sporceast/client
 cordova platform add android
-cordova emulate android or cordova run android (if you have a device attached)
+cordova run android
 ```
+
+iOS
+=======
+```js
+cd sporceast/client
+cordova platform add ios
+cordova run ios
+```
+
+FirefoxOS
+=======
+```js
+cd sporceast/client
+mkdir platforms  (due to a bug in the FFOS script)
+cordova platform add firefoxos
+cordova prepare firefoxos
+```
+
+For FirefoxOS, you'll need to load the App Manager and work with things from
+there.
+[Read more about FirefoxOS](https://hacks.mozilla.org/2014/02/building-cordova-apps-for-firefox-os/)
+
 
 
 Cordova Hooks
