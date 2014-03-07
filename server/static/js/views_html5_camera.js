@@ -16,36 +16,51 @@ navigator.getUserMedia = navigator.getUserMedia ||
 sc.views.Html5Camera = Backbone.View.extend({
   el: '.sc-html5-camera',
   events: {
-    'tap .take-photo': 'onClickTakePhoto_',
     'tap .take-snapshot': 'onClickTakeSnapshot_',
+    'tap .use-snapshot': 'onClickUseSnapshot_',
     'tap .close': 'remove'
   }
 });
 
 
 /** @override */
-sc.views.Html5Camera.prototype.render = function() {
-  this.setElement(sc.views.getTemplateHtml('html5camera', {}));
-  this.$video = this.$('video');
-  this.$img = this.$('img');
-  this.$canvas = this.$('canvas');
-  this.canvasCtx = this.$canvas.get(0).getContext('2d');
-  $('body').append(this.$el);
-};
-
-
-/**
- * @param {Event} e A click event.
- * @private
- */
-sc.views.Html5Camera.prototype.onClickTakePhoto_ = function(e) {
+sc.views.Html5Camera.prototype.initialize = function() {
+  sc.log('sc.views.Html5Camera initialize!');
   if (navigator.getUserMedia) {
-    navigator.getUserMedia({video: true, audio: true},
+    this.render();
+    navigator.getUserMedia(
+        {
+          video: true,
+          audio: false
+        },
         _.bind(this.onGetUserMediaSuccess_, this),
         _.bind(this.onGetUserMediaFail_, this));
   } else {
     alert('sorry nothing for you yet without getUserMedia');
   }
+};
+
+
+/** @override */
+sc.views.Html5Camera.prototype.render = function() {
+  this.setElement(sc.views.getTemplateHtml('html5camera', {}));
+  this.$el.on('click', function(e) {
+    if ($(e.target).hasClass('sc-html5-camera')) {
+      e.stopPropagation();
+      sc.log('stopped clickery');
+    }
+  });
+  this.$video = this.$('video');
+  this.$img = this.$('img');
+  this.$canvas = this.$('canvas');
+};
+
+
+/** @override */
+sc.views.Html5Camera.prototype.remove = function() {
+  sc.log('Html5Camera removery');
+  this.trigger('html5camera:close');
+  Backbone.View.prototype.remove.call(this);
 };
 
 
@@ -55,6 +70,7 @@ sc.views.Html5Camera.prototype.onClickTakePhoto_ = function(e) {
  */
 sc.views.Html5Camera.prototype.onGetUserMediaFail_ = function(e) {
   sc.log('Rejected', e);
+  this.remove();
 };
 
 
@@ -65,6 +81,7 @@ sc.views.Html5Camera.prototype.onGetUserMediaFail_ = function(e) {
 sc.views.Html5Camera.prototype.onGetUserMediaSuccess_ = function(stream) {
   this.stream_ = stream;
   this.$video.attr('src', window.URL.createObjectURL(this.stream_));
+  $('body').append(this.$el);
 };
 
 
@@ -73,7 +90,24 @@ sc.views.Html5Camera.prototype.onClickTakeSnapshot_ = function() {
   if (!this.stream_) {
     return;
   }
+  this.$('.use-snapshot').removeAttr('disabled');
+
+  var offset = this.$video.offset();
+
+  this.$img.height(offset.height);
+  this.$canvas.height(offset.height);
+
+  console.log(this.$video.offset(), this.$img.offset());
+  this.$canvas.get(0).getContext('2d').drawImage(
+      this.$video.get(0), 0, 0,
+      offset.width, offset.height);
   // "image/webp" works in Chrome. Other browsers will fall back to image/png.
-  this.canvasCtx.drawImage(this.$video.get(0), 0, 0);
   this.$img.attr('src', this.$canvas.get(0).toDataURL('image/webp'));
+};
+
+
+/** @private */
+sc.views.Html5Camera.prototype.onClickUseSnapshot_ = function() {
+  this.trigger('html5camera:use-snapshot-src', [this.$img.attr('src')]);
+  this.remove();
 };

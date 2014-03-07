@@ -28,7 +28,7 @@ builtins:
 
 
 inbound_services:
-- warmup
+#- warmup
 
 
 # Magic skip configuration, do not edit.

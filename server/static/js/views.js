@@ -202,6 +202,7 @@ sc.views.App.prototype.transitionPage = function(route) {
  * @private
  */
 sc.views.App.prototype.onClickTakePhoto_ = function(e) {
+  sc.log('sc.views.App onClickTakePhoto_');
   if (navigator.camera) {
     this.takePhotoCordova_();
   } else {
@@ -230,8 +231,13 @@ sc.views.App.prototype.takePhotoCordova_ = function() {
 
 /** @private */
 sc.views.App.prototype.takePhotoHtml5_ = function() {
+  sc.log('sc.views.App takePhotoHtml5_')
   var html5Camera = new sc.views.Html5Camera();
-  html5Camera.render();
+  this.listenTo(html5Camera, 'html5camera:use-snapshot-src',
+    _.bind(this.onPhotoSuccess_, this));
+  this.listenTo(html5Camera, 'html5camera:close', _.bind(function() {
+    this.stopListening(html5Camera);
+  }, this));
 };
 
 
@@ -509,7 +515,6 @@ sc.views.MobData.prototype.render = function() {
 sc.views.Photos = sc.views.View.extend({
   el: '.sc-photos',
   events: {
-    //'tap img': 'onClickPhoto_'
     'tap .delete': 'onClickDelete_'
   }
 });
@@ -551,28 +556,6 @@ sc.views.Photos.prototype.onClickDelete_ = function(e) {
   var id = $listItem.data('id');
   sc.log('Removing photo with id', id);
   this.model.get(id).destroy();
-};
-
-
-/**
- * @param {Event} e An event object.
- * @private
- */
-sc.views.Photos.prototype.onClickPhoto_ = function(e) {
-  var $anchor = $(e.currentTarget);
-  var filename = $anchor.attr('href');
-  sc.log('sc.views.Photos onClickPhoto_', filename);
-
-  var exifPlugin = cordova.require('com.elsigh.exif.ExifPlugin');
-  if (exifPlugin) {
-    exifPlugin.removeGeoTags(
-        _.bind(this.onClearExifDataSuccess_, this),
-        _.bind(this.onClearExifDataError_, this),
-        filename);
-    e.preventDefault();
-  } else {
-    sc.log('No cordova plugin available to handle the click.');
-  }
 };
 
 

@@ -67,6 +67,7 @@
     <script src="js/models.js"></script>
     <script src="js/views_sc.js"></script>
     <script src="js/views.js"></script>
+    <script src="js/views_html5_camera.js"></script>
 
 
     <script src="js/offline.min.js"></script>
@@ -150,7 +151,7 @@
           {{/data}}
           {{^data}}
             <tr>
-              <td colspan="4">No data</td>
+              <td colspan="4">No data, yet ...</td>
             </tr>
           {{/data}}
         </tbody>
@@ -205,7 +206,7 @@
           </div>
         {{/data}}
         {{^data}}
-          <h3>No data yet ...</h3>
+          <h3>No data, yet ...</h3>
         {{/data}}
       </div>
     </script>
@@ -219,17 +220,35 @@
     <script id="tpl_photos_data" type="text/html">
       <ul class="sc-photos-data">
         {{#data}}
-          <li data-uri="{{{uri}}}">
+          <li data-id="{{{id}}}">
             <div>
-              <div class="delete">✕</div>
+              <button class="delete">✕</button>
               <img src="{{{uri}}}">
             </div>
           </li>
         {{/data}}
         {{^data}}
-          <li><h3>No data yet ...</h3></li>
+          <li><h3>No photos, yet.</h3></li>
         {{/data}}
       </ul>
+    </script>
+
+
+    <script id="tpl_html5camera" type="text/html">
+      <div class="sc-html5-camera">
+        <div class="contents">
+          <button class="close">✕</button>
+          <div>
+            <video autoplay></video>
+            <img src="">
+            <canvas style="display:none;"></canvas>
+          </div>
+          <div class="controls">
+            <button class="take-snapshot">Snapshot</button>
+            <button class="use-snapshot" disabled>Use it!</button>
+          </div>
+        </div>
+      </div>
     </script>
 
     <!-- END Hogan templates -->
