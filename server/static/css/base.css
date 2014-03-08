@@ -583,12 +583,14 @@ body.sc-app-container,
 
 /** Jasmine **/
 .jasmine_reporter {
-  margin: 100px 0% 0 5%;
+  border: 3px solid #000;
+  margin: 100px 0% 0 2em;
   position: fixed;
   z-index: 1000;
   background: #fff;
   width: 90%;
   padding: 10px;
+  text-shadow: none;
 }
 
 /** Offline **/

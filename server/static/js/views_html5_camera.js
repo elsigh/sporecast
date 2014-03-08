@@ -95,14 +95,17 @@ sc.views.Html5Camera.prototype.onClickTakeSnapshot_ = function() {
   }
   this.$('.use-snapshot').removeAttr('disabled');
 
+  var videoEl = this.$video.get(0);
+
   var offset = this.$video.offset();
+  //this.$img.width(videoEl.videoWidth);
+  //this.$img.height(videoEl.videoWidth);
 
   this.$img.height(offset.height);
   this.$canvas.height(offset.height);
 
-  console.log(this.$video.offset(), this.$img.offset());
   this.$canvas.get(0).getContext('2d').drawImage(
-      this.$video.get(0), 0, 0,
+      videoEl, 0, 0,
       offset.width, offset.height);
   // "image/webp" works in Chrome. Other browsers will fall back to image/png.
   this.$img.attr('src', this.$canvas.get(0).toDataURL('image/webp'));

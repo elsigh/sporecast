@@ -98,6 +98,8 @@ For FirefoxOS, you'll need to load the App Manager and work with things from
 there.
 [Read more about FirefoxOS](https://hacks.mozilla.org/2014/02/building-cordova-apps-for-firefox-os/)
 
+[Install the Add-ons](https://ftp.mozilla.org/pub/mozilla.org/labs/fxos-simulator/)
+
 
 
 Cordova Hooks
