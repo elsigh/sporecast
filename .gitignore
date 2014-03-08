@@ -12,6 +12,7 @@ server/update.sh
 client/www/css
 client/www/js
 client/www/img
+client/www/index.html
 
 
 # OS generated files #
