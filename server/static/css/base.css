@@ -22,10 +22,6 @@ body.sc-renderer-webkit {
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
-body.sc-os-firefoxos {
-  font-size: 12px;
-}
-
 button,
 button.month-prev,
 button.month-next,
@@ -46,6 +42,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+
 
 select:focus,
 button:focus {
@@ -635,4 +632,14 @@ body.sc-app-container,
 
 .sc-html5-camera .controls {
   margin: 1em auto;
+}
+
+/** Firefox OS overlays */
+
+body.sc-os-firefoxos {
+  font-size: 12px;
+}
+
+body.sc-os-firefoxos select {
+  padding-right: 0;
 }
