@@ -22,6 +22,15 @@ body.sc-renderer-webkit {
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
+/** Firefox OS overlays */
+body.sc-os-firefoxos {
+  font-size: 12px;
+}
+
+body.sc-os-firefoxos select {
+  padding-right: 0;
+}
+
 button,
 button.month-prev,
 button.month-next,
@@ -61,13 +70,13 @@ button.month-next {
 }
 
 button.month-prev {
-  margin: 0 -0.3em 0 0;
+  margin: 0 -0.1em 0 0;
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 
 button.month-next {
-  margin: 0 0 0 -0.25em;
+  margin: 0 0 0 -0.1em;
   -webkit-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
@@ -509,7 +518,7 @@ body.sc-app-container,
 }
 */
 
-/* MO */
+/* Mushroom Observer tab */
 .sc-mob .sc-scroll-y {
   border: 1px solid #aaa;
   border-radius: 3px;
@@ -557,6 +566,7 @@ body.sc-app-container,
   min-height: 100px;
 }
 
+/** Photos tab */
 .sc-photos-data {
   margin: 0;
   padding: 0;
@@ -632,14 +642,4 @@ body.sc-app-container,
 
 .sc-html5-camera .controls {
   margin: 1em auto;
-}
-
-/** Firefox OS overlays */
-
-body.sc-os-firefoxos {
-  font-size: 12px;
-}
-
-body.sc-os-firefoxos select {
-  padding-right: 0;
 }

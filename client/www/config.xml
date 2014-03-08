@@ -8,7 +8,7 @@
         Apache Cordova Team
     </author>
     <preference name="SplashScreen" value="splash" />
-    <preference name="BackgroundColor" value="0xffcccccc" />
+    <preference name="BackgroundColor" value="0x00000000" />
     <content src="index.html" />
     <access origin="*" />
 </widget>
