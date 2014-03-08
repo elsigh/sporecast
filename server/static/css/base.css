@@ -500,9 +500,17 @@ body.sc-app-container,
 .sc-weather-data .forecast td {
   border-top-width: 2px;
 }
+
 .sc-weather-data .forecast ~ .forecast td {
   border-top-width: 1px;
 }
+
+/*
+.sc-weather-data tfoot td {
+  background: url(../img/wundergroundLogo_white_horz.png) 0 0 no-repeat;
+  background-size: 100% 100%;
+}
+*/
 
 /* MO */
 .sc-mob .sc-scroll-y {
