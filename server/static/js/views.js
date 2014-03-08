@@ -248,6 +248,8 @@ sc.views.App.prototype.takePhotoHtml5_ = function() {
  */
 sc.views.App.prototype.onPhotoSuccess_ = function(photoUri) {
   this.model.photosData.create({'uri': photoUri});
+  window['app'].navigate(sc.App.Routes.PHOTOS.url);
+  this.transitionPage(sc.App.Routes.PHOTOS);
 };
 
 
