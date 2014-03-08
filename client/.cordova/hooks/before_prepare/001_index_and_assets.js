@@ -6,7 +6,7 @@
  *    - Adds a script tag for cordova.js
  *    - Changes absolute asset paths to be relative.
  *    - Changes document.ready to deviceready event.
- *    - Copies over contenst of static asset dirs: js, css, and img.
+ *    - Copies over contents of static asset dirs: js, css, and img.
  */
 
 var fs = require('fs');
