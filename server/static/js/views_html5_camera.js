@@ -60,6 +60,9 @@ sc.views.Html5Camera.prototype.render = function() {
 sc.views.Html5Camera.prototype.remove = function() {
   sc.log('Html5Camera removery');
   this.trigger('html5camera:close');
+  if (this.stream_ && this.stream_.stop) {
+    this.stream_.stop();
+  }
   Backbone.View.prototype.remove.call(this);
 };
 
