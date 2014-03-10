@@ -5,7 +5,6 @@
  * Cordova path www/index.html and modifies it in the process:
  *    - Adds a script tag for cordova.js
  *    - Changes absolute asset paths to be relative.
- *    - Changes document.ready to deviceready event.
  *    - Copies over contents of static asset dirs: js, css, and img.
  */
 
@@ -79,10 +78,6 @@ var copyAndFixAppTemplate = function() {
     // Add cordova.js
     str = str.replace('</head>',
                       '  <script src="cordova.js"></script>\n  </head>');
-
-    // Changes document.ready to deviceready event.
-    str = str.replace(/\$\(document\)\.ready\(/,
-        'document.addEventListener("deviceready", ');
 
 
     // Make absolute static paths relative, minus the "static" bit.

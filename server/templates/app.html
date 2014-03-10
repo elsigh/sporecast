@@ -52,241 +52,26 @@
       <div class="sc-msg-c" style="display:none;"><div class="sc-msg"></div></div>
     </div>
 
-    <script src="/js/zepto.js"></script>
-    <script src="/js/touch.js"></script>
-    <script src="/js/fx.js"></script>
+    <script src="/js/deps/zepto.js"></script>
+    <script src="/js/deps/touch.js"></script>
+    <script src="/js/deps/fx.js"></script>
+    <script src="/js/deps/lodash.js"></script>
+    <script src="/js/deps/backbone.js"></script>
+    <script src="/js/deps/backbone.localStorage-min.js"></script>
+    <script src="/js/deps/offline.min.js"></script>
+    <script src="/js/deps/template.js"></script>
 
-    <script src="/js/lodash.js"></script>
-    <script src="/js/backbone.js"></script>
-    <script src="/js/backbone.localStorage-min.js"></script>
-
+    <script src="/js/sc_templates.js"></script>
     <script src="/js/sc.js"></script>
+
     <script src="/js/app.js"></script>
     <script src="/js/models_sc.js"></script>
     <script src="/js/models.js"></script>
     <script src="/js/views_sc.js"></script>
     <script src="/js/views.js"></script>
-    <script src="/js/views_html5_camera.js"></script>
+    <script src="/js/views_html5camera.js"></script>
 
+    <script src="/js/sc_init.js"></script>
 
-    <script src="/js/offline.min.js"></script>
-    <script>
-      Offline.options = {
-        checks: {
-          image: {
-            url: sc.models.getServer() + '/img/favicon.png'
-          },
-          active: 'image'
-        }
-      };
-    </script>
-    <script src="/js/hogan.js"></script>
-
-    <!-- START Hogan templates -->
-    <script id="tpl_weather" type="text/html">
-      <form class="sc-weather-prefs">
-        <label class="sc-select-c">
-          <span>Choose a city:</span>
-          <select name="city">
-            {{#cities}}
-              <option val="{{pws}}">{{name}}</option>
-            {{/cities}}
-          </select>
-        </label>
-
-        <button class="month-prev" type="button"></button>
-
-        <label class="sc-select-c">
-          <span>Choose a month:</span>
-          <select name="month">
-            {{#months}}
-              <option>{{.}}</option>
-            {{/months}}
-          </select>
-        </label>
-
-        <button class="month-next" type="button"></button>
-
-        <label class="sc-select-c">
-          <span>Choose a year:</span>
-          <select name="year">
-            {{#years}}
-              <option>{{.}}</option>
-            {{/years}}
-          </select>
-        </label>
-
-      </form>
-
-      <div class="data-c"></div>
-    </script>
-
-
-    <script id="tpl_weather_data" type="text/html">
-      <table class="sc-weather-data sc-scroll-table">
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th>Rain</th>
-            <th>Low</th>
-            <th>High</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#data}}
-            <tr {{#is_forecast}}class="forecast"{{/is_forecast}}>
-              <td class="day">{{dayname}} {{daynum}}</td>
-              <td class="precip precip-{{precipi}}">
-                {{#precipi_is_zero}}
-                  -
-                {{/precipi_is_zero}}
-                {{^precipi_is_zero}}
-                  {{precipi}}{{#is_forecast}}%{{/is_forecast}}
-                {{/precipi_is_zero}}
-              </td>
-              <td>{{mintempi}}°</td>
-              <td>{{maxtempi}}°</td>
-            </tr>
-          {{/data}}
-          {{^data}}
-            <tr>
-              <td colspan="4">No data, yet ...</td>
-            </tr>
-          {{/data}}
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4" class="wunderground-logo">
-              {{#total_rain}}
-                <div class="total-rain">Total: {{total_rain}}</div>
-              {{/total_rain}}
-              {{#last_updated}}
-                <div class="last-updated">As of: {{last_updated}}</div>
-              {{/last_updated}}
-              <img
-                alt=""
-                src="http://icons.wxug.com/logos/PNG/wundergroundLogo_white_horz.png">
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-    </script>
-
-
-    <script id="tpl_mob" type="text/html">
-      <div class="credit">
-        <a href="http://www.mushroomobserver.org/"
-          target="_blank">visit mushroomobserver.org</a>
-      </div>
-
-      <form class="sc-mob-prefs">
-        <label class="sc-select-c">
-          <span>Choose a state:</span>
-          <select name="state">
-            {{#states}}
-              <option>{{.}}</option>
-            {{/states}}
-          </select>
-        </label>
-      </form>
-
-      <div class="data-c"></div>
-    </script>
-
-
-    <script id="tpl_mob_data" type="text/html">
-      <div class="sc-mob-data">
-        {{#data}}
-          <div class="observation">
-            <div>{{{when}}}</div>
-            <div>{{{img}}}</div>
-            <div>{{{what}}}</div>
-            <div>{{{where}}} {{{who}}}</div>
-          </div>
-        {{/data}}
-        {{^data}}
-          <h3>No data, yet ...</h3>
-        {{/data}}
-      </div>
-    </script>
-
-
-    <script id="tpl_photos" type="text/html">
-      <div class="data-c"></div>
-    </script>
-
-
-    <script id="tpl_photos_data" type="text/html">
-      <ul class="sc-photos-data">
-        {{#data}}
-          <li data-id="{{{id}}}">
-            <div>
-              <button class="delete">✕</button>
-              <img src="{{{uri}}}">
-            </div>
-          </li>
-        {{/data}}
-        {{^data}}
-          <li><h3>No photos, yet.</h3></li>
-        {{/data}}
-      </ul>
-    </script>
-
-
-    <script id="tpl_html5camera" type="text/html">
-      <div class="sc-html5-camera">
-        <div class="contents">
-          <button class="close">✕</button>
-          <div>
-            <video autoplay></video>
-            <img src="">
-            <canvas style="display:none;"></canvas>
-          </div>
-          <div class="controls">
-            <button class="take-snapshot">Snapshot</button>
-            <button class="use-snapshot" disabled>Use it!</button>
-          </div>
-        </div>
-      </div>
-    </script>
-
-    <!-- END Hogan templates -->
-
-
-    <script>
-      // Set up Hogan templates namespace.
-      window.templates = {};
-      $('script[type="text/html"]').each(function(i, script) {
-        var name = script.id.replace('tpl_', '');
-        var html = $(script).html().trim();
-        window.templates[name] = Hogan.compile(html);
-      });
-
-
-      // Super-wild-west-runtime-unit-testing.
-      if (window.location.search.indexOf('?test=1') !== -1) {
-        document.write(
-            '<link rel="stylesheet" href="/js/jasmine-1.3.1/jasmine.css">');
-        var testFiles = [
-          '/js/jasmine-1.3.1/jasmine.js',
-          '/js/jasmine-1.3.1/jasmine-html.js',
-          '/js/spec.js',
-          '/js/jasmine-1.3.1/run.js'
-        ];
-
-        window['app'] = new sc.App();
-
-        $.each(testFiles, function(i, src) {
-          document.write('<scr'+'ipt src="' + src + '"></sc'+'ript>');
-        });
-
-      // Initialize WebApp style.
-      } else {
-        $(document).ready(function() {
-          window['app'] = new sc.App();
-        });
-      }
-
-    </script>
   </body>
   </html>

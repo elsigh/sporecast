@@ -22,15 +22,6 @@ body.sc-renderer-webkit {
   -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
-/** Firefox OS overlays */
-body.sc-os-firefoxos {
-  font-size: 12px;
-}
-
-body.sc-os-firefoxos select {
-  padding-right: 0;
-}
-
 button,
 button.month-prev,
 button.month-next,
@@ -156,7 +147,7 @@ footer {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   position: fixed;
-  font-size: 19px;
+  font-size: 1.2em;
   top: 0;
   z-index: 2;
   width: 100%;
@@ -642,4 +633,19 @@ body.sc-app-container,
 
 .sc-html5-camera .controls {
   margin: 1em auto;
+}
+
+/** Firefox OS overlays */
+body.sc-os-firefoxos .sc-tab-frame-c {
+  font-size: 12px;
+}
+
+body.sc-os-firefoxos label.sc-select-c select {
+  padding-right: 0;
+}
+
+/* Keon screen is so small! */
+body.sc-os-firefoxos button.month-prev,
+body.sc-os-firefoxos button.month-next {
+  display: none;
 }
