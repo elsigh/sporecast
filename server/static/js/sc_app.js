@@ -1,5 +1,10 @@
 
 
+/**
+ * @type {Object}
+ */
+var sc = {};
+
 
 /**
  * @constructor
@@ -44,7 +49,7 @@ sc.App.getRouteByUrl = function(url) {
 
 /** @inheritDoc */
 sc.App.prototype.initialize = function(options) {
-  sc.log('sc.App initialize');
+  bone.log('sc.App initialize');
 
   _.each(sc.App.Routes, _.bind(function(route) {
     this.route(route.url, route.handler);
@@ -70,13 +75,13 @@ sc.App.prototype.initialize = function(options) {
  * @private
  */
 sc.App.prototype.initHistory_ = function() {
-  sc.log('sc.App.initHistory_', window.location);
+  bone.log('sc.App.initHistory_', window.location);
 
   var usePushState = true;
   var root = '/app/';
   var silent = false;
 
-  sc.log('Backbone.history.start', usePushState, silent);
+  bone.log('Backbone.history.start', usePushState, silent);
   var matchedRoute = Backbone.history.start({
     pushState: usePushState,
     root: root,
@@ -95,7 +100,7 @@ sc.App.prototype.initHistory_ = function() {
  * @private
  */
 sc.App.prototype.routeWeather_ = function() {
-  sc.log('sc.App routeWeather_');
+  bone.log('sc.App routeWeather_');
   this.view.transitionPage(sc.App.Routes.WEATHER);
 };
 
@@ -104,7 +109,7 @@ sc.App.prototype.routeWeather_ = function() {
  * @private
  */
 sc.App.prototype.routeMob_ = function() {
-  sc.log('sc.App routeMob_');
+  bone.log('sc.App routeMob_');
   this.view.transitionPage(sc.App.Routes.MUSHROOM_OBSERVER);
 };
 
@@ -113,6 +118,6 @@ sc.App.prototype.routeMob_ = function() {
  * @private
  */
 sc.App.prototype.routePhotos_ = function() {
-  sc.log('sc.App routePhotos_');
+  bone.log('sc.App routePhotos_');
   this.view.transitionPage(sc.App.Routes.PHOTOS);
 };

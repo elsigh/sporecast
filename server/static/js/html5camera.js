@@ -25,7 +25,7 @@ sc.views.Html5Camera = Backbone.View.extend({
 
 /** @override */
 sc.views.Html5Camera.prototype.initialize = function() {
-  sc.log('sc.views.Html5Camera initialize!');
+  bone.log('sc.views.Html5Camera initialize!');
   if (navigator.getUserMedia) {
     this.render();
     navigator.getUserMedia(
@@ -43,11 +43,11 @@ sc.views.Html5Camera.prototype.initialize = function() {
 
 /** @override */
 sc.views.Html5Camera.prototype.render = function() {
-  this.setElement(sc.views.getTemplateHtml('html5camera', {}));
+  this.setElement(bone.View.getTemplateHtml('html5camera', {}));
   this.$el.on('click', function(e) {
     if ($(e.target).hasClass('sc-html5-camera')) {
       e.stopPropagation();
-      sc.log('stopped clickery');
+      bone.log('stopped clickery');
     }
   });
   this.$video = this.$('video');
@@ -58,7 +58,7 @@ sc.views.Html5Camera.prototype.render = function() {
 
 /** @override */
 sc.views.Html5Camera.prototype.remove = function() {
-  sc.log('Html5Camera removery');
+  bone.log('Html5Camera removery');
   this.trigger('html5camera:close');
   if (this.stream_ && this.stream_.stop) {
     this.stream_.stop();
@@ -72,7 +72,7 @@ sc.views.Html5Camera.prototype.remove = function() {
  * @private
  */
 sc.views.Html5Camera.prototype.onGetUserMediaFail_ = function(e) {
-  sc.log('Rejected', e);
+  bone.log('Rejected', e);
   this.remove();
 };
 

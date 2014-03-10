@@ -1,0 +1,35 @@
+<form class="sc-weather-prefs">
+  <label class="sc-select-c">
+    <span>Choose a city:</span>
+    <select name="city">
+      {{#cities}}
+        <option val="{{pws}}">{{name}}</option>
+      {{/cities}}
+    </select>
+  </label>
+
+  <button class="month-prev" type="button"></button>
+
+  <label class="sc-select-c">
+    <span>Choose a month:</span>
+    <select name="month">
+      {{#months}}
+        <option>{{.}}</option>
+      {{/months}}
+    </select>
+  </label>
+
+  <button class="month-next" type="button"></button>
+
+  <label class="sc-select-c">
+    <span>Choose a year:</span>
+    <select name="year">
+      {{#years}}
+        <option>{{.}}</option>
+      {{/years}}
+    </select>
+  </label>
+
+</form>
+
+<div class="data-c"></div>

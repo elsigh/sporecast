@@ -31,7 +31,7 @@ if (window.location.search.indexOf('?test=1') !== -1) {
 
 
 // PhoneGap init
-} else if (sc.ua.IS_CORDOVA) {
+} else if (bone.ua.IS_CORDOVA) {
   document.addEventListener('deviceready', function() {
     window['app'] = new sc.App();
   });

@@ -6,28 +6,27 @@
 
 $.ajaxSettings['xhrCount'] = 0;
 
+/*
 $.ajaxSettings['xhr'] = function() {
   // Support X-Domain in FFOS.
   var xhr = new window.XMLHttpRequest({mozSystem: true});
-  sc.log('XHR object is gettinbg mozSystem setting!');
+  bone.log('XHR object is gettinbg mozSystem setting!');
   return xhr;
 };
+*/
 
-// Yep, we need zepto to work with CORS and cookies.
 $.ajaxSettings['beforeSend'] = function(xhr, settings) {
-  sc.log('xhr.mozSystem', xhr.mozSystem);
   $.ajaxSettings['xhrCount']++;
-  sc.views.showMessage('Loading data ...', false);
+  bone.View.showMessage('Loading data ...', false);
 };
 
 $.ajaxSettings['complete'] = function(xhr, status) {
   $.ajaxSettings['xhrCount']--;
   if ($.ajaxSettings['xhrCount'] === 0) {
-    sc.views.hideMessage();
+    bone.View.hideMessage();
   }
 };
 
-sc.log('SET $.ajaxSettings', $.ajaxSettings);
 
 /*
 $.ajaxSettings['success'] = function(xhr, status) {
@@ -77,10 +76,12 @@ $(document).ready(function(e) {
 });
 
 
+
 /**
- * @type {Object} Views namespace.
+ * @constructor
+ * @extends {Backbone.View}
  */
-sc.views = {};
+bone.View = Backbone.View.extend();
 
 
 /**
@@ -89,14 +90,14 @@ sc.views = {};
  * @param {Object=} opt_partials Template partials.
  * @return {string} The template as HTML.
  */
-sc.views.getTemplateHtml = function(name, opt_data, opt_partials) {
+bone.View.getTemplateHtml = function(name, opt_data, opt_partials) {
   var data = opt_data || {};
   _.extend(data, {
     'global_external_protocol': window.location.protocol == 'file:' ?
         'http' : window.location.protocol,
     'api_server': sc.models.SERVER,
-    'is_android': sc.ua.IS_ANDROID,
-    'is_ios': sc.ua.IS_IOS
+    'is_android': bone.ua.IS_ANDROID,
+    'is_ios': bone.ua.IS_IOS
   });
   var html = window['templates'][name].render(data, opt_partials);
   return html;
@@ -108,7 +109,7 @@ sc.views.getTemplateHtml = function(name, opt_data, opt_partials) {
  * @param {Element|Zepto} form A form element reference.
  * @return {Object} A dictionary of name value pairs.
  */
-sc.views.serializeFormToObject = function(form) {
+bone.View.serializeFormToObject = function(form) {
   var data = {};
   var $form = $(form);
   var arrayData = $form.serializeArray();
@@ -155,11 +156,11 @@ sc.views.serializeFormToObject = function(form) {
  * @param {string} msg The message to show.
  * @param {boolean=} opt_autoHide Pass false to not hide it automatically.
  */
-sc.views.showMessage = function(msg, opt_autoHide) {
-  sc.log('sc.views.hideMessage', msg, opt_autoHide);
+bone.View.showMessage = function(msg, opt_autoHide) {
+  bone.log('bone.View.hideMessage', msg, opt_autoHide);
   var callback = opt_autoHide === false ? function() {} :
-      sc.views.hideMessage_;
-  sc.views.clearHideMessageTimeout_();
+      bone.View.hideMessage_;
+  bone.View.clearHideMessageTimeout_();
   $('.sc-tab-frame').css('opacity', '0.5');
   $('.sc-msg').text(msg);
 
@@ -175,24 +176,24 @@ sc.views.showMessage = function(msg, opt_autoHide) {
 /**
  * @private {number}
  */
-sc.views.hideMessageTimeout_ = null;
+bone.View.hideMessageTimeout_ = null;
 
 
 /**
  * @private
  */
-sc.views.clearHideMessageTimeout_ = function() {
-  if (sc.views.hideMessageTimeout_ !== null) {
-    window.clearTimeout(sc.views.hideMessageTimeout_);
-    sc.views.hideMessageTimeout_ = null;
+bone.View.clearHideMessageTimeout_ = function() {
+  if (bone.View.hideMessageTimeout_ !== null) {
+    window.clearTimeout(bone.View.hideMessageTimeout_);
+    bone.View.hideMessageTimeout_ = null;
   }
 };
 
 
 /** Hide it */
-sc.views.hideMessage = function() {
-  sc.log('sc.views.hideMessage');
-  sc.views.clearHideMessageTimeout_();
+bone.View.hideMessage = function() {
+  bone.log('bone.View.hideMessage');
+  bone.View.clearHideMessageTimeout_();
   $('.sc-msg-c').css('opacity', '1');
   $('.sc-msg-c').animate(
       {
@@ -221,15 +222,11 @@ sc.views.hideMessage = function() {
 /**
  * @private
  */
-sc.views.hideMessage_ = function() {
-  sc.views.clearHideMessageTimeout_();
-  sc.views.hideMessageTimeout_ = _.delay(
-      sc.views.hideMessage, 1500);
+bone.View.hideMessage_ = function() {
+  bone.View.clearHideMessageTimeout_();
+  bone.View.hideMessageTimeout_ = _.delay(
+      bone.View.hideMessage, 1500);
 };
-
-
-/****** MF VIEW ********/
-sc.views.View = Backbone.View.extend();
 
 
 /**
@@ -237,13 +234,13 @@ sc.views.View = Backbone.View.extend();
  * @param {Zepto} $el A zepto.
  * @return {number} The new height.
  */
-sc.views.View.setHeightAsAvailable = function($el) {
+bone.View.setHeightAsAvailable = function($el) {
   var screenW = document.documentElement.clientWidth;
   var screenH = document.documentElement.clientHeight;
   var offset = $el.offset();
   var PADDING_BOTTOM = 15;
   var availHeight = screenH - offset.top - PADDING_BOTTOM;
-  //sc.log('sc.views.View setHeightAsAvailable',
+  //bone.log('bone.View setHeightAsAvailable',
   //    $el, availHeight, offset);
 
   $el.css('height', availHeight + 'px');
@@ -254,9 +251,9 @@ sc.views.View.setHeightAsAvailable = function($el) {
 /**
  * Makes the data container independently scrollable.
  */
-sc.views.View.prototype.makeScrollTables = function() {
+bone.View.prototype.makeScrollTables = function() {
   var $tables = this.$('table.sc-scroll-table:not(.sc-scroll-table-ready)');
-  //sc.log('sc.views.View makeScrollTables', $tables);
+  //bone.log('bone.View makeScrollTables', $tables);
 
   var that = this;
   $tables.each(function(i, table) {
@@ -315,7 +312,7 @@ sc.views.View.prototype.makeScrollTables = function() {
 };
 
 /** @private */
-sc.views.View.prototype.resizeScrollTables_ = function() {
+bone.View.prototype.resizeScrollTables_ = function() {
   this.$('table.sc-scroll-table').each(function(i, table) {
     var $table = $(table);
     var $div = $table.find('.sc-scroll-table-td > div');
@@ -323,7 +320,7 @@ sc.views.View.prototype.resizeScrollTables_ = function() {
 
     var theadHeight = $table.find('thead').offset().height;
     var tfootHeight = $table.find('tfoot').offset().height;
-    var tableHeight = sc.views.View.setHeightAsAvailable($table);
+    var tableHeight = bone.View.setHeightAsAvailable($table);
 
     var divHeight = tableHeight - theadHeight - tfootHeight;
     $div.css('height', divHeight + 'px');

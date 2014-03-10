@@ -1,5 +1,10 @@
 
 
+/**
+ * @type {Object} Views namespace.
+ */
+sc.views = {};
+
 
 /**
  * @extends {Backbone.View}
@@ -16,31 +21,31 @@ sc.views.App = Backbone.View.extend({
 
 /** @inheritDoc */
 sc.views.App.prototype.initialize = function(options) {
-  sc.log('sc.views.App.initialize', this.model);
+  bone.log('sc.views.App.initialize', this.model);
 
   // For some special scroll/overflow control.
   $('html,body').addClass('sc-app-container');
 
   var renderer = 'webkit';
-  if (sc.ua.IS_FIREFOX_OS) {
+  if (bone.ua.IS_FIREFOX_OS) {
     renderer = 'gecko';
   }
 
   var os = 'unknown';
-  if (sc.ua.IS_ANDROID) {
+  if (bone.ua.IS_ANDROID) {
     os = 'android';
-  } else if (sc.ua.IS_IOS) {
+  } else if (bone.ua.IS_IOS) {
     os = 'ios';
-  } else if (sc.ua.IS_FIREFOX_OS) {
+  } else if (bone.ua.IS_FIREFOX_OS) {
     os = 'firefoxos';
   }
 
   $('body').
-      addClass('sc-platform-' + sc.ua.getPlatform()).
+      addClass('sc-platform-' + bone.ua.getPlatform()).
       addClass('sc-renderer-' + renderer).
       addClass('sc-os-' + os);
 
-  if (sc.ua.IS_CORDOVA) {
+  if (bone.ua.IS_CORDOVA) {
     this.$el.addClass('sc-app-cordova');
   }
 
@@ -61,7 +66,7 @@ sc.views.App.prototype.initialize = function(options) {
  * @private
  */
 sc.views.App.prototype.onClickAppLink_ = function(e) {
-  sc.log('sc.views.App.onClickAppLink_', e);
+  bone.log('sc.views.App.onClickAppLink_', e);
   e.preventDefault();
   window['app'].navigate($(e.currentTarget).attr('href'),
                          {trigger: true});
@@ -143,7 +148,7 @@ sc.views.App.prototype.setCurrentView = function(view) {
  * @param {Object} route A route.
  */
 sc.views.App.prototype.transitionPage = function(route) {
-  sc.log('sc.views.App --> transitionPage', route);
+  bone.log('sc.views.App --> transitionPage', route);
 
   var newTab;
   var newView;
@@ -202,7 +207,7 @@ sc.views.App.prototype.transitionPage = function(route) {
  * @private
  */
 sc.views.App.prototype.onClickTakePhoto_ = function(e) {
-  sc.log('sc.views.App onClickTakePhoto_');
+  bone.log('sc.views.App onClickTakePhoto_');
   if (navigator.camera) {
     this.takePhotoCordova_();
   } else {
@@ -231,7 +236,7 @@ sc.views.App.prototype.takePhotoCordova_ = function() {
 
 /** @private */
 sc.views.App.prototype.takePhotoHtml5_ = function() {
-  sc.log('sc.views.App takePhotoHtml5_')
+  bone.log('sc.views.App takePhotoHtml5_')
   var html5Camera = new sc.views.Html5Camera();
   this.listenTo(html5Camera, 'html5camera:use-snapshot-src',
     _.bind(this.onPhotoSuccess_, this));
@@ -270,7 +275,7 @@ sc.views.App.prototype.onPhotoError_ = function(errorMessage) {
  * @extends {Backbone.View}
  * @constructor
  */
-sc.views.Weather = sc.views.View.extend({
+sc.views.Weather = bone.View.extend({
   el: '.sc-weather',
   events: {
     'tap .month-prev': 'onTapMonthPrev_',
@@ -282,7 +287,7 @@ sc.views.Weather = sc.views.View.extend({
 
 /** @inheritDoc */
 sc.views.Weather.prototype.initialize = function(options) {
-  sc.log('views.Weather initialize');
+  bone.log('views.Weather initialize');
   this.subView = new sc.views.WeatherData({
     model: this.model
   });
@@ -309,7 +314,7 @@ sc.views.Weather.prototype.onTapMonthPrev_ = function() {
  * @private
  */
 sc.views.Weather.prototype.setMonthIndex_ = function(delta) {
-  sc.log('sc.views.Weather setMonthIndex_', delta);
+  bone.log('sc.views.Weather setMonthIndex_', delta);
   var $selectMonth = this.$('select[name="month"]');
   var $selectYear = this.$('select[name="year"]');
   var currentYear = window.parseInt($selectYear.val(), 10);
@@ -336,17 +341,17 @@ sc.views.Weather.prototype.setMonthIndex_ = function(delta) {
 
 /** @private */
 sc.views.Weather.prototype.onChangePrefs_ = function() {
-  var obj = sc.views.serializeFormToObject(this.$form);
-  sc.log('sc.views.Weather onChangePrefs_', obj);
+  var obj = bone.View.serializeFormToObject(this.$form);
+  bone.log('sc.views.Weather onChangePrefs_', obj);
   this.model.prefs.set(obj);
 };
 
 
 /** @inheritDoc */
 sc.views.Weather.prototype.render = function() {
-  sc.log('sc.views.Weather render');
+  bone.log('sc.views.Weather render');
 
-  this.$el.html(sc.views.getTemplateHtml('weather', {
+  this.$el.html(bone.View.getTemplateHtml('weather', {
     prefs: this.model.prefs.getTemplateData(),
     cities: sc.models.WeatherPrefsCities,
     months: sc.models.WeatherPrefsMonths,
@@ -375,23 +380,23 @@ sc.views.Weather.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-sc.views.WeatherData = sc.views.View.extend({
+sc.views.WeatherData = bone.View.extend({
   events: {}
 });
 
 
 /** @inheritDoc */
 sc.views.WeatherData.prototype.initialize = function(options) {
-  sc.log('views.WeatherData initialize');
+  bone.log('views.WeatherData initialize');
   this.listenTo(this.model, 'change', this.render);
 };
 
 
 /** @inheritDoc */
 sc.views.WeatherData.prototype.render = function() {
-  sc.log('sc.views.WeatherData render');
+  bone.log('sc.views.WeatherData render');
 
-  this.$el.html(sc.views.getTemplateHtml('weather_data',
+  this.$el.html(bone.View.getTemplateHtml('weather_data',
       this.model.getTemplateData()));
 
   this.makeScrollTables();
@@ -415,7 +420,7 @@ sc.views.WeatherData.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-sc.views.Mob = sc.views.View.extend({
+sc.views.Mob = bone.View.extend({
   el: '.sc-mob',
   events: {
     'change select': 'onChangePrefs_',
@@ -426,7 +431,7 @@ sc.views.Mob = sc.views.View.extend({
 
 /** @inheritDoc */
 sc.views.Mob.prototype.initialize = function(options) {
-  sc.log('sc.views.Mob initialize');
+  bone.log('sc.views.Mob initialize');
   this.subView = new sc.views.MobData({
     model: this.model
   });
@@ -438,8 +443,8 @@ sc.views.Mob.prototype.initialize = function(options) {
 
 /** @private */
 sc.views.Mob.prototype.onChangePrefs_ = function() {
-  var obj = sc.views.serializeFormToObject(this.$form);
-  sc.log('sc.views.Mob onChangePrefs_', obj);
+  var obj = bone.View.serializeFormToObject(this.$form);
+  bone.log('sc.views.Mob onChangePrefs_', obj);
   this.model.prefs.set(obj);
 };
 
@@ -450,16 +455,16 @@ sc.views.Mob.prototype.onChangePrefs_ = function() {
  */
 sc.views.Mob.prototype.onClickLink_ = function(e) {
   var href = $(e.currentTarget).attr('href');
-  sc.log('onClickLink_', href);
+  bone.log('onClickLink_', href);
   window.open(href, '_system');  // Uses InAppBrowser to open external browser.
 };
 
 
 /** @inheritDoc */
 sc.views.Mob.prototype.render = function() {
-  sc.log('sc.views.Mob render');
+  bone.log('sc.views.Mob render');
 
-  this.$el.html(sc.views.getTemplateHtml('mob', {
+  this.$el.html(bone.View.getTemplateHtml('mob', {
     prefs: this.model.prefs.getTemplateData(),
     states: sc.models.MobPrefsStates
   }));
@@ -483,25 +488,25 @@ sc.views.Mob.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-sc.views.MobData = sc.views.View.extend();
+sc.views.MobData = bone.View.extend();
 
 
 /** @inheritDoc */
 sc.views.MobData.prototype.initialize = function(options) {
-  sc.log('views.MobData initialize');
+  bone.log('views.MobData initialize');
   this.listenTo(this.model, 'change', this.render);
 };
 
 
 /** @inheritDoc */
 sc.views.MobData.prototype.render = function() {
-  sc.log('sc.views.MobData render');
+  bone.log('sc.views.MobData render');
 
-  this.$el.html(sc.views.getTemplateHtml('mob_data',
+  this.$el.html(bone.View.getTemplateHtml('mob_data',
       this.model.getTemplateData()));
 
   this.$el.removeClass('sc-scroll-y');
-  sc.views.View.setHeightAsAvailable(this.$el);
+  bone.View.setHeightAsAvailable(this.$el);
   this.$el.addClass('sc-scroll-y');
 };
 
@@ -514,7 +519,7 @@ sc.views.MobData.prototype.render = function() {
  * @extends {Backbone.View}
  * @constructor
  */
-sc.views.Photos = sc.views.View.extend({
+sc.views.Photos = bone.View.extend({
   el: '.sc-photos',
   events: {
     'tap .delete': 'onClickDelete_'
@@ -524,7 +529,7 @@ sc.views.Photos = sc.views.View.extend({
 
 /** @inheritDoc */
 sc.views.Photos.prototype.initialize = function(options) {
-  sc.log('sc.views.Photos initialize');
+  bone.log('sc.views.Photos initialize');
   this.subView = new sc.views.PhotosData({
     model: this.model
   });
@@ -532,9 +537,9 @@ sc.views.Photos.prototype.initialize = function(options) {
 
 /** @inheritDoc */
 sc.views.Photos.prototype.render = function() {
-  sc.log('sc.views.Photos render');
+  bone.log('sc.views.Photos render');
 
-  this.$el.html(sc.views.getTemplateHtml('photos', {
+  this.$el.html(bone.View.getTemplateHtml('photos', {
     prefs: this.model.prefs.getTemplateData()
   }));
 
@@ -556,7 +561,7 @@ sc.views.Photos.prototype.onClickDelete_ = function(e) {
   }
   var $listItem = $(e.currentTarget).parents('li');
   var id = $listItem.data('id');
-  sc.log('Removing photo with id', id);
+  bone.log('Removing photo with id', id);
   this.model.get(id).destroy();
 };
 
@@ -566,7 +571,7 @@ sc.views.Photos.prototype.onClickDelete_ = function(e) {
  * @private
  */
 sc.views.Photos.prototype.onClearExifDataSuccess_ = function(response) {
-  sc.log('onClearExifDataSuccess_', response);
+  bone.log('onClearExifDataSuccess_', response);
 };
 
 
@@ -575,7 +580,7 @@ sc.views.Photos.prototype.onClearExifDataSuccess_ = function(response) {
  * @private
  */
 sc.views.Photos.prototype.onClearExifDataError_ = function(response) {
-  sc.log('onClearExifDataError_', response);
+  bone.log('onClearExifDataError_', response);
 };
 
 
@@ -587,25 +592,25 @@ sc.views.Photos.prototype.onClearExifDataError_ = function(response) {
  * @extends {Backbone.View}
  * @constructor
  */
-sc.views.PhotosData = sc.views.View.extend();
+sc.views.PhotosData = bone.View.extend();
 
 
 /** @inheritDoc */
 sc.views.PhotosData.prototype.initialize = function(options) {
-  sc.log('views.PhotosData initialize');
+  bone.log('views.PhotosData initialize');
   this.listenTo(this.model, 'change add remove', this.render);
 };
 
 
 /** @inheritDoc */
 sc.views.PhotosData.prototype.render = function() {
-  sc.log('sc.views.PhotosData render');
+  bone.log('sc.views.PhotosData render');
 
-  this.$el.html(sc.views.getTemplateHtml('photos_data', {
+  this.$el.html(bone.View.getTemplateHtml('photos_data', {
     'data': this.model.getTemplateData()
   }));
 
   this.$el.removeClass('sc-scroll-y');
-  sc.views.View.setHeightAsAvailable(this.$el);
+  bone.View.setHeightAsAvailable(this.$el);
   this.$el.addClass('sc-scroll-y');
 };

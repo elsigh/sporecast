@@ -1,0 +1,14 @@
+
+  <div class="sc-mob-data">
+    {{#data}}
+      <div class="observation">
+        <div>{{{when}}}</div>
+        <div>{{{img}}}</div>
+        <div>{{{what}}}</div>
+        <div>{{{where}}} {{{who}}}</div>
+      </div>
+    {{/data}}
+    {{^data}}
+      <h3>No data, yet ...</h3>
+    {{/data}}
+  </div>

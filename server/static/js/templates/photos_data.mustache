@@ -1,0 +1,14 @@
+
+  <ul class="sc-photos-data">
+    {{#data}}
+      <li data-id="{{{id}}}">
+        <div>
+          <button class="delete">✕</button>
+          <img src="{{{uri}}}">
+        </div>
+      </li>
+    {{/data}}
+    {{^data}}
+      <li><h3>No photos, yet.</h3></li>
+    {{/data}}
+  </ul>

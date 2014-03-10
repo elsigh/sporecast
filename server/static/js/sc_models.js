@@ -1,4 +1,40 @@
+/**
+ * @fileoverview This is a file of base classes and static functions.
+ * The actual app code lives in plain-ole models.js.
+ */
 
+
+/**
+ * @type {Object} Models namespace.
+ */
+sc.models = {};
+
+
+/**
+ * @type {string}
+ */
+sc.models.SERVER_LOCAL = 'http://localhost:8090';
+
+
+/**
+ * @type {string}
+ */
+sc.models.SERVER_PROD = window.location.hostname.indexOf('appspot') !== -1 ?
+    'http://mushroomforecast.appspot.com' :
+    'http://www.sporecast.net';
+
+// Useful for testing from the filesystem locally.
+//sc.models.SERVER_PROD = sc.models.SERVER_LOCAL;
+//sc.models.SERVER_LOCAL = sc.models.SERVER_PROD;
+
+
+/**
+ * @return {string} The server endpoint.
+ */
+sc.models.getServer = function() {
+  return (bone.ua.IS_APP || bone.ua.IS_PROD_WEB_APP) && !bone.ua.isSimulator() ?
+      sc.models.SERVER_PROD : sc.models.SERVER_LOCAL;
+};
 
 
 /******************************************************************************/
@@ -15,7 +51,7 @@ sc.models.App = Backbone.Model.extend();
 
 /** @inheritDoc */
 sc.models.App.prototype.initialize = function(opt_data, opt_options) {
-  sc.log('sc.models.App.initialize');
+  bone.log('sc.models.App.initialize');
 
   this.weatherData = new sc.models.WeatherData();
   this.mobData = new sc.models.MobData();
@@ -80,7 +116,7 @@ sc.models.WeatherPrefsYears = [2014, 2013];
  * @extends {Backbone.Model}
  * @constructor
  */
-sc.models.WeatherPrefs = sc.Model.extend({
+sc.models.WeatherPrefs = bone.Model.extend({
   defaults: {
     'id': 'weather-prefs-model',
     'city': sc.models.WeatherPrefsCities[0]['name'],
@@ -109,7 +145,7 @@ sc.models.WeatherPrefs.getStation = function(city) {
  * @return {string} A city.
  */
 sc.models.WeatherPrefs.getCity = function(station) {
-  sc.log('sc.models.WeatherPrefs.getCity', station);
+  bone.log('sc.models.WeatherPrefs.getCity', station);
   for (var i = 0, cityObj; cityObj = sc.models.WeatherPrefsCities[i]; i++) {
     if (cityObj['pws'] == station) {
       return cityObj['name'];
@@ -132,7 +168,7 @@ sc.models.WeatherPrefs.getFromUrl = function() {
       'month': sc.models.WeatherPrefsMonths[matches[3] - 1]
     };
   }
-  sc.log('sc.models.WeatherData getPrefsFromUrl', weatherPrefs);
+  bone.log('sc.models.WeatherData getPrefsFromUrl', weatherPrefs);
   return weatherPrefs;
 };
 
@@ -146,7 +182,7 @@ sc.models.WeatherPrefs.prototype.initialize = function(opt_data, opt_options) {
 
 /** @private */
 sc.models.WeatherPrefs.prototype.onChange_ = function() {
-  sc.log('sc.models.WeatherPrefs onChange_', this.toJSON());
+  bone.log('sc.models.WeatherPrefs onChange_', this.toJSON());
   _.defer(_.bind(this.save, this));  // update localStorage
 };
 
@@ -177,7 +213,7 @@ sc.models.WeatherPrefs.prototype.getMonthNum = function() {
 
 /** @inheritDoc */
 sc.models.WeatherPrefs.prototype.getTemplateData = function() {
-  var data = sc.Model.prototype.getTemplateData.call(this);
+  var data = bone.Model.prototype.getTemplateData.call(this);
   data['station'] = this.getStation();
   return data;
 };
@@ -191,7 +227,7 @@ sc.models.WeatherPrefs.prototype.getTemplateData = function() {
  * @extends {Backbone.Model}
  * @constructor
  */
-sc.models.WeatherData = sc.Model.extend();
+sc.models.WeatherData = bone.Model.extend();
 
 
 /**
@@ -205,7 +241,7 @@ sc.models.WeatherData.padMonth = function(number) {
 
 /** @inheritDoc */
 sc.models.WeatherData.prototype.initialize = function(opt_data, opt_options) {
-  sc.log('sc.models.WeatherData initialize');
+  bone.log('sc.models.WeatherData initialize');
   this.prefs = new sc.models.WeatherPrefs(
       sc.models.WeatherPrefs.getFromUrl());
   this.listenTo(this.prefs, 'change', this.fetch);
@@ -214,9 +250,9 @@ sc.models.WeatherData.prototype.initialize = function(opt_data, opt_options) {
 
 /** @inheritDoc */
 sc.models.WeatherData.prototype.getTemplateData = function() {
-  var data = sc.Model.prototype.getTemplateData.call(this);
+  var data = bone.Model.prototype.getTemplateData.call(this);
   if (data['datetime_utc']) {
-    data['last_updated'] = sc.prettyDate(
+    data['last_updated'] = bone.prettyDate(
         new Date(data['datetime_utc']).getTime());
   }
   return data;
@@ -225,11 +261,11 @@ sc.models.WeatherData.prototype.getTemplateData = function() {
 
 /** @inheritDoc */
 sc.models.WeatherData.prototype.fetch = function(opt_options) {
-  sc.log('sc.models.WeatherData fetch');
+  bone.log('sc.models.WeatherData fetch');
 
-  sc.Model.prototype.fetch.call(this, {
+  bone.Model.prototype.fetch.call(this, {
     error: _.bind(function(model, response, options) {
-      sc.log('Error in WeatherData fetch.', response.status);
+      bone.log('Error in WeatherData fetch.', response.status);
       this.clear();
     }, this)
   });
@@ -245,7 +281,7 @@ sc.models.WeatherData.prototype.url = function() {
   var url = sc.models.getServer() + '/wunderground/output/' +
       this.prefs.getStation() + '/' + this.prefs.get('year') + '/' +
       monthAsString + '/data.json';
-  sc.log('sc.models.WeatherData url', url);
+  bone.log('sc.models.WeatherData url', url);
   return url;
 };
 
@@ -261,7 +297,7 @@ sc.models.MobPrefsStates = ['CA'];
  * @extends {Backbone.Model}
  * @constructor
  */
-sc.models.MobPrefs = sc.Model.extend({
+sc.models.MobPrefs = bone.Model.extend({
   defaults: {
     'state': sc.models.MobPrefsStates[0]
   },
@@ -283,12 +319,12 @@ sc.models.MobPrefs.prototype.initialize = function() {
  * @extends {Backbone.Model}
  * @constructor
  */
-sc.models.MobData = sc.Model.extend();
+sc.models.MobData = bone.Model.extend();
 
 
 /** @inheritDoc */
 sc.models.MobData.prototype.initialize = function(opt_data, opt_options) {
-  sc.log('sc.models.MobData.initialize');
+  bone.log('sc.models.MobData.initialize');
   this.prefs = new sc.models.MobPrefs();
   this.listenTo(this.prefs, 'change', this.fetch);
 };
@@ -296,10 +332,10 @@ sc.models.MobData.prototype.initialize = function(opt_data, opt_options) {
 
 /** @inheritDoc */
 sc.models.MobData.prototype.fetch = function(opt_options) {
-  sc.log('sc.models.MobData.fetch');
-  sc.Model.prototype.fetch.call(this, {
+  bone.log('sc.models.MobData.fetch');
+  bone.Model.prototype.fetch.call(this, {
     error: _.bind(function() {
-      sc.log('Error in MobData fetch.');
+      bone.log('Error in MobData fetch.');
       this.clear();
     }, this)
   });
@@ -324,7 +360,7 @@ sc.models.MobData.prototype.url = function() {
  * @extends {Backbone.Model}
  * @constructor
  */
-sc.models.PhotosPrefs = sc.Model.extend({
+sc.models.PhotosPrefs = bone.Model.extend({
   defaults: {
     'id': 'photos-prefs-model'
   },
@@ -340,7 +376,7 @@ sc.models.PhotosPrefs = sc.Model.extend({
  * @extends {Backbone.Model}
  * @constructor
  */
-sc.models.Photo = sc.Model.extend();
+sc.models.Photo = bone.Model.extend();
 
 
 /** @inheritDoc */
@@ -351,7 +387,7 @@ sc.models.Photo.prototype.initialize = function() {
 
 /** @private */
 sc.models.Photo.prototype.onChange_ = function() {
-  sc.log('sc.models.Photo onChange_', this.toJSON());
+  bone.log('sc.models.Photo onChange_', this.toJSON());
   _.defer(_.bind(this.save, this));  // update localStorage
 };
 
@@ -364,7 +400,7 @@ sc.models.Photo.prototype.onChange_ = function() {
  * @extends {Backbone.Model}
  * @constructor
  */
-sc.models.PhotosData = sc.Collection.extend({
+sc.models.PhotosData = bone.Collection.extend({
   localStorage: new Backbone.LocalStorage('photos-data'),
   model: sc.models.Photo
 });
@@ -372,10 +408,10 @@ sc.models.PhotosData = sc.Collection.extend({
 
 /** @inheritDoc */
 sc.models.PhotosData.prototype.initialize = function(opt_data, opt_options) {
-  sc.log('sc.models.PhotosData.initialize');
+  bone.log('sc.models.PhotosData.initialize');
   this.prefs = new sc.models.PhotosPrefs();
   this.fetch();  // get from localStorage.
-  sc.log('.. fetched length', this.length);
+  bone.log('.. fetched length', this.length);
   this.listenTo(this, 'change', this.onChange_);
   this.listenTo(this, 'add', this.onAdd_);
 };
@@ -386,7 +422,7 @@ sc.models.PhotosData.prototype.initialize = function(opt_data, opt_options) {
  * @private
  */
 sc.models.PhotosData.prototype.onAdd_ = function(model) {
-  sc.log('sc.models.PhotosData onAdd_', model);
+  bone.log('sc.models.PhotosData onAdd_', model);
   // TODO(lorin): This would be a great place to call the EXIF plugin to
   // strip the geo data, and then store it back with the photo model data.
 };
@@ -394,5 +430,5 @@ sc.models.PhotosData.prototype.onAdd_ = function(model) {
 
 /** @private */
 sc.models.PhotosData.prototype.onChange_ = function() {
-  sc.log('sc.models.PhotosData onChange_', this.toJSON());
+  bone.log('sc.models.PhotosData onChange_', this.toJSON());
 };

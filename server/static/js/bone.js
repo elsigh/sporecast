@@ -6,7 +6,7 @@
 /**
  * @type {Object}
  */
-var sc = {};
+var bone = {};
 
 
 /**
@@ -28,17 +28,17 @@ window.onerror = function(message, url, lineNumber) {
 /**
  * @type {Object} UA namespace.
  */
-sc.ua = {};
+bone.ua = {};
 
 
 /** @type {string} */
-sc.ua.LOWER_CASE = window.navigator.userAgent.toLowerCase();
+bone.ua.LOWER_CASE = window.navigator.userAgent.toLowerCase();
 
 
 /**
  * @return {boolean}
  */
-sc.ua.getPlatform = function() {
+bone.ua.getPlatform = function() {
   return window.device && window.device.platform ?
       window.device.platform.toLowerCase() : 'desktop';
 };
@@ -47,7 +47,7 @@ sc.ua.getPlatform = function() {
 /**
  * @return {boolean}
  */
-sc.ua.isSimulator = function() {
+bone.ua.isSimulator = function() {
   return window.device && window.device.model &&
          (window.device.model == 'x86_64' ||  // ios simulator
           window.device.model == 'simulator');  // whatever on droid
@@ -57,44 +57,44 @@ sc.ua.isSimulator = function() {
 /**
  * @type {boolean}
  */
-sc.ua.IS_ANDROID = sc.ua.LOWER_CASE.indexOf('android') !== -1;
+bone.ua.IS_ANDROID = bone.ua.LOWER_CASE.indexOf('android') !== -1;
 
 
 /**
  * @type {boolean}
  */
-sc.ua.IS_IOS = sc.ua.LOWER_CASE.indexOf('iphone') !== -1 ||
-               sc.ua.LOWER_CASE.indexOf('ipad') !== -1;
+bone.ua.IS_IOS = bone.ua.LOWER_CASE.indexOf('iphone') !== -1 ||
+               bone.ua.LOWER_CASE.indexOf('ipad') !== -1;
 
 
 /**
  * @type {boolean}
  */
-sc.ua.IS_FIREFOX_OS = 'mozApps' in window.navigator &&
-                      sc.ua.LOWER_CASE.indexOf('mobile') !== -1;
+bone.ua.IS_FIREFOX_OS = 'mozApps' in window.navigator &&
+                      bone.ua.LOWER_CASE.indexOf('mobile') !== -1;
 
 
 /**
  * @type {boolean}
  */
-sc.ua.IS_CORDOVA = typeof cordova !== 'undefined';
+bone.ua.IS_CORDOVA = typeof cordova !== 'undefined';
 
 
 /**
  * The running app, and not the simulator.
  * @type {boolean}
  */
-sc.ua.IS_APP = (window.location.protocol === 'file:' ||
+bone.ua.IS_APP = (window.location.protocol === 'file:' ||
                 window.location.protocol === 'app:') &&
-               sc.ua.IS_CORDOVA &&
-               (sc.ua.IS_ANDROID || sc.ua.IS_IOS || sc.ua.IS_FIREFOX_OS);
+               bone.ua.IS_CORDOVA &&
+               (bone.ua.IS_ANDROID || bone.ua.IS_IOS || bone.ua.IS_FIREFOX_OS);
 
 
 /**
  * The hosted web app.
  * @type {boolean}
  */
-sc.ua.IS_PROD_WEB_APP = window.location.hostname.indexOf('appspot') !== -1 ||
+bone.ua.IS_PROD_WEB_APP = window.location.hostname.indexOf('appspot') !== -1 ||
     window.location.hostname.indexOf('sporecast.net') !== -1;
 
 
@@ -105,7 +105,7 @@ sc.ua.IS_PROD_WEB_APP = window.location.hostname.indexOf('appspot') !== -1 ||
  * @return {Function} The native console.log implementation.
  * @private
  */
-sc.getConsoleLogger_ = function() {
+bone.getConsoleLogger_ = function() {
   return _.bind(console.log, console);
 };
 
@@ -114,7 +114,7 @@ sc.getConsoleLogger_ = function() {
  * @return {Function} A wrapped up stringifier.
  * @private
  */
-sc.getWebViewLogger_ = function() {
+bone.getWebViewLogger_ = function() {
   return _.bind(function() {
     var argumentsArray = _.toArray(arguments);
     var consoleStrings = [];
@@ -144,7 +144,7 @@ sc.getWebViewLogger_ = function() {
 /**
  * @param {string} src The script src.
  */
-sc.injectScript = function(src) {
+bone.injectScript = function(src) {
   script = document.createElement('script');
   script.type = 'text/javascript';
   script.async = true;
@@ -157,17 +157,17 @@ sc.injectScript = function(src) {
 
 
 /**
- * Good times, wrap sc.log
+ * Good times, wrap bone.log
  */
-sc.log = sc.ua.IS_APP ?
-    sc.getWebViewLogger_() : sc.getConsoleLogger_();
+bone.log = bone.ua.IS_APP ?
+    bone.getWebViewLogger_() : bone.getConsoleLogger_();
 
 
 /**
  * @param {Object} obj An object to clone.
  * @return {Object} A deep clone of the passed in object.
  */
-sc.clone = function(obj) {
+bone.clone = function(obj) {
   return JSON.parse(JSON.stringify(obj));
 };
 
@@ -176,7 +176,7 @@ sc.clone = function(obj) {
  * @param {number} time An ISO time.
  * @return {string} A pretty representation of the time.
  */
-sc.prettyDate = function(time) {
+bone.prettyDate = function(time) {
   var date = new Date(time),
       diff = (((new Date()).getTime() - date.getTime()) / 1000),
       dayDiff = Math.floor(diff / 86400);
