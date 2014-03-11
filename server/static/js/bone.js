@@ -142,21 +142,6 @@ bone.getWebViewLogger_ = function() {
 
 
 /**
- * @param {string} src The script src.
- */
-bone.injectScript = function(src) {
-  script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.async = true;
-  script.onload = function() {
-    // remote script has loaded
-  };
-  script.src = src;
-  $('head').get(0).appendChild(script);
-};
-
-
-/**
  * Good times, wrap bone.log
  */
 bone.log = bone.ua.IS_APP ?

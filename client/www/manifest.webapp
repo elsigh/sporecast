@@ -1,4 +1,5 @@
 {
+  "type": "privileged",
   "launch_path": "/index.html",
   "installs_allowed_from": ["*"],
   "version": "0.0.1",
@@ -18,7 +19,7 @@
   "default_locale": "en",
   "permissions": {
     "systemXHR": {
-      "description": "We want CORS for this app."
+      "description": "We want CORS-like behavior for this app against a static asset server (json files) where we can't change the headers to serve the CORS headers."
     }
   }
 }
