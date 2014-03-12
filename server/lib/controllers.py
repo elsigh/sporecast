@@ -27,6 +27,9 @@ routes = [
     Route('/_ah/warmup', handler='lib.www.MushroomObserverHandler'),
 
     # App
+    Route('/privacy', handler='lib.www.PrivacyHandler'),
+
+    # App
     Route('/app', handler='lib.www.AppHandler'),
     Route('/app/weather/<station>/<year>/<month>',
           handler='lib.www.AppHandler'),

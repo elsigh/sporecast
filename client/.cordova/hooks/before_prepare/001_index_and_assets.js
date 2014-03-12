@@ -91,7 +91,7 @@ var copyAndFixAppTemplate = function() {
 
 
 /**
- * Makes symlinks for assets so there is one source of truth.
+ * Copy over assets so there is but one source of truth.
  */
 var syncAssetDirectories = function() {
   // Clean up asset dirs and then make symlinks to our server dir.

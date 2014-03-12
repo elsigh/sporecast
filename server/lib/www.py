@@ -16,6 +16,11 @@ class IndexHandler(WebRequestHandler):
         self.output_response({}, 'index.html')
 
 
+class PrivacyHandler(WebRequestHandler):
+    def get(self):
+        self.output_response({}, 'privacy.html')
+
+
 class AppHandler(WebRequestHandler):
     def get(self, station=None, year=None, month=None):
         # TODO(elsigh): cache this baby in memory.
