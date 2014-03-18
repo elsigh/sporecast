@@ -125,6 +125,7 @@ label.sc-select-c::after {
   background-position: 0 50%;
   background-repeat: no-repeat;
   background-size: 1.2em;
+  pointer-events: none;
   position: absolute;
   right: 0.2em;
   top: 0;
