@@ -478,8 +478,20 @@ body.sc-app-container,
   font-size: 85%;
 }
 
+/*
+.sc-weather-data tfoot td {
+  background: url(../img/wundergroundLogo_white_horz.png) 0 0 no-repeat;
+  background-size: 100% 100%;
+}
+*/
+
+
+.sc-weather-data td.wunderground-logo {
+  text-align: center;
+}
 .sc-weather-data img {
-  width: 100%;
+  margin: 0 auto;
+  max-height: 75px;
 }
 
 .sc-weather-data .forecast td {
@@ -503,12 +515,6 @@ body.sc-app-container,
   border-top-width: 1px;
 }
 
-/*
-.sc-weather-data tfoot td {
-  background: url(../img/wundergroundLogo_white_horz.png) 0 0 no-repeat;
-  background-size: 100% 100%;
-}
-*/
 
 /* Mushroom Observer tab */
 .sc-mob .sc-scroll-y {
