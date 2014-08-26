@@ -33,9 +33,12 @@
     <tfoot>
       <tr>
         <td colspan="4" class="wunderground-logo">
-          {{#total_rain}}
-            <div class="total-rain">Total: {{total_rain}}</div>
-          {{/total_rain}}
+          <div class="total-rain">
+            Total:
+            {{#total_rain}}{{total_rain}}{{/total_rain}}
+            {{^total_rain}}0{{/total_rain}}
+          </div>
+
           {{#last_updated}}
             <div class="last-updated">As of: {{last_updated}}</div>
           {{/last_updated}}
