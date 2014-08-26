@@ -3,6 +3,7 @@
 from datetime import date, timedelta
 import json
 import os
+import sys
 
 import utils
 
@@ -36,12 +37,27 @@ def fetch_history_data(day, pws=utils.PWS[0]):
 
 
 # Loops through a date range and makes a call to store the daily data.
-start_date = utils.now_date() - timedelta(days=2)
+if len(sys.argv) > 1:
+    pws_index = int(sys.argv[1])
+    days_in_past = int(sys.argv[2])
+else:
+    days_in_past = 2
+
+start_date = utils.now_date() - timedelta(days=days_in_past)
 end_date = utils.now_date()
-for i in range(0, len(utils.PWS)):
-    pws = utils.PWS[i]
-    #end_date = datetime.now().date()
+
+if pws_index:
+    pws = utils.PWS[pws_index]
     print ('HISTORY :: %s :: START: %s -> END: %s' %
            (pws['name'], start_date, end_date))
     for day in utils.datespan(start_date, end_date):
         fetch_history_data(day, pws)
+
+else:
+    for i in range(0, len(utils.PWS)):
+        pws = utils.PWS[i]
+        print ('HISTORY :: %s :: START: %s -> END: %s' %
+               (pws['name'], start_date, end_date))
+        for day in utils.datespan(start_date, end_date):
+            fetch_history_data(day, pws)
+

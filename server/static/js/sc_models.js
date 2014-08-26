@@ -66,23 +66,35 @@ sc.models.App.prototype.initialize = function(opt_data, opt_options) {
 sc.models.WeatherPrefsCities = [
   {
     'pws': 'KCAEUREK5',
-    'name': 'Eureka'
+    'name': 'Eureka, CA'
   },
   {
     'pws': 'KCAMENDO1',
-    'name': 'Mendo'
+    'name': 'Mendo, CA'
   },
   {
     'pws': 'KCAINVER2',
-    'name': 'Inverness'
+    'name': 'Inverness, CA'
   },
   {
     'pws': 'KCASANFR34',  // Twin Peaks
-    'name': 'San Fran'
+    'name': 'San Fran, CA'
   },
   {
     'pws': 'KCASANTA134', // Walnut/King
-    'name': 'Santa Cruz'
+    'name': 'Santa Cruz, CA'
+  },
+  {
+    'pws': 'KORASTOR4',
+    'name': 'Astoria, WA'
+  },
+  {
+    'pws': 'KWACARSO3', // Walnut/King
+    'name': 'Carson, OR'
+  },
+  {
+    'pws': 'KCAKINGS6', // Walnut/King
+    'name': 'KingsCan, CA'
   }
 ];
 
