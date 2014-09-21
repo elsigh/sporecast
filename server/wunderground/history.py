@@ -37,9 +37,12 @@ def fetch_history_data(day, pws=utils.PWS[0]):
 
 
 # Loops through a date range and makes a call to store the daily data.
-if len(sys.argv) > 1:
+pws_index = None
+if len(sys.argv) == 3:
     pws_index = int(sys.argv[1])
     days_in_past = int(sys.argv[2])
+elif len(sys.argv) == 2:
+    days_in_past = int(sys.argv[1])
 else:
     days_in_past = 2
 
