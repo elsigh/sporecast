@@ -62,9 +62,10 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                 raise 'Found no PWS data for %s' % pws_name
 
             today = utils.now_date(tz=pws['tz_long'])
+            tomorrow = utils.tomorrow_date(tz=pws['tz_long'])
 
-            # only incorporate forecast data if it's from today.
-            if from_date == today:
+            # only incorporate forecast data if it's from tomorrow.
+            if from_date == tomorrow:
                 print '->-> using forecast data %s' % today
                 forecast_data = json_data['forecast']['simpleforecast']['forecastday']
                 for daily_data in forecast_data:
@@ -80,8 +81,8 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                             'dayname': forecast_day_name,
                             'precipi': daily_data['pop'],
                             'precipi_is_zero': int(daily_data['pop'] or 0) == 0,
-                            'mintempi': int(float(daily_data['high']['fahrenheit'] or 0)),
-                            'maxtempi': int(float(daily_data['low']['fahrenheit'] or 0)),
+                            'mintempi': int(float(daily_data['low']['fahrenheit'] or 0)),
+                            'maxtempi': int(float(daily_data['high']['fahrenheit'] or 0)),
                         })
                         print ('-->-->--> Adding forecast for %s %s %s' %
                                (forecast_day_month, forecast_day_name, forecast_day_num))
