@@ -1,1 +1,1 @@
-{"datetime_utc": "2014-11-03 06:01:37.177317 UTC", "data": [{"mintempi": 47, "dayname": "Sat", "maxtempi": 59, "daynum": 1, "precipi": 0.0, "precipi_is_zero": true}], "total_rain": 0.0}
+{"datetime_utc": "2014-11-03 12:03:18.399624 UTC", "data": [{"mintempi": 47, "dayname": "Sat", "maxtempi": 59, "daynum": 1, "precipi": 0.0, "precipi_is_zero": true}, {"mintempi": 44, "dayname": "Sun", "maxtempi": 59, "daynum": 2, "precipi": 0.0, "precipi_is_zero": true}], "total_rain": 0.0}
