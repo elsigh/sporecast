@@ -64,17 +64,20 @@ for (dirpath, dirnames, filenames) in walk(data_path):
             today = utils.now_date(tz=pws['tz_long'])
             tomorrow = utils.tomorrow_date(tz=pws['tz_long'])
 
-            # only incorporate forecast data if it's from tomorrow.
-            if from_date == tomorrow:
-                print '->-> using forecast data %s' % today
+            # only incorporate forecast datafile if it's from today.
+            if from_date == today:
+                print '->-> using forecast data file %s' % today
                 forecast_data = json_data['forecast']['simpleforecast']['forecastday']
                 for daily_data in forecast_data:
                     forecast_day_month = daily_data['date']['month']
                     forecast_day_num = daily_data['date']['day']
                     forecast_day_name = date(int(year), int(month),
                                              int(forecast_day_num)).strftime('%a')
-                    # Don't include next month's data in this months summary.
-                    if int(forecast_day_month) == today.month:
+                    # Don't include next month's data in this months summary and also
+                    # ignore forecast data for today, we should have real data.
+                    is_from_this_month = int(forecast_day_month) == today.month
+                    is_from_today = int(forecast_day_num) == today.day
+                    if (is_from_this_month and not is_from_today):
                         monthly_data['data'].append({
                             'is_forecast': True,
                             'daynum': forecast_day_num,
@@ -84,11 +87,14 @@ for (dirpath, dirnames, filenames) in walk(data_path):
                             'mintempi': int(float(daily_data['low']['fahrenheit'] or 0)),
                             'maxtempi': int(float(daily_data['high']['fahrenheit'] or 0)),
                         })
-                        print ('-->-->--> Adding forecast for %s %s %s' %
-                               (forecast_day_month, forecast_day_name, forecast_day_num))
+                        print ('-->-->--> Adding forecast for %s %s/%s' %
+                               (forecast_day_name, forecast_day_month, forecast_day_num))
                     else:
-                        print ('-->-->--> X Ignoring %s %s %s' %
-                               (forecast_day_month, forecast_day_name, forecast_day_num))
+                        print ('-->-->--> Ignore forecast for %s %s/%s' %
+                               (forecast_day_name, forecast_day_month, forecast_day_num))
+
+            #else:
+            #    print '<-<- Ignore forecast data %s' % from_date
 
         # DAILY DATA
         else:
