@@ -78,11 +78,11 @@ sc.models.WeatherPrefsCities = [
   },
   {
     'pws': 'KCASANFR34',  // Twin Peaks
-    'name': 'San Fran'
+    'name': 'SanFran'
   },
   {
     'pws': 'KCASANTA134', // Walnut/King
-    'name': 'Santa Cruz'
+    'name': 'SantaCrz'
   },
   {
     'pws': 'KORASTOR4',
@@ -94,7 +94,7 @@ sc.models.WeatherPrefsCities = [
   },
   {
     'pws': 'KCAKINGS6',
-    'name': 'KingsCanyon'
+    'name': 'KingsCan.'
   }
 ];
 
