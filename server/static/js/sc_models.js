@@ -135,7 +135,7 @@ sc.models.WeatherPrefs = bone.Model.extend({
     'month': sc.models.WeatherPrefsMonths[(new Date()).getMonth()],
     'year': (new Date()).getFullYear()
   },
-  localStorage: new Backbone.LocalStorage('weather-prefs')
+  //localStorage: new Backbone.LocalStorage('weather-prefs')
 });
 
 
@@ -188,7 +188,7 @@ sc.models.WeatherPrefs.getFromUrl = function() {
 
 /** @inheritDoc */
 sc.models.WeatherPrefs.prototype.initialize = function(opt_data, opt_options) {
-  this.fetch();  // get from localStorage.
+  //this.fetch();  // get from localStorage.
   this.listenTo(this, 'change', this.onChange_);
 };
 
@@ -257,6 +257,11 @@ sc.models.WeatherData.prototype.initialize = function(opt_data, opt_options) {
   bone.log('sc.models.WeatherData initialize');
   this.prefs = new sc.models.WeatherPrefs(
       sc.models.WeatherPrefs.getFromUrl());
+
+  this.prefs.set({
+    'month': sc.models.WeatherPrefsMonths[(new Date()).getMonth()],
+    'year': (new Date()).getFullYear()
+  });
   this.listenTo(this.prefs, 'change', this.fetch);
 };
 

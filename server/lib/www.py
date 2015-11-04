@@ -1,7 +1,7 @@
 #!/usr/bin/python2.7
 #
 
-from lxml.html import parse, tostring, fromstring
+#from lxml.html import parse, tostring, fromstring
 from lib.web_request_handler import WebRequestHandler
 from google.appengine.api import memcache
 import logging
