@@ -13,7 +13,7 @@ sc.models = {};
 /**
  * @type {string}
  */
-sc.models.SERVER_LOCAL = 'http://localhost:8090';
+sc.models.SERVER_LOCAL = 'http://localhost:8008';
 
 
 /**
