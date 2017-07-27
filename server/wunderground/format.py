@@ -99,7 +99,10 @@ for (dirpath, dirnames, filenames) in walk(data_path):
         # DAILY DATA
         else:
             print '-> using daily data.'
-            daily_data = json_data['history']['dailysummary'][0]
+            try:
+		daily_data = json_data['history']['dailysummary'][0]
+            except KeyError:
+		pass
             precipi = float(daily_data['precipi'] or 0)
             precipi_rounded = int(precipi * 100 + 0.5) / 100.0
             monthly_data['data'].append({
