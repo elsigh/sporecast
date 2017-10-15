@@ -10,5 +10,6 @@ git add output/*;
 git commit -a -m 'Adding new wunderground data.';
 git push;
 cd ../;
+./delete_old_gae_versions.sh default 3;
 ./update.sh;
 echo 'YEAH!! Done.\n'
