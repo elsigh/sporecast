@@ -50,8 +50,8 @@ OUTPUT_DIR = 'output'
 DATA_DIR = 'data'
 
 # Note - we're rate-limited by wunderground to 10-per-minute, so
-# we'll just ghetto-rig this so that each request takes 7 seconds.
-MIN_TIME_SEC = 7
+# we'll just ghetto-rig this so that each request takes n seconds.
+MIN_TIME_SEC = 10
 
 
 def now_date(tz='US/Pacific'):
