@@ -1,0 +1,43 @@
+.DataTable {
+    height: 100%;
+    padding: 0 10px;
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.DataTable-info {
+    font-size: 12px;
+    display: flex;
+    margin: 10px 0;
+    justify-content: space-between;
+}
+
+.DataTable table {
+    border-radius: 3px;
+    width: 100%;
+    background: #efefef;
+    border-collapse: collapse;
+}
+
+.DataTable th,
+.DataTable td {
+    padding: 0.5em;
+}
+
+.DataTable th {
+    border-bottom: 2px solid #aaa;
+    font-weight: 400;
+    text-align: left;
+}
+
+.DataTable td {
+    border-top: 1px solid #aaa;
+    text-align: left;
+}
+
+.DataTableRow-forecast td {
+    background: #ffffe0;
+    opacity: 0.6;
+}

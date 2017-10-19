@@ -1,0 +1,26 @@
+.App {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+}
+
+.App-Header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.App-Table {
+    flex: 1;
+    /* https://stackoverflow.com/questions/14962468/flexbox-and-vertical-scroll-in-a-full-height-app-using-newer-flexbox-api */
+    height: 0;
+}
+
+.App-wunderLogo-c {
+    padding: 10px;
+}
+.App-wunderLogo {
+    max-width: 300px;
+    width: 100%;
+}

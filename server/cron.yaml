@@ -1,4 +1,4 @@
 cron:
-- description: Mushroom observer cache-primer
-  url: /mushroomobserver/CA/data.json
-  schedule: every 15 minutes
+#- description: Mushroom observer cache-primer
+#  url: /mushroomobserver/CA/data.json
+#  schedule: every 15 minutes

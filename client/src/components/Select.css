@@ -1,0 +1,61 @@
+label.sc-select-c select {
+    margin: 0;
+    padding: 0.5em 0.5em;
+    width: 100%;
+
+    color: #000;
+    display: inline-block;
+    background-color: #efefef;
+    font: inherit;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1;
+    outline: none;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    text-shadow: none;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* for Webkit's CSS-only solution */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    label.sc-select-c select {
+        padding-right: 2em;
+    }
+}
+
+label.sc-select-c {
+    display: inline-block;
+    position: relative;
+}
+
+label.sc-select-c ~ label.sc-select-c {
+    margin-left: 0.1em;
+}
+
+label.sc-select-c::after {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 2px 0;
+    color: #000;
+    content: '';
+    display: block;
+    width: 1.5em;
+    background-color: #efefef;
+    background-image: url(./down_triangle.png);
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-size: 1.2em;
+    pointer-events: none;
+    position: absolute;
+    right: 0.2em;
+    top: 0;
+    bottom: 0;
+}
+
+label.sc-select-c > span {
+    position: absolute;
+    top: -9999px;
+}

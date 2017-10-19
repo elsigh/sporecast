@@ -1,0 +1,395 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AmbiguousTimeError	../server/wunderground/pytz/__init__.py	/^from tzinfo import AmbiguousTimeError, InvalidTimeError, NonExistentTimeError$/;"	kind:namespace	line:38
+AmbiguousTimeError	../server/wunderground/pytz/tzinfo.py	/^class AmbiguousTimeError(InvalidTimeError):$/;"	kind:class	line:369
+AppHandler	../server/lib/www.py	/^class AppHandler(WebRequestHandler):$/;"	kind:class	line:24
+BaseTzInfo	../server/wunderground/pytz/tzinfo.py	/^class BaseTzInfo(tzinfo):$/;"	kind:class	line:58
+CORSStaticRequestHandler	../server/lib/cors_request_handler.py	/^class CORSStaticRequestHandler(webapp2.RequestHandler):$/;"	kind:class	line:12
+CORSWunderGroundRequestHandler	../server/lib/controllers.py	/^from lib.cors_request_handler import CORSWunderGroundRequestHandler$/;"	kind:namespace	line:16
+CORSWunderGroundRequestHandler	../server/lib/cors_request_handler.py	/^class CORSWunderGroundRequestHandler(webapp2.RequestHandler):$/;"	kind:class	line:21
+Central	../server/wunderground/pytz/reference.py	/^Central  = USTimeZone(-6, "Central",  "CST", "CDT")$/;"	kind:variable	line:124
+DATA_DIR	../server/wunderground/utils.py	/^DATA_DIR = 'data'$/;"	kind:variable	line:50
+DSTDIFF	../server/wunderground/pytz/reference.py	/^DSTDIFF = DSTOFFSET - STDOFFSET$/;"	kind:variable	line:40
+DSTEND	../server/wunderground/pytz/reference.py	/^DSTEND = datetime(1, 10, 25, 1)$/;"	kind:variable	line:81
+DSTOFFSET	../server/wunderground/pytz/reference.py	/^    DSTOFFSET = STDOFFSET$/;"	kind:variable	line:38
+DSTOFFSET	../server/wunderground/pytz/reference.py	/^    DSTOFFSET = timedelta(seconds = -_time.altzone)$/;"	kind:variable	line:36
+DSTSTART	../server/wunderground/pytz/reference.py	/^DSTSTART = datetime(1, 4, 1, 2)$/;"	kind:variable	line:78
+DictMixin	../server/wunderground/pytz/__init__.py	/^from UserDict import DictMixin$/;"	kind:namespace	line:30
+DstTzInfo	../server/wunderground/pytz/tzfile.py	/^from pytz.tzinfo import StaticTzInfo, DstTzInfo, memorized_ttinfo$/;"	kind:namespace	line:10
+DstTzInfo	../server/wunderground/pytz/tzinfo.py	/^class DstTzInfo(BaseTzInfo):$/;"	kind:class	line:111
+Eastern	../server/wunderground/pytz/reference.py	/^Eastern  = USTimeZone(-5, "Eastern",  "EST", "EDT")$/;"	kind:variable	line:123
+ErrorHandler	../server/lib/web_request_handler.py	/^def ErrorHandler(request, response, exception, code):$/;"	kind:function	line:130
+ErrorInternalRequestHandler	../server/lib/controllers.py	/^from lib.web_request_handler import ErrorInternalRequestHandler$/;"	kind:namespace	line:14
+ErrorInternalRequestHandler	../server/lib/web_request_handler.py	/^def ErrorInternalRequestHandler(request, response, exception):$/;"	kind:function	line:152
+ErrorNotFoundRequestHandler	../server/lib/controllers.py	/^from lib.web_request_handler import ErrorNotFoundRequestHandler$/;"	kind:namespace	line:13
+ErrorNotFoundRequestHandler	../server/lib/web_request_handler.py	/^def ErrorNotFoundRequestHandler(request, response, exception):$/;"	kind:function	line:147
+FILE_EXT	../server/wunderground/format.py	/^FILE_EXT = '.json'$/;"	kind:variable	line:16
+FixedOffset	../server/wunderground/pytz/__init__.py	/^def FixedOffset(offset, _tzinfos = {}):$/;"	kind:function	line:406
+FixedOffset	../server/wunderground/pytz/reference.py	/^class FixedOffset(tzinfo):$/;"	kind:class	line:14
+HOUR	../server/wunderground/pytz/__init__.py	/^HOUR = datetime.timedelta(hours=1)$/;"	kind:variable	line:184
+HOUR	../server/wunderground/pytz/reference.py	/^from pytz import utc, UTC, HOUR, ZERO$/;"	kind:namespace	line:8
+HandlerTest	../server/tests/test_controllers.py	/^class HandlerTest(unittest.TestCase):$/;"	kind:class	line:19
+IndexHandler	../server/lib/www.py	/^class IndexHandler(WebRequestHandler):$/;"	kind:class	line:14
+InvalidTimeError	../server/wunderground/pytz/__init__.py	/^from tzinfo import AmbiguousTimeError, InvalidTimeError, NonExistentTimeError$/;"	kind:namespace	line:38
+InvalidTimeError	../server/wunderground/pytz/tzinfo.py	/^class InvalidTimeError(Exception):$/;"	kind:class	line:365
+KEY	../server/wunderground/utils.py	/^KEY = 'b316a72d2e91b2e7'$/;"	kind:variable	line:11
+Local	../server/wunderground/pytz/reference.py	/^Local = LocalTimezone()$/;"	kind:variable	line:67
+LocalTimezone	../server/wunderground/pytz/reference.py	/^class LocalTimezone(tzinfo):$/;"	kind:class	line:42
+MAIL_FROM	../server/settings.py	/^MAIL_FROM = 'Sporecast <lsimon@commoner.com>'$/;"	kind:variable	line:3
+MIN_TIME_SEC	../server/wunderground/utils.py	/^MIN_TIME_SEC = 10$/;"	kind:variable	line:54
+MONTHLY_SUMMARY_FILENAME	../server/wunderground/format.py	/^MONTHLY_SUMMARY_FILENAME = 'data%s' % FILE_EXT$/;"	kind:variable	line:17
+Mountain	../server/wunderground/pytz/reference.py	/^Mountain = USTimeZone(-7, "Mountain", "MST", "MDT")$/;"	kind:variable	line:125
+MushroomObserverHandler	../server/lib/www.py	/^class MushroomObserverHandler(WebRequestHandler):$/;"	kind:class	line:31
+NonExistentTimeError	../server/wunderground/pytz/__init__.py	/^from tzinfo import AmbiguousTimeError, InvalidTimeError, NonExistentTimeError$/;"	kind:namespace	line:38
+NonExistentTimeError	../server/wunderground/pytz/tzinfo.py	/^class NonExistentTimeError(InvalidTimeError):$/;"	kind:class	line:380
+OLSEN_VERSION	../server/wunderground/pytz/__init__.py	/^OLSEN_VERSION = OLSON_VERSION # Old releases had this misspelling$/;"	kind:variable	line:18
+OLSON_VERSION	../server/wunderground/pytz/__init__.py	/^OLSON_VERSION = '2010h'$/;"	kind:variable	line:12
+OUTPUT_DIR	../server/wunderground/utils.py	/^OUTPUT_DIR = 'output'$/;"	kind:variable	line:49
+PWS	../server/wunderground/utils.py	/^PWS = [$/;"	kind:variable	line:14
+Pacific	../server/wunderground/pytz/reference.py	/^Pacific  = USTimeZone(-8, "Pacific",  "PST", "PDT")$/;"	kind:variable	line:126
+PrivacyHandler	../server/lib/www.py	/^class PrivacyHandler(WebRequestHandler):$/;"	kind:class	line:19
+ROOT_PATH	../server/settings.py	/^ROOT_PATH = os.path.dirname(__file__)$/;"	kind:variable	line:5
+Route	../server/lib/controllers.py	/^from webapp2 import Route$/;"	kind:namespace	line:7
+STDOFFSET	../server/wunderground/pytz/reference.py	/^STDOFFSET = timedelta(seconds = -_time.timezone)$/;"	kind:variable	line:34
+SimpleRoute	../server/lib/controllers.py	/^from webapp2 import SimpleRoute$/;"	kind:namespace	line:8
+StaticTzInfo	../server/wunderground/pytz/tzfile.py	/^from pytz.tzinfo import StaticTzInfo, DstTzInfo, memorized_ttinfo$/;"	kind:namespace	line:10
+StaticTzInfo	../server/wunderground/pytz/tzinfo.py	/^class StaticTzInfo(BaseTzInfo):$/;"	kind:class	line:68
+StringIO	../server/wunderground/pytz/gae.py	/^from cStringIO import StringIO$/;"	kind:namespace	line:30
+StringIO	../server/wunderground/pytz/tzfile.py	/^from cStringIO import StringIO$/;"	kind:namespace	line:6
+TEMPLATE_DIRS	../server/settings.py	/^TEMPLATE_DIRS = ($/;"	kind:variable	line:7
+TemplateNotFound	../server/lib/web_request_handler.py	/^from jinja2.runtime import TemplateNotFound$/;"	kind:namespace	line:17
+TemplatesRequestHandler	../server/lib/web_request_handler.py	/^class TemplatesRequestHandler(webapp2.RequestHandler):$/;"	kind:class	line:120
+TimezoneLoader	../server/wunderground/pytz/__init__.py	/^class TimezoneLoader(object):$/;"	kind:class	line:48
+TimezoneLoader	../server/wunderground/pytz/gae.py	/^class TimezoneLoader(object):$/;"	kind:class	line:63
+USER_AGENT	../server/settings.py	/^USER_AGENT = ('Mozilla\/5.0 (Windows NT 6.1) AppleWebKit\/537.36 '$/;"	kind:variable	line:11
+USTimeZone	../server/wunderground/pytz/reference.py	/^class USTimeZone(tzinfo):$/;"	kind:class	line:83
+UTC	../server/wunderground/pytz/__init__.py	/^class UTC(datetime.tzinfo):$/;"	kind:class	line:187
+UTC	../server/wunderground/pytz/reference.py	/^from pytz import utc, UTC, HOUR, ZERO$/;"	kind:namespace	line:8
+UnknownTimeZoneError	../server/wunderground/pytz/__init__.py	/^class UnknownTimeZoneError(KeyError):$/;"	kind:class	line:107
+UserList	../server/wunderground/pytz/__init__.py	/^from UserList import UserList$/;"	kind:namespace	line:31
+VERSION	../server/wunderground/pytz/__init__.py	/^VERSION = OLSON_VERSION$/;"	kind:variable	line:13
+VerbatimNode	../server/lib/verbatim_templatetag.py	/^class VerbatimNode(template.Node):$/;"	kind:class	line:22
+WebRequestHandler	../server/lib/web_request_handler.py	/^class WebRequestHandler(webapp2.RequestHandler):$/;"	kind:class	line:27
+WebRequestHandler	../server/lib/www.py	/^from lib.web_request_handler import WebRequestHandler$/;"	kind:namespace	line:5
+ZERO	../server/wunderground/pytz/__init__.py	/^ZERO = datetime.timedelta(0)$/;"	kind:variable	line:183
+ZERO	../server/wunderground/pytz/reference.py	/^from pytz import utc, UTC, HOUR, ZERO$/;"	kind:namespace	line:8
+_CountryNameDict	../server/wunderground/pytz/__init__.py	/^class _CountryNameDict(_LazyDict):$/;"	kind:class	line:347
+_CountryTimezoneDict	../server/wunderground/pytz/__init__.py	/^class _CountryTimezoneDict(_LazyDict):$/;"	kind:class	line:302
+_FixedOffset	../server/wunderground/pytz/__init__.py	/^class _FixedOffset(datetime.tzinfo):$/;"	kind:class	line:368
+_LazyDict	../server/wunderground/pytz/__init__.py	/^class _LazyDict(DictMixin):$/;"	kind:class	line:276
+_LazyList	../server/wunderground/pytz/__init__.py	/^class _LazyList(UserList):$/;"	kind:class	line:290
+_UTC	../server/wunderground/pytz/__init__.py	/^def _UTC():$/;"	kind:function	line:233
+__all__	../server/wunderground/pytz/__init__.py	/^__all__ = [$/;"	kind:variable	line:20
+__all__	../server/wunderground/pytz/tzinfo.py	/^__all__ = []$/;"	kind:variable	line:12
+__call__	../server/wunderground/pytz/__init__.py	/^    def __call__(self, iso3166_code):$/;"	kind:member	line:325
+__getitem__	../server/wunderground/pytz/__init__.py	/^    def __getitem__(self, key):$/;"	kind:member	line:279
+__init__	../server/lib/verbatim_templatetag.py	/^    def __init__(self, text_and_nodes):$/;"	kind:member	line:23
+__init__	../server/wunderground/pytz/__init__.py	/^    def __init__(self):$/;"	kind:member	line:49
+__init__	../server/wunderground/pytz/__init__.py	/^    def __init__(self, func):$/;"	kind:member	line:291
+__init__	../server/wunderground/pytz/__init__.py	/^    def __init__(self, minutes):$/;"	kind:member	line:372
+__init__	../server/wunderground/pytz/gae.py	/^    def __init__(self):$/;"	kind:member	line:65
+__init__	../server/wunderground/pytz/reference.py	/^    def __init__(self, hours, reprname, stdname, dstname):$/;"	kind:member	line:85
+__init__	../server/wunderground/pytz/reference.py	/^    def __init__(self, offset, name):$/;"	kind:member	line:17
+__init__	../server/wunderground/pytz/tzinfo.py	/^    def __init__(self, _inf=None, _tzinfos=None):$/;"	kind:member	line:128
+__init__.py	../server/__init__.py	1;"	kind:file	line:1
+__init__.py	../server/lib/__init__.py	1;"	kind:file	line:1
+__init__.py	../server/third_party/__init__.py	1;"	kind:file	line:1
+__init__.py	../server/wunderground/__init__.py	1;"	kind:file	line:1
+__init__.py	../server/wunderground/pytz/__init__.py	1;"	kind:file	line:1
+__reduce__	../server/wunderground/pytz/__init__.py	/^    def __reduce__(self):$/;"	kind:member	line:208
+__reduce__	../server/wunderground/pytz/__init__.py	/^    def __reduce__(self):$/;"	kind:member	line:381
+__reduce__	../server/wunderground/pytz/tzinfo.py	/^    def __reduce__(self):$/;"	kind:member	line:105
+__reduce__	../server/wunderground/pytz/tzinfo.py	/^    def __reduce__(self):$/;"	kind:member	line:354
+__repr__	../server/wunderground/pytz/__init__.py	/^    def __repr__(self):$/;"	kind:member	line:223
+__repr__	../server/wunderground/pytz/__init__.py	/^    def __repr__(self):$/;"	kind:member	line:390
+__repr__	../server/wunderground/pytz/reference.py	/^    def __repr__(self):$/;"	kind:member	line:91
+__repr__	../server/wunderground/pytz/tzinfo.py	/^    def __repr__(self):$/;"	kind:member	line:102
+__repr__	../server/wunderground/pytz/tzinfo.py	/^    def __repr__(self):$/;"	kind:member	line:340
+__str__	../server/wunderground/pytz/__init__.py	/^    def __str__(self):$/;"	kind:member	line:226
+__str__	../server/wunderground/pytz/tzinfo.py	/^    def __str__(self):$/;"	kind:member	line:64
+__version__	../server/wunderground/pytz/__init__.py	/^__version__ = OLSON_VERSION$/;"	kind:variable	line:16
+_datetime_cache	../server/wunderground/pytz/tzinfo.py	/^_datetime_cache = {0: _epoch}$/;"	kind:variable	line:25
+_dst	../server/wunderground/pytz/tzinfo.py	/^    _dst = None # DST offset$/;"	kind:variable	line:126
+_epoch	../server/wunderground/pytz/tzinfo.py	/^_epoch = datetime.utcfromtimestamp(0)$/;"	kind:variable	line:24
+_fill	../server/wunderground/pytz/__init__.py	/^    def _fill(self):$/;"	kind:member	line:329
+_fill	../server/wunderground/pytz/__init__.py	/^    def _fill(self):$/;"	kind:member	line:353
+_isdst	../server/wunderground/pytz/reference.py	/^    def _isdst(self, dt):$/;"	kind:member	line:59
+_notime	../server/wunderground/pytz/tzinfo.py	/^_notime = memorized_timedelta(0)$/;"	kind:variable	line:51
+_p	../server/wunderground/pytz/__init__.py	/^def _p(*args):$/;"	kind:function	line:266
+_test	../server/wunderground/pytz/__init__.py	/^def _test():$/;"	kind:function	line:471
+_time	../server/wunderground/pytz/reference.py	/^import time as _time$/;"	kind:namespace	line:32
+_timedelta_cache	../server/wunderground/pytz/tzinfo.py	/^_timedelta_cache = {}$/;"	kind:variable	line:14
+_to_seconds	../server/wunderground/pytz/tzinfo.py	/^def _to_seconds(td):$/;"	kind:function	line:53
+_transition_info	../server/wunderground/pytz/tzinfo.py	/^    _transition_info = None # [(utcoffset, dstoffset, tzname)] corresponding$/;"	kind:variable	line:120
+_ttinfo_cache	../server/wunderground/pytz/tzinfo.py	/^_ttinfo_cache = {}$/;"	kind:variable	line:37
+_tzinfo_cache	../server/wunderground/pytz/__init__.py	/^_tzinfo_cache = {}$/;"	kind:variable	line:123
+_tzinfos	../server/wunderground/pytz/tzinfo.py	/^    _tzinfos = None$/;"	kind:variable	line:125
+_tzname	../server/wunderground/pytz/tzinfo.py	/^    _tzname = None$/;"	kind:variable	line:61
+_unmunge_zone	../server/wunderground/pytz/__init__.py	/^def _unmunge_zone(zone):$/;"	kind:function	line:178
+_utc_transition_times	../server/wunderground/pytz/tzinfo.py	/^    _utc_transition_times = None # Sorted list of DST transition times in UTC$/;"	kind:variable	line:119
+_utcoffset	../server/wunderground/pytz/tzinfo.py	/^    _utcoffset = None$/;"	kind:variable	line:60
+add	../server/wunderground/pytz/gae.py	/^    def add(*args, **kwargs):$/;"	kind:member	line:35
+add_version_to_template	../server/lib/web_request_handler.py	/^    def add_version_to_template(self, tpl):$/;"	kind:member	line:49
+all_timezones	../server/wunderground/pytz/__init__.py	/^all_timezones = _LazyList($/;"	kind:variable	line:1042
+all_timezones_set	../server/wunderground/pytz/__init__.py	/^all_timezones_set = set(all_timezones_unfiltered) # XXX$/;"	kind:variable	line:1046
+all_timezones_unfiltered	../server/wunderground/pytz/__init__.py	/^['Africa\/Abidjan',$/;"	kind:variable	line:481
+app	../server/lib/controllers.py	/^app = webapp2.WSGIApplication(routes,$/;"	kind:variable	line:53
+appengine_config.py	../server/appengine_config.py	1;"	kind:file	line:1
+base	../server/wunderground/pytz/tzfile.py	/^    base = os.path.join(os.path.dirname(__file__), 'zoneinfo')$/;"	kind:variable	line:115
+bisect_right	../server/wunderground/pytz/tzinfo.py	/^from bisect import bisect_right$/;"	kind:namespace	line:4
+build_tzinfo	../server/wunderground/pytz/__init__.py	/^from tzfile import build_tzinfo$/;"	kind:namespace	line:40
+build_tzinfo	../server/wunderground/pytz/tzfile.py	/^def build_tzinfo(zone, fp):$/;"	kind:function	line:14
+calcsize	../server/wunderground/pytz/tzfile.py	/^from struct import unpack, calcsize$/;"	kind:namespace	line:8
+common_timezones	../server/wunderground/pytz/__init__.py	/^common_timezones = _LazyList($/;"	kind:variable	line:1444
+common_timezones_set	../server/wunderground/pytz/__init__.py	/^common_timezones_set = set(common_timezones_unfiltered) # XXX$/;"	kind:variable	line:1448
+common_timezones_unfiltered	../server/wunderground/pytz/__init__.py	/^['Africa\/Abidjan',$/;"	kind:variable	line:1049
+controllers	../server/tests/test_controllers.py	/^from lib import controllers$/;"	kind:namespace	line:16
+controllers.py	../server/lib/controllers.py	1;"	kind:file	line:1
+cors_request_handler.py	../server/lib/cors_request_handler.py	1;"	kind:file	line:1
+country_names	../server/wunderground/pytz/__init__.py	/^country_names = _CountryNameDict()$/;"	kind:variable	line:363
+country_timezones	../server/wunderground/pytz/__init__.py	/^country_timezones = _CountryTimezoneDict()$/;"	kind:variable	line:344
+daily_data	../server/wunderground/format.py	/^		daily_data = json_data['history']['dailysummary'][0]$/;"	kind:variable	line:103
+data	../server/wunderground/pytz/__init__.py	/^    data = None$/;"	kind:variable	line:278
+data	../server/wunderground/pytz/__init__.py	/^    data = property(data)$/;"	kind:variable	line:300
+data	../server/wunderground/pytz/__init__.py	/^    def data(self):$/;"	kind:member	line:295
+data_path	../server/wunderground/format.py	/^data_path = os.path.join(os.getcwd(), dir_to_start)$/;"	kind:variable	line:24
+date	../server/wunderground/format.py	/^from datetime import date, datetime$/;"	kind:namespace	line:3
+date	../server/wunderground/history.py	/^from datetime import date, timedelta$/;"	kind:namespace	line:3
+datespan	../server/wunderground/utils.py	/^def datespan(startDate, endDate, delta=timedelta(days=1)):$/;"	kind:function	line:66
+datetime	../server/lib/web_request_handler.py	/^import datetime$/;"	kind:namespace	line:6
+datetime	../server/wunderground/format.py	/^from datetime import date, datetime$/;"	kind:namespace	line:3
+datetime	../server/wunderground/pytz/__init__.py	/^import sys, datetime, os.path, gettext$/;"	kind:namespace	line:29
+datetime	../server/wunderground/pytz/reference.py	/^from datetime import tzinfo, timedelta, datetime$/;"	kind:namespace	line:7
+datetime	../server/wunderground/pytz/tzfile.py	/^from datetime import datetime, timedelta$/;"	kind:namespace	line:7
+datetime	../server/wunderground/pytz/tzinfo.py	/^from datetime import datetime, timedelta, tzinfo$/;"	kind:namespace	line:3
+datetime	../server/wunderground/utils.py	/^from datetime import datetime, timedelta$/;"	kind:namespace	line:3
+daynum	../server/wunderground/format.py	/^        daynum = re.search('^([\\d]+)', filename).groups()[0]$/;"	kind:variable	line:50
+days_in_past	../server/wunderground/history.py	/^    days_in_past = 2$/;"	kind:variable	line:47
+days_in_past	../server/wunderground/history.py	/^    days_in_past = int(sys.argv[1])$/;"	kind:variable	line:45
+days_in_past	../server/wunderground/history.py	/^    days_in_past = int(sys.argv[2])$/;"	kind:variable	line:43
+debug	../server/lib/controllers.py	/^                              debug=is_debug)$/;"	kind:variable	line:54
+deferred	../server/appengine_config.py	/^from google.appengine.ext import deferred$/;"	kind:namespace	line:4
+deferred	../server/lib/web_request_handler.py	/^from google.appengine.ext import deferred$/;"	kind:namespace	line:20
+dir_to_start	../server/wunderground/format.py	/^    dir_to_start = sys.argv[1]$/;"	kind:variable	line:22
+dir_to_start	../server/wunderground/format.py	/^dir_to_start = utils.DATA_DIR$/;"	kind:variable	line:20
+dirpath_split	../server/wunderground/format.py	/^        dirpath_split = dirpath.split('\/')$/;"	kind:variable	line:40
+dirpath_useful	../server/wunderground/format.py	/^        dirpath_useful = '\/'.join(dirpath_split[len(dirpath_split) - 4:len(dirpath_split)])$/;"	kind:variable	line:41
+doctest	../server/wunderground/pytz/__init__.py	/^    import doctest, os, sys$/;"	kind:namespace	line:472
+dst	../server/wunderground/pytz/__init__.py	/^    def dst(self, dt):$/;"	kind:member	line:205
+dst	../server/wunderground/pytz/__init__.py	/^    def dst(self, dt):$/;"	kind:member	line:384
+dst	../server/wunderground/pytz/reference.py	/^    def dst(self, dt):$/;"	kind:member	line:103
+dst	../server/wunderground/pytz/reference.py	/^    def dst(self, dt):$/;"	kind:member	line:27
+dst	../server/wunderground/pytz/reference.py	/^    def dst(self, dt):$/;"	kind:member	line:50
+dst	../server/wunderground/pytz/tzinfo.py	/^    def dst(self, dt):$/;"	kind:member	line:332
+dst	../server/wunderground/pytz/tzinfo.py	/^    def dst(self,dt):$/;"	kind:member	line:82
+end_date	../server/wunderground/history.py	/^end_date = utils.now_date()$/;"	kind:variable	line:50
+f	../server/wunderground/format.py	/^        f = open(os.path.join(dirpath, filename), 'r')$/;"	kind:variable	line:43
+fetch_forecast_data	../server/wunderground/forecast.py	/^def fetch_forecast_data(pws=utils.PWS[0]):$/;"	kind:function	line:9
+fetch_history_data	../server/wunderground/history.py	/^def fetch_history_data(day, pws=utils.PWS[0]):$/;"	kind:function	line:11
+file_path	../server/wunderground/format.py	/^    file_path = os.path.join(output_file_path, MONTHLY_SUMMARY_FILENAME)$/;"	kind:variable	line:125
+first_sunday_on_or_after	../server/wunderground/pytz/reference.py	/^def first_sunday_on_or_after(dt):$/;"	kind:function	line:71
+forecast.py	../server/wunderground/forecast.py	1;"	kind:file	line:1
+forecast_data	../server/wunderground/format.py	/^                forecast_data = json_data['forecast']['simpleforecast']['forecastday']$/;"	kind:variable	line:70
+forecast_day_month	../server/wunderground/format.py	/^                    forecast_day_month = daily_data['date']['month']$/;"	kind:variable	line:72
+forecast_day_name	../server/wunderground/format.py	/^                    forecast_day_name = date(int(year), int(month),$/;"	kind:variable	line:74
+forecast_day_num	../server/wunderground/format.py	/^                    forecast_day_num = daily_data['date']['day']$/;"	kind:variable	line:73
+format.py	../server/wunderground/format.py	1;"	kind:file	line:1
+from_date	../server/wunderground/format.py	/^        from_date = date(int(year), int(month), int(daynum))$/;"	kind:variable	line:51
+fromutc	../server/wunderground/pytz/tzinfo.py	/^    def fromutc(self, dt):$/;"	kind:member	line:141
+fromutc	../server/wunderground/pytz/tzinfo.py	/^    def fromutc(self, dt):$/;"	kind:member	line:74
+gae.py	../server/wunderground/pytz/gae.py	1;"	kind:file	line:1
+get	../server/lib/cors_request_handler.py	/^    def get(self, path):$/;"	kind:member	line:13
+get	../server/lib/cors_request_handler.py	/^    def get(self, path):$/;"	kind:member	line:22
+get	../server/lib/web_request_handler.py	/^    def get(self, template):$/;"	kind:member	line:122
+get	../server/lib/www.py	/^    def get(self):$/;"	kind:member	line:15
+get	../server/lib/www.py	/^    def get(self):$/;"	kind:member	line:20
+get	../server/lib/www.py	/^    def get(self, state='CA'):$/;"	kind:member	line:32
+get	../server/lib/www.py	/^    def get(self, station=None, year=None, month=None):$/;"	kind:member	line:25
+get	../server/wunderground/pytz/gae.py	/^    def get(*args, **kwargs):$/;"	kind:member	line:39
+get_forecast_api_url	../server/wunderground/utils.py	/^def get_forecast_api_url(pws=PWS[0]):$/;"	kind:function	line:84
+get_full_url	../server/lib/web_request_handler.py	/^    def get_full_url(self, path):$/;"	kind:member	line:58
+get_history_api_url	../server/wunderground/utils.py	/^def get_history_api_url(day, pws=PWS[0]):$/;"	kind:function	line:73
+get_zoneinfo	../server/wunderground/pytz/gae.py	/^def get_zoneinfo():$/;"	kind:function	line:54
+gettext	../server/wunderground/pytz/__init__.py	/^import sys, datetime, os.path, gettext$/;"	kind:namespace	line:29
+handler	../server/lib/controllers.py	/^          handler='lib.www.AppHandler'),$/;"	kind:variable	line:35
+handler	../server/lib/controllers.py	/^          handler='lib.www.MushroomObserverHandler'),$/;"	kind:variable	line:40
+history.py	../server/wunderground/history.py	1;"	kind:file	line:1
+httplib	../server/lib/web_request_handler.py	/^import httplib$/;"	kind:namespace	line:7
+is_debug	../server/lib/controllers.py	/^    is_debug = 'Development' in os.environ['SERVER_SOFTWARE']$/;"	kind:variable	line:51
+is_debug	../server/lib/controllers.py	/^is_debug = True$/;"	kind:variable	line:49
+is_from_this_month	../server/wunderground/format.py	/^                    is_from_this_month = int(forecast_day_month) == today.month$/;"	kind:variable	line:78
+is_from_today	../server/wunderground/format.py	/^                    is_from_today = int(forecast_day_num) == today.day$/;"	kind:variable	line:79
+is_production	../server/lib/web_request_handler.py	/^    def is_production(self):$/;"	kind:member	line:38
+jinja2	../server/lib/web_request_handler.py	/^    def jinja2(self):$/;"	kind:member	line:33
+jinja2	../server/lib/web_request_handler.py	/^from webapp2_extras import jinja2$/;"	kind:namespace	line:16
+json	../server/lib/web_request_handler.py	/^import json$/;"	kind:namespace	line:8
+json	../server/wunderground/forecast.py	/^import json$/;"	kind:namespace	line:3
+json	../server/wunderground/format.py	/^import json$/;"	kind:namespace	line:4
+json	../server/wunderground/history.py	/^import json$/;"	kind:namespace	line:4
+json	../server/wunderground/utils.py	/^import json$/;"	kind:namespace	line:4
+json_data	../server/wunderground/format.py	/^        json_data = json.loads(f.read())$/;"	kind:variable	line:44
+json_dump	../server/lib/web_request_handler.py	/^    def json_dump(cls, obj):$/;"	kind:member	line:93
+keys	../server/wunderground/pytz/__init__.py	/^    def keys(self):$/;"	kind:member	line:284
+loader	../server/wunderground/pytz/__init__.py	/^loader = TimezoneLoader()$/;"	kind:variable	line:83
+localize	../server/wunderground/pytz/__init__.py	/^    def localize(self, dt, is_dst=False):$/;"	kind:member	line:211
+localize	../server/wunderground/pytz/__init__.py	/^    def localize(self, dt, is_dst=False):$/;"	kind:member	line:393
+localize	../server/wunderground/pytz/tzinfo.py	/^    def localize(self, dt, is_dst=False):$/;"	kind:member	line:193
+localize	../server/wunderground/pytz/tzinfo.py	/^    def localize(self, dt, is_dst=False):$/;"	kind:member	line:90
+logging	../server/lib/cors_request_handler.py	/^import logging$/;"	kind:namespace	line:6
+logging	../server/lib/web_request_handler.py	/^import logging$/;"	kind:namespace	line:9
+logging	../server/lib/www.py	/^import logging$/;"	kind:namespace	line:7
+logging	../server/wunderground/pytz/gae.py	/^import logging$/;"	kind:namespace	line:27
+math	../server/wunderground/format.py	/^import math$/;"	kind:namespace	line:7
+memcache	../server/lib/www.py	/^from google.appengine.api import memcache$/;"	kind:namespace	line:6
+memcache	../server/wunderground/pytz/gae.py	/^        from google.appengine.api import memcache$/;"	kind:namespace	line:45
+memcache	../server/wunderground/pytz/gae.py	/^class memcache(object):$/;"	kind:class	line:33
+memorized_datetime	../server/wunderground/pytz/tzfile.py	/^from pytz.tzinfo import memorized_datetime, memorized_timedelta$/;"	kind:namespace	line:11
+memorized_datetime	../server/wunderground/pytz/tzinfo.py	/^def memorized_datetime(seconds):$/;"	kind:function	line:26
+memorized_timedelta	../server/wunderground/pytz/tzfile.py	/^from pytz.tzinfo import memorized_datetime, memorized_timedelta$/;"	kind:namespace	line:11
+memorized_timedelta	../server/wunderground/pytz/tzinfo.py	/^def memorized_timedelta(seconds):$/;"	kind:function	line:15
+memorized_ttinfo	../server/wunderground/pytz/tzfile.py	/^from pytz.tzinfo import StaticTzInfo, DstTzInfo, memorized_ttinfo$/;"	kind:namespace	line:10
+memorized_ttinfo	../server/wunderground/pytz/tzinfo.py	/^def memorized_ttinfo(*args):$/;"	kind:function	line:38
+monthly_data	../server/wunderground/format.py	/^    monthly_data = {$/;"	kind:variable	line:30
+mycmp	../server/wunderground/pytz/tzinfo.py	/^        def mycmp(a,b):$/;"	kind:function	line:320
+ndb	../server/lib/web_request_handler.py	/^from google.appengine.ext import ndb$/;"	kind:namespace	line:21
+normalize	../server/wunderground/pytz/__init__.py	/^    def normalize(self, dt, is_dst=False):$/;"	kind:member	line:217
+normalize	../server/wunderground/pytz/__init__.py	/^    def normalize(self, dt, is_dst=False):$/;"	kind:member	line:399
+normalize	../server/wunderground/pytz/tzinfo.py	/^    def normalize(self, dt):$/;"	kind:member	line:148
+normalize	../server/wunderground/pytz/tzinfo.py	/^    def normalize(self, dt, is_dst=False):$/;"	kind:member	line:96
+now_date	../server/wunderground/utils.py	/^def now_date(tz='US\/Pacific'):$/;"	kind:function	line:57
+open_resource	../server/wunderground/pytz/__init__.py	/^    def open_resource(self, name):$/;"	kind:member	line:52
+open_resource	../server/wunderground/pytz/__init__.py	/^def open_resource(name):$/;"	kind:function	line:85
+open_resource	../server/wunderground/pytz/gae.py	/^    def open_resource(self, name):$/;"	kind:member	line:68
+operator	../server/wunderground/format.py	/^import operator$/;"	kind:namespace	line:8
+os	../server/lib/controllers.py	/^import os$/;"	kind:namespace	line:5
+os	../server/lib/cors_request_handler.py	/^import os$/;"	kind:namespace	line:7
+os	../server/lib/web_request_handler.py	/^import os$/;"	kind:namespace	line:10
+os	../server/settings.py	/^import os$/;"	kind:namespace	line:1
+os	../server/tests/test_controllers.py	/^import os$/;"	kind:namespace	line:5
+os	../server/wunderground/forecast.py	/^import os$/;"	kind:namespace	line:4
+os	../server/wunderground/format.py	/^import os$/;"	kind:namespace	line:5
+os	../server/wunderground/history.py	/^import os$/;"	kind:namespace	line:5
+os	../server/wunderground/pytz/__init__.py	/^    import doctest, os, sys$/;"	kind:namespace	line:472
+os	../server/wunderground/pytz/__init__.py	/^import sys, datetime, os.path, gettext$/;"	kind:namespace	line:29
+os	../server/wunderground/pytz/gae.py	/^import os$/;"	kind:namespace	line:26
+os	../server/wunderground/pytz/tzfile.py	/^    import os.path$/;"	kind:namespace	line:113
+os	../server/wunderground/utils.py	/^import os$/;"	kind:namespace	line:5
+output_file_path	../server/wunderground/format.py	/^    output_file_path = dirpath.replace('%s\/' % utils.DATA_DIR,$/;"	kind:variable	line:123
+output_json	../server/lib/web_request_handler.py	/^    def output_json(self, obj):$/;"	kind:member	line:98
+output_json_error	../server/lib/web_request_handler.py	/^    def output_json_error(self, obj={}, error_code=404):$/;"	kind:member	line:112
+output_json_success	../server/lib/web_request_handler.py	/^    def output_json_success(self, obj={}):$/;"	kind:member	line:106
+output_response	../server/lib/web_request_handler.py	/^    def output_response(self, tpl_data, tpl_name):$/;"	kind:member	line:63
+path	../server/wunderground/pytz/__init__.py	/^import sys, datetime, os.path, gettext$/;"	kind:namespace	line:29
+path	../server/wunderground/pytz/tzfile.py	/^    import os.path$/;"	kind:namespace	line:113
+pprint	../server/wunderground/pytz/tzfile.py	/^    from pprint import pprint$/;"	kind:namespace	line:114
+precipi	../server/wunderground/format.py	/^            precipi = float(daily_data['precipi'] or 0)$/;"	kind:variable	line:106
+precipi_rounded	../server/wunderground/format.py	/^            precipi_rounded = int(precipi * 100 + 0.5) \/ 100.0$/;"	kind:variable	line:107
+pws	../server/wunderground/forecast.py	/^    pws = utils.PWS[i]$/;"	kind:variable	line:40
+pws	../server/wunderground/format.py	/^                    pws = pws_item$/;"	kind:variable	line:59
+pws	../server/wunderground/format.py	/^            pws = None$/;"	kind:variable	line:56
+pws	../server/wunderground/history.py	/^        pws = utils.PWS[i]$/;"	kind:variable	line:61
+pws	../server/wunderground/history.py	/^    pws = utils.PWS[pws_index]$/;"	kind:variable	line:53
+pws_index	../server/wunderground/history.py	/^    pws_index = int(sys.argv[1])$/;"	kind:variable	line:42
+pws_index	../server/wunderground/history.py	/^pws_index = None$/;"	kind:variable	line:40
+pytz	../server/wunderground/pytz/__init__.py	/^    import pytz$/;"	kind:namespace	line:474
+pytz	../server/wunderground/pytz/gae.py	/^import pytz$/;"	kind:namespace	line:28
+pytz	../server/wunderground/pytz/tzinfo.py	/^import pytz$/;"	kind:namespace	line:10
+pytz	../server/wunderground/utils.py	/^from pytz.gae import pytz$/;"	kind:namespace	line:9
+re	../server/wunderground/format.py	/^import re$/;"	kind:namespace	line:9
+reference.py	../server/wunderground/pytz/reference.py	1;"	kind:file	line:1
+register	../server/lib/verbatim_templatetag.py	/^register = template.Library()$/;"	kind:variable	line:19
+render	../server/lib/verbatim_templatetag.py	/^    def render(self, context):$/;"	kind:member	line:26
+resource_exists	../server/wunderground/pytz/__init__.py	/^    def resource_exists(self, name):$/;"	kind:member	line:72
+resource_exists	../server/wunderground/pytz/__init__.py	/^def resource_exists(name):$/;"	kind:function	line:88
+resource_exists	../server/wunderground/pytz/gae.py	/^    def resource_exists(self, name):$/;"	kind:member	line:85
+resource_stream	../server/wunderground/pytz/__init__.py	/^    from pkg_resources import resource_stream$/;"	kind:namespace	line:34
+resource_stream	../server/wunderground/pytz/__init__.py	/^    resource_stream = None$/;"	kind:variable	line:36
+routes	../server/lib/controllers.py	/^routes = [$/;"	kind:variable	line:25
+set	../server/wunderground/pytz/__init__.py	/^    from sets import Set as set$/;"	kind:namespace	line:46
+set	../server/wunderground/pytz/tzinfo.py	/^    from sets import Set as set$/;"	kind:namespace	line:8
+setUp	../server/tests/test_controllers.py	/^    def setUp(self):$/;"	kind:member	line:20
+settings	../server/lib/controllers.py	/^import settings$/;"	kind:namespace	line:23
+settings	../server/lib/web_request_handler.py	/^import settings$/;"	kind:namespace	line:24
+settings	../server/lib/www.py	/^import settings$/;"	kind:namespace	line:11
+settings.py	../server/settings.py	1;"	kind:file	line:1
+start_date	../server/wunderground/history.py	/^start_date = utils.now_date() - timedelta(days=days_in_past)$/;"	kind:variable	line:49
+sys	../server/lib/web_request_handler.py	/^import sys$/;"	kind:namespace	line:11
+sys	../server/tests/test_controllers.py	/^import sys$/;"	kind:namespace	line:6
+sys	../server/wunderground/format.py	/^import sys$/;"	kind:namespace	line:10
+sys	../server/wunderground/history.py	/^import sys$/;"	kind:namespace	line:6
+sys	../server/wunderground/pytz/__init__.py	/^    import doctest, os, sys$/;"	kind:namespace	line:472
+sys	../server/wunderground/pytz/__init__.py	/^import sys, datetime, os.path, gettext$/;"	kind:namespace	line:29
+tearDown	../server/tests/test_controllers.py	/^    def tearDown(self):$/;"	kind:member	line:29
+template	../server/lib/verbatim_templatetag.py	/^from django import template$/;"	kind:namespace	line:17
+test_controllers.py	../server/tests/test_controllers.py	1;"	kind:file	line:1
+test_www_app	../server/tests/test_controllers.py	/^    def test_www_app(self):$/;"	kind:member	line:35
+test_www_root	../server/tests/test_controllers.py	/^    def test_www_root(self):$/;"	kind:member	line:32
+testbed	../server/tests/test_controllers.py	/^from google.appengine.ext import testbed$/;"	kind:namespace	line:11
+time	../server/lib/web_request_handler.py	/^import time$/;"	kind:namespace	line:12
+time	../server/wunderground/utils.py	/^import time$/;"	kind:namespace	line:6
+timedelta	../server/wunderground/history.py	/^from datetime import date, timedelta$/;"	kind:namespace	line:3
+timedelta	../server/wunderground/pytz/reference.py	/^from datetime import tzinfo, timedelta, datetime$/;"	kind:namespace	line:7
+timedelta	../server/wunderground/pytz/tzfile.py	/^from datetime import datetime, timedelta$/;"	kind:namespace	line:7
+timedelta	../server/wunderground/pytz/tzinfo.py	/^from datetime import datetime, timedelta, tzinfo$/;"	kind:namespace	line:3
+timedelta	../server/wunderground/utils.py	/^from datetime import datetime, timedelta$/;"	kind:namespace	line:3
+timezone	../server/wunderground/pytz/__init__.py	/^def timezone(zone):$/;"	kind:function	line:125
+today	../server/wunderground/format.py	/^            today = utils.now_date(tz=pws['tz_long'])$/;"	kind:variable	line:64
+tomorrow	../server/wunderground/format.py	/^            tomorrow = utils.tomorrow_date(tz=pws['tz_long'])$/;"	kind:variable	line:65
+tomorrow_date	../server/wunderground/utils.py	/^def tomorrow_date(tz='US\/Pacific'):$/;"	kind:function	line:61
+tz	../server/wunderground/pytz/tzfile.py	/^    tz = build_tzinfo('Australia\/Melbourne',$/;"	kind:variable	line:116
+tz	../server/wunderground/pytz/tzfile.py	/^    tz = build_tzinfo('US\/Eastern',$/;"	kind:variable	line:118
+tzfile.py	../server/wunderground/pytz/tzfile.py	1;"	kind:file	line:1
+tzinfo	../server/wunderground/pytz/reference.py	/^from datetime import tzinfo, timedelta, datetime$/;"	kind:namespace	line:7
+tzinfo	../server/wunderground/pytz/tzinfo.py	/^from datetime import datetime, timedelta, tzinfo$/;"	kind:namespace	line:3
+tzinfo.py	../server/wunderground/pytz/tzinfo.py	1;"	kind:file	line:1
+tzname	../server/wunderground/pytz/__init__.py	/^    def tzname(self, dt):$/;"	kind:member	line:202
+tzname	../server/wunderground/pytz/__init__.py	/^    def tzname(self, dt):$/;"	kind:member	line:387
+tzname	../server/wunderground/pytz/reference.py	/^    def tzname(self, dt):$/;"	kind:member	line:24
+tzname	../server/wunderground/pytz/reference.py	/^    def tzname(self, dt):$/;"	kind:member	line:56
+tzname	../server/wunderground/pytz/reference.py	/^    def tzname(self, dt):$/;"	kind:member	line:94
+tzname	../server/wunderground/pytz/tzinfo.py	/^    def tzname(self, dt):$/;"	kind:member	line:336
+tzname	../server/wunderground/pytz/tzinfo.py	/^    def tzname(self,dt):$/;"	kind:member	line:86
+unittest	../server/tests/test_controllers.py	/^import unittest$/;"	kind:namespace	line:13
+unpack	../server/wunderground/pytz/tzfile.py	/^from struct import unpack, calcsize$/;"	kind:namespace	line:8
+unpickler	../server/wunderground/pytz/__init__.py	/^from tzinfo import unpickler$/;"	kind:namespace	line:39
+unpickler	../server/wunderground/pytz/tzinfo.py	/^def unpickler(zone, utcoffset=None, dstoffset=None, tzname=None):$/;"	kind:function	line:389
+urlfetch_throttled	../server/wunderground/utils.py	/^def urlfetch_throttled(url):$/;"	kind:function	line:110
+urllib2	../server/lib/web_request_handler.py	/^import urllib2$/;"	kind:namespace	line:13
+urllib2	../server/lib/www.py	/^import urllib2$/;"	kind:namespace	line:8
+urllib2	../server/wunderground/utils.py	/^import urllib2$/;"	kind:namespace	line:7
+urlparse	../server/lib/web_request_handler.py	/^from urlparse import urlparse$/;"	kind:namespace	line:14
+utc	../server/wunderground/pytz/reference.py	/^from pytz import utc, UTC, HOUR, ZERO$/;"	kind:namespace	line:8
+utcnow	../server/wunderground/format.py	/^    utcnow = datetime.utcnow()$/;"	kind:variable	line:29
+utcoffset	../server/wunderground/pytz/__init__.py	/^    def utcoffset(self, dt):$/;"	kind:member	line:199
+utcoffset	../server/wunderground/pytz/__init__.py	/^    def utcoffset(self, dt):$/;"	kind:member	line:378
+utcoffset	../server/wunderground/pytz/reference.py	/^    def utcoffset(self, dt):$/;"	kind:member	line:100
+utcoffset	../server/wunderground/pytz/reference.py	/^    def utcoffset(self, dt):$/;"	kind:member	line:21
+utcoffset	../server/wunderground/pytz/reference.py	/^    def utcoffset(self, dt):$/;"	kind:member	line:44
+utcoffset	../server/wunderground/pytz/tzinfo.py	/^    def utcoffset(self, dt):$/;"	kind:member	line:328
+utcoffset	../server/wunderground/pytz/tzinfo.py	/^    def utcoffset(self,dt):$/;"	kind:member	line:78
+utils	../server/wunderground/forecast.py	/^import utils$/;"	kind:namespace	line:6
+utils	../server/wunderground/format.py	/^import utils$/;"	kind:namespace	line:12
+utils	../server/wunderground/history.py	/^import utils$/;"	kind:namespace	line:8
+utils.py	../server/wunderground/utils.py	1;"	kind:file	line:1
+verbatim	../server/lib/verbatim_templatetag.py	/^def verbatim(parser, token):$/;"	kind:function	line:39
+verbatim_templatetag.py	../server/lib/verbatim_templatetag.py	1;"	kind:file	line:1
+version	../server/lib/web_request_handler.py	/^    def version(self):$/;"	kind:member	line:42
+walk	../server/wunderground/format.py	/^from os import walk$/;"	kind:namespace	line:6
+web_request_handler.py	../server/lib/web_request_handler.py	1;"	kind:file	line:1
+webapp2	../server/lib/controllers.py	/^import webapp2$/;"	kind:namespace	line:6
+webapp2	../server/lib/cors_request_handler.py	/^import webapp2$/;"	kind:namespace	line:8
+webapp2	../server/lib/web_request_handler.py	/^import webapp2$/;"	kind:namespace	line:15
+webtest	../server/tests/test_controllers.py	/^import webtest$/;"	kind:namespace	line:14
+write_json_data_to_file	../server/wunderground/utils.py	/^def write_json_data_to_file(data, file_path):$/;"	kind:function	line:93
+www.py	../server/lib/www.py	1;"	kind:file	line:1
+zipfile	../server/wunderground/pytz/gae.py	/^import zipfile$/;"	kind:namespace	line:29
+zone	../server/wunderground/pytz/__init__.py	/^    zone = "UTC"$/;"	kind:variable	line:197
+zone	../server/wunderground/pytz/__init__.py	/^    zone = None # to match the standard pytz API$/;"	kind:variable	line:370
+zone	../server/wunderground/pytz/tzinfo.py	/^    zone = None$/;"	kind:variable	line:122
+zone	../server/wunderground/pytz/tzinfo.py	/^    zone = None$/;"	kind:variable	line:62
+zoneinfo	../server/wunderground/pytz/gae.py	/^zoneinfo = None$/;"	kind:variable	line:49
+zoneinfo_path	../server/wunderground/pytz/gae.py	/^zoneinfo_path = os.path.abspath(os.path.join(os.path.dirname(__file__),$/;"	kind:variable	line:50

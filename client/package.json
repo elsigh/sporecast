@@ -1,0 +1,31 @@
+{
+    "name": "client",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "react": "^16.0.0",
+        "react-dom": "^16.0.0",
+        "react-scripts-ts": "2.8.0"
+    },
+    "scripts": {
+        "start": "react-scripts-ts start",
+        "build": "react-scripts-ts build",
+        "test": "react-scripts-ts test --env=jsdom",
+        "eject": "react-scripts-ts eject"
+    },
+    "devDependencies": {
+        "@types/date-fns": "^2.6.0",
+        "@types/fixed-data-table": "^0.6.32",
+        "@types/jest": "^21.1.4",
+        "@types/node": "^8.0.45",
+        "@types/react": "^16.0.14",
+        "@types/react-dom": "^16.0.1",
+        "@types/react-redux": "^5.0.10",
+        "date-fns": "^2.0.0-alpha.7",
+        "prettier": "^1.7.4",
+        "react-redux": "^5.0.6",
+        "redux": "^3.7.2",
+        "redux-devtools-extension": "^2.13.2",
+        "redux-thunk": "^2.2.0"
+    }
+}
