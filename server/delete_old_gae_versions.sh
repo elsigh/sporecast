@@ -9,7 +9,7 @@ do
     if [ $COUNT -gt $2 ]
     then
       echo "Going to delete version $VERSION of the $1 service."
-      gcloud app versions delete $VERSION --service $1 -q
+      /usr/local/bin/gcloud app versions delete $VERSION --service $1 -q
     else
       echo "Going to keep version $VERSION of the $1 service."
     fi
