@@ -9,7 +9,7 @@ from webapp2 import SimpleRoute
 
 from lib.web_request_handler import ErrorNotFoundRequestHandler
 from lib.web_request_handler import ErrorInternalRequestHandler
-from lib.cors_request_handler import CORSWunderGroundRequestFileHandler, CORSWunderGroundRequestHandler
+from lib.cors_request_handler import CORSWunderGroundRequestFileHandler
 
 # last import.
 import settings
@@ -23,7 +23,7 @@ routes = [
 
     SimpleRoute('/(wunderground/.+\.json)$',
                 CORSWunderGroundRequestFileHandler),
-    SimpleRoute('/(wunderground/.+)$', CORSWunderGroundRequestHandler),
+    #SimpleRoute('/(wunderground/.+)$', CORSWunderGroundRequestHandler),
 ]
 
 is_debug = True
