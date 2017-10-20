@@ -58,6 +58,7 @@ def now_date(tz='US/Pacific'):
     """Returns a date object for now in the given timezine."""
     return datetime.now(pytz.timezone(tz)).date()
 
+
 def tomorrow_date(tz='US/Pacific'):
     """Returns a date object for tomorrow in the given timezine."""
     return datetime.now(pytz.timezone(tz)).date() + timedelta(days=1)
@@ -65,7 +66,7 @@ def tomorrow_date(tz='US/Pacific'):
 
 def datespan(startDate, endDate, delta=timedelta(days=1)):
     currentDate = startDate
-    while currentDate < endDate:
+    while currentDate <= endDate:
         yield currentDate
         currentDate += delta
 
