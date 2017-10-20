@@ -53,21 +53,24 @@ class DataTable extends React.Component<Props> {
                         )}
                     </div>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Day</th>
-                            <th>Rain</th>
-                            <th>Low</th>
-                            <th>High</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((row, i) => (
-                            <DataTableRow key={i} data={row} />
-                        ))}
-                    </tbody>
-                </table>
+                <div className="DataTable-scroll DataTable-table-c">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th />
+                                <th>Rain</th>
+                                <th>Low</th>
+                                <th>High</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {data.map((row, i) => (
+                                <DataTableRow key={i} data={row} />
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
@@ -113,9 +116,8 @@ class DataTableRow extends React.Component<RowProps> {
 
         return (
             <tr className={is_forecast ? 'DataTableRow-forecast' : ''}>
-                <td>
-                    {dayname} {daynum}
-                </td>
+                <td className="DataTable-shrink-cell">{dayname}</td>
+                <td>{daynum}</td>
                 <td>{precip}</td>
                 <td>{mintempi}°</td>
                 <td>{maxtempi}°</td>

@@ -18,7 +18,7 @@ import wunderground.utils
 
 class CORSWunderGroundRequestFileHandler(webapp2.RequestHandler):
     def get(self, path):
-        path = os.path.join(os.path.dirname(__file__), '../', path)
+        path = os.path.join(os.getcwd(), path)
         logging.info('CORSWunderGroundRequestFileHandler path: %s' % path)
         self.response.headers.add_header("Access-Control-Allow-Origin", "*")
         # any type
