@@ -69,7 +69,7 @@ const SERVER =
 // https://gist.github.com/msmfsd/fca50ab095b795eb39739e8c4357a808
 const fetchData = async (year: number, month: number, pws: string) =>
     await (await fetch(
-        `${SERVER}/wunderground/output/${pws}/${year}/${('0' +
-            (month + 1)
-        ).slice(-2)}/data.json`,
+        `${SERVER}/wunderground/data/${pws}/${year}/${('0' + (month + 1)).slice(
+            -2,
+        )}/data.json`,
     )).json();
