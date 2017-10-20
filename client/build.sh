@@ -12,3 +12,7 @@ cp build/asset-manifest.json ../server/static/
 cp build/favicon.ico ../server/static/
 cp build/manifest.json ../server/static/
 cp build/service-worker.js ../server/static/
+
+git add ../server/static/js/*
+git add ../server/static/css/*
+git add ../server/static/media/*

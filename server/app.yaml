@@ -3,7 +3,6 @@ threadsafe: true
 api_version: 1
 default_expiration: "0d 3h"
 
-
 libraries:
 - name: django
   version: latest
@@ -18,14 +17,11 @@ libraries:
 - name: webapp2
   version: latest
 
-
 builtins:
 - deferred: on
 - remote_api: on
 
-
 inbound_services:
-
 
 # Magic skip configuration, do not edit.
 skip_files: |
@@ -85,6 +81,8 @@ handlers:
   static_dir: static
   expiration: "3650d"
 
+- url: /index.html
+  script: lib.controllers.app
 
 # Catch to route to www
 - url: .*

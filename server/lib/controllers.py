@@ -18,6 +18,7 @@ routes = [
     Route('/app/weather/<station>/<year>/<month>',
           handler='lib.www.IndexHandler'),
     Route('/', handler='lib.www.IndexHandler'),
+    Route('/index.html', handler='lib.www.IndexHandler'),
     Route('/privacy', handler='lib.www.PrivacyHandler'),
     SimpleRoute('/(wunderground/.+)$', CORSWunderGroundRequestHandler),
 ]
