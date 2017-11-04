@@ -7,9 +7,8 @@
 AmbiguousTimeError	../server/wunderground/pytz/__init__.py	/^from tzinfo import AmbiguousTimeError, InvalidTimeError, NonExistentTimeError$/;"	kind:namespace	line:38
 AmbiguousTimeError	../server/wunderground/pytz/tzinfo.py	/^class AmbiguousTimeError(InvalidTimeError):$/;"	kind:class	line:369
 BaseTzInfo	../server/wunderground/pytz/tzinfo.py	/^class BaseTzInfo(tzinfo):$/;"	kind:class	line:58
-CORSStaticRequestHandler	../server/lib/cors_request_handler.py	/^class CORSStaticRequestHandler(webapp2.RequestHandler):$/;"	kind:class	line:12
-CORSWunderGroundRequestHandler	../server/lib/controllers.py	/^from lib.cors_request_handler import CORSWunderGroundRequestHandler$/;"	kind:namespace	line:12
-CORSWunderGroundRequestHandler	../server/lib/cors_request_handler.py	/^class CORSWunderGroundRequestHandler(webapp2.RequestHandler):$/;"	kind:class	line:21
+CORSWunderGroundRequestFileHandler	../server/lib/controllers.py	/^from lib.cors_request_handler import CORSWunderGroundRequestFileHandler$/;"	kind:namespace	line:12
+CORSWunderGroundRequestFileHandler	../server/lib/cors_request_handler.py	/^class CORSWunderGroundRequestFileHandler(webapp2.RequestHandler):$/;"	kind:class	line:19
 Central	../server/wunderground/pytz/reference.py	/^Central  = USTimeZone(-6, "Central",  "CST", "CDT")$/;"	kind:variable	line:124
 DATA_DIR	../server/wunderground/utils.py	/^DATA_DIR = 'data'$/;"	kind:variable	line:50
 DSTDIFF	../server/wunderground/pytz/reference.py	/^DSTDIFF = DSTOFFSET - STDOFFSET$/;"	kind:variable	line:40
@@ -138,7 +137,7 @@ add_version_to_template	../server/lib/web_request_handler.py	/^    def add_versi
 all_timezones	../server/wunderground/pytz/__init__.py	/^all_timezones = _LazyList($/;"	kind:variable	line:1042
 all_timezones_set	../server/wunderground/pytz/__init__.py	/^all_timezones_set = set(all_timezones_unfiltered) # XXX$/;"	kind:variable	line:1046
 all_timezones_unfiltered	../server/wunderground/pytz/__init__.py	/^['Africa\/Abidjan',$/;"	kind:variable	line:481
-app	../server/lib/controllers.py	/^app = webapp2.WSGIApplication(routes,$/;"	kind:variable	line:30
+app	../server/lib/controllers.py	/^app = webapp2.WSGIApplication(routes,$/;"	kind:variable	line:33
 appengine_config.py	../server/appengine_config.py	1;"	kind:file	line:1
 base	../server/wunderground/pytz/tzfile.py	/^    base = os.path.join(os.path.dirname(__file__), 'zoneinfo')$/;"	kind:variable	line:115
 bisect_right	../server/wunderground/pytz/tzinfo.py	/^from bisect import bisect_right$/;"	kind:namespace	line:4
@@ -170,7 +169,7 @@ datetime	../server/wunderground/utils.py	/^from datetime import datetime, timede
 days_in_past	../server/wunderground/history.py	/^    days_in_past = 2$/;"	kind:variable	line:47
 days_in_past	../server/wunderground/history.py	/^    days_in_past = int(sys.argv[1])$/;"	kind:variable	line:45
 days_in_past	../server/wunderground/history.py	/^    days_in_past = int(sys.argv[2])$/;"	kind:variable	line:43
-debug	../server/lib/controllers.py	/^                              debug=is_debug)$/;"	kind:variable	line:31
+debug	../server/lib/controllers.py	/^                              debug=is_debug)$/;"	kind:variable	line:34
 deferred	../server/appengine_config.py	/^from google.appengine.ext import deferred$/;"	kind:namespace	line:4
 deferred	../server/lib/web_request_handler.py	/^from google.appengine.ext import deferred$/;"	kind:namespace	line:20
 doctest	../server/wunderground/pytz/__init__.py	/^    import doctest, os, sys$/;"	kind:namespace	line:472
@@ -191,8 +190,7 @@ format_data	../server/wunderground/format.py	/^def format_data(data_root):$/;"	k
 fromutc	../server/wunderground/pytz/tzinfo.py	/^    def fromutc(self, dt):$/;"	kind:member	line:141
 fromutc	../server/wunderground/pytz/tzinfo.py	/^    def fromutc(self, dt):$/;"	kind:member	line:74
 gae.py	../server/wunderground/pytz/gae.py	1;"	kind:file	line:1
-get	../server/lib/cors_request_handler.py	/^    def get(self, path):$/;"	kind:member	line:13
-get	../server/lib/cors_request_handler.py	/^    def get(self, path):$/;"	kind:member	line:22
+get	../server/lib/cors_request_handler.py	/^    def get(self, path):$/;"	kind:member	line:20
 get	../server/lib/web_request_handler.py	/^    def get(self, template):$/;"	kind:member	line:122
 get	../server/lib/www.py	/^    def get(self):$/;"	kind:member	line:20
 get	../server/lib/www.py	/^    def get(self, station=None, year=None, month=None):$/;"	kind:member	line:15
@@ -205,8 +203,8 @@ gettext	../server/wunderground/pytz/__init__.py	/^import sys, datetime, os.path,
 handler	../server/lib/controllers.py	/^          handler='lib.www.IndexHandler'),$/;"	kind:variable	line:19
 history.py	../server/wunderground/history.py	1;"	kind:file	line:1
 httplib	../server/lib/web_request_handler.py	/^import httplib$/;"	kind:namespace	line:7
-is_debug	../server/lib/controllers.py	/^    is_debug = 'Development' in os.environ['SERVER_SOFTWARE']$/;"	kind:variable	line:28
-is_debug	../server/lib/controllers.py	/^is_debug = True$/;"	kind:variable	line:26
+is_debug	../server/lib/controllers.py	/^    is_debug = 'Development' in os.environ['SERVER_SOFTWARE']$/;"	kind:variable	line:31
+is_debug	../server/lib/controllers.py	/^is_debug = True$/;"	kind:variable	line:29
 is_production	../server/lib/web_request_handler.py	/^    def is_production(self):$/;"	kind:member	line:38
 jinja2	../server/lib/web_request_handler.py	/^    def jinja2(self):$/;"	kind:member	line:33
 jinja2	../server/lib/web_request_handler.py	/^from webapp2_extras import jinja2$/;"	kind:namespace	line:16
@@ -226,6 +224,7 @@ logging	../server/lib/cors_request_handler.py	/^import logging$/;"	kind:namespac
 logging	../server/lib/web_request_handler.py	/^import logging$/;"	kind:namespace	line:9
 logging	../server/lib/www.py	/^import logging$/;"	kind:namespace	line:7
 logging	../server/wunderground/pytz/gae.py	/^import logging$/;"	kind:namespace	line:27
+math	../server/lib/cors_request_handler.py	/^import math$/;"	kind:namespace	line:7
 math	../server/wunderground/format.py	/^import math$/;"	kind:namespace	line:7
 memcache	../server/lib/www.py	/^from google.appengine.api import memcache$/;"	kind:namespace	line:6
 memcache	../server/wunderground/pytz/gae.py	/^        from google.appengine.api import memcache$/;"	kind:namespace	line:45
@@ -248,7 +247,7 @@ open_resource	../server/wunderground/pytz/__init__.py	/^def open_resource(name):
 open_resource	../server/wunderground/pytz/gae.py	/^    def open_resource(self, name):$/;"	kind:member	line:68
 operator	../server/wunderground/format.py	/^import operator$/;"	kind:namespace	line:8
 os	../server/lib/controllers.py	/^import os$/;"	kind:namespace	line:5
-os	../server/lib/cors_request_handler.py	/^import os$/;"	kind:namespace	line:7
+os	../server/lib/cors_request_handler.py	/^import os$/;"	kind:namespace	line:8
 os	../server/lib/web_request_handler.py	/^import os$/;"	kind:namespace	line:10
 os	../server/settings.py	/^import os$/;"	kind:namespace	line:1
 os	../server/tests/test_controllers.py	/^import os$/;"	kind:namespace	line:5
@@ -356,7 +355,7 @@ version	../server/lib/web_request_handler.py	/^    def version(self):$/;"	kind:m
 walk	../server/wunderground/format.py	/^from os import walk$/;"	kind:namespace	line:6
 web_request_handler.py	../server/lib/web_request_handler.py	1;"	kind:file	line:1
 webapp2	../server/lib/controllers.py	/^import webapp2$/;"	kind:namespace	line:6
-webapp2	../server/lib/cors_request_handler.py	/^import webapp2$/;"	kind:namespace	line:8
+webapp2	../server/lib/cors_request_handler.py	/^import webapp2$/;"	kind:namespace	line:9
 webapp2	../server/lib/web_request_handler.py	/^import webapp2$/;"	kind:namespace	line:15
 webtest	../server/tests/test_controllers.py	/^import webtest$/;"	kind:namespace	line:14
 write_json_data_to_file	../server/wunderground/utils.py	/^def write_json_data_to_file(data, file_path):$/;"	kind:function	line:94

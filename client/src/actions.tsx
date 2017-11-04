@@ -70,6 +70,6 @@ const SERVER =
 const fetchData = async (year: number, month: number, pws: string) =>
     await (await fetch(
         `${SERVER}/wunderground/output/${pws}/${year}/${('0' +
-            (month + 1)
+            (Number(month) + 1)
         ).slice(-2)}/data.json`,
     )).json();
