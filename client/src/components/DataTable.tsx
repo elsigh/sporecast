@@ -36,7 +36,7 @@ class DataTable extends React.Component<Props> {
 
     render() {
         const { isLoading, resp } = this.props;
-        //console.log('DataTable render', isLoading, resp);
+        // console.log('DataTable render', isLoading, resp);
         if (isLoading || !resp || !resp.data) {
             return <h2>Loading ...</h2>;
         }
@@ -86,6 +86,18 @@ const mapStateToProps = (state: StoreState) => {
     };
 };
 export default connect(mapStateToProps, { loadData })(DataTable);
+
+/*
+type RowData = {
+    dayname: number;
+    daynum: number;
+    is_forecast: boolean;
+    mintempi: number;
+    maxtempi: number;
+    precipi: number;
+    precipi_is_zero: boolean;
+};
+*/
 
 interface RowProps {
     data: any;

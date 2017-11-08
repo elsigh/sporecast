@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { RouteComponentProps } from 'react-router';
+
 import DataTable from './DataTable';
 import Nav from './Nav';
 
@@ -8,7 +10,8 @@ import './App.css';
 const logo = require('../media/icon.png');
 const wunderLogo = require('./wundergroundLogo_white_horz.png');
 
-class App extends React.Component {
+interface Props extends RouteComponentProps<any>, React.Props<any> {}
+class App extends React.Component<Props> {
     render() {
         return (
             <div className="App">
@@ -17,7 +20,7 @@ class App extends React.Component {
                         <AppHeader />
                     </div>
                     <div>
-                        <Nav />
+                        <Nav {...this.props} />
                     </div>
                 </div>
                 <div className="App-Table">

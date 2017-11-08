@@ -16,6 +16,7 @@ export function changeYear(payload: number): ActionI<number> {
 }
 
 export function changeMonth(payload: number): ActionI<number> {
+    console.log('changeMonth AC', payload);
     return {
         type: constants.CHANGE_MONTH,
         payload,

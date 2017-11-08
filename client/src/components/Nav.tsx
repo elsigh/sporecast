@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router';
+
 import {
     WeatherPrefsCities,
     WeatherPrefsYears,
@@ -10,7 +12,7 @@ import Select from './Select';
 
 import { StoreState } from '../types';
 
-interface Props {
+interface Props extends RouteComponentProps<any> {
     year: number;
     month: number;
     pws: string;
@@ -20,6 +22,43 @@ interface Props {
 }
 
 class Nav extends React.Component<Props> {
+    constructor(props: Props) {
+        super();
+        if (props.match.path !== '/') {
+            const params = props.match.params;
+            const {
+                changeYear,
+                changeMonth,
+                changePWS,
+                month,
+                pws,
+                year,
+            } = props;
+            if (params.pws !== pws) {
+                changePWS(params.pws);
+            }
+            if (Number(params.month) - 1 !== month) {
+                changeMonth(Number(params.month) - 1);
+            }
+            if (Number(params.year) !== year) {
+                changeYear(params.year);
+            }
+        }
+    }
+    componentDidMount() {
+        const { history, match, month, pws, year } = this.props;
+        if (match.path === '/') {
+            const nextURL = `/${pws}/${year}/${month + 1}`;
+            history.push(nextURL);
+        }
+    }
+    componentDidUpdate() {
+        const { history, match, month, pws, year } = this.props;
+        const nextURL = `/${pws}/${year}/${month + 1}`;
+        if (match.url !== nextURL) {
+            history.push(nextURL);
+        }
+    }
     render() {
         const {
             changeYear,
@@ -54,7 +93,8 @@ class Nav extends React.Component<Props> {
                     <Select
                         label="Month"
                         name="month"
-                        onChange={e => changeMonth(e.currentTarget.value)}
+                        onChange={e =>
+                            changeMonth(Number(e.currentTarget.value))}
                         options={WeatherPrefsMonths.map((month, i) => {
                             return {
                                 label: month,
@@ -68,7 +108,8 @@ class Nav extends React.Component<Props> {
                     <Select
                         label="Year"
                         name="year"
-                        onChange={changeYear}
+                        onChange={e =>
+                            changeYear(Number(e.currentTarget.value))}
                         options={WeatherPrefsYears.map(year => {
                             return {
                                 label: year.toString(),

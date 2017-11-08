@@ -1,3 +1,4 @@
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { applyMiddleware, createStore } from 'redux';
@@ -30,7 +31,12 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/" component={App} />
+                <Route path="/:pws/:year/:month" component={App} />
+            </Switch>
+        </BrowserRouter>
     </Provider>,
     document.getElementById('root') as HTMLElement,
 );
