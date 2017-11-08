@@ -15,7 +15,7 @@ from lib.cors_request_handler import CORSWunderGroundRequestFileHandler
 import settings
 
 routes = [
-    Route('/app/weather/<station>/<year>/<month>',
+    Route('/<station>/<year>/<month>',
           handler='lib.www.IndexHandler'),
     Route('/', handler='lib.www.IndexHandler'),
     Route('/index.html', handler='lib.www.IndexHandler'),
