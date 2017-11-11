@@ -8,7 +8,8 @@ import urllib2
 
 from pytz.gae import pytz
 
-KEY = 'b316a72d2e91b2e7'
+#KEY = 'b316a72d2e91b2e7'
+KEY = 'aef72e8b74b7ddb5'
 
 # Pesonal Weather Stations
 PWS = [
