@@ -44,7 +44,15 @@ PWS = [
     {
         'name': 'KCAKINGS6',
         'tz_long': 'America/Los_Angeles'
-    }
+    },
+    {
+        'name': 'KCAFAIRF199',
+        'tz_long': 'America/Los_Angeles'
+    },
+    {
+        'name': 'KCATIMBE2',
+        'tz_long': 'America/Los_Angeles'
+    },
 ]
 
 OUTPUT_DIR = 'output'

@@ -46,6 +46,14 @@ export const WeatherPrefsCities = [
         pws: 'KCAKINGS6',
         name: 'KingsCan',
     },
+    {
+        pws: 'KCAFAIRF199',
+        name: 'Fairfax',
+    },
+    {
+        pws: 'KCATIMBE2',
+        name: 'SaltPoint',
+    },
 ];
 
 export const WeatherPrefsMonths = [
