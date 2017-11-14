@@ -30,7 +30,7 @@ PWS = [
         'tz_long': 'America/Los_Angeles'
     },
     {
-        'name': 'KCAEUREK5',
+        'name': 'KCAEUREK4',
         'tz_long': 'America/Vancouver'
     },
     {
@@ -50,7 +50,7 @@ PWS = [
         'tz_long': 'America/Los_Angeles'
     },
     {
-        'name': 'KCATIMBE2',
+        'name': 'KCATHESE5',
         'tz_long': 'America/Los_Angeles'
     },
 ]

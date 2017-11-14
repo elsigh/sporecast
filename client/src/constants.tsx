@@ -15,7 +15,7 @@ export type SET_DATA = typeof SET_DATA;
 
 export const WeatherPrefsCities = [
     {
-        pws: 'KCAEUREK5',
+        pws: 'KCAEUREK4',
         name: 'Eureka',
     },
     {
@@ -51,7 +51,7 @@ export const WeatherPrefsCities = [
         name: 'Fairfax',
     },
     {
-        pws: 'KCATIMBE2',
+        pws: 'KCATHESE5',
         name: 'SaltPoint',
     },
 ];
