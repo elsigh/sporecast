@@ -44,7 +44,9 @@ class DataTable extends React.Component<Props> {
         return (
             <div className="DataTable">
                 <div className="DataTable-info">
-                    <div>Total rainfall: {resp.total_rain} in.</div>
+                    <div>
+                        <strong>Total rainfall: {resp.total_rain} in.</strong>
+                    </div>
                     <div>
                         Last update:{' '}
                         {formatRelative(
