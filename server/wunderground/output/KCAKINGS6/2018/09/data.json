@@ -1,1 +1,1 @@
-{"datetime_utc": "2018-09-02 18:00:07.005770 UTC", "data": [{"mintempi": 0, "dayname": "Sat", "maxtempi": 0, "daynum": 1, "precipi": 0.0, "precipi_is_zero": true}, {"mintempi": 0, "dayname": "Sun", "maxtempi": 0, "daynum": 2, "precipi": 0.0, "precipi_is_zero": true}], "total_rain": 0.0}
+{"datetime_utc": "2018-09-03 00:00:09.970743 UTC", "data": [{"mintempi": 0, "dayname": "Sat", "maxtempi": 0, "daynum": 1, "precipi": 0.0, "precipi_is_zero": true}, {"mintempi": 0, "dayname": "Sun", "maxtempi": 0, "daynum": 2, "precipi": 0.0, "precipi_is_zero": true}], "total_rain": 0.0}
