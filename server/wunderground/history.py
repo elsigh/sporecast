@@ -14,11 +14,8 @@ def fetch_history_data(day, pws=utils.PWS[0]):
         day: A date object.
         pws: A weather station string.
     """
-    file_path = os.path.join(os.getcwd(),
-                             utils.DATA_DIR,
-                             pws['name'],
-                             day.strftime('%Y'),
-                             day.strftime('%m'),
+    file_path = os.path.join(os.getcwd(), utils.DATA_DIR, pws['name'],
+                             day.strftime('%Y'), day.strftime('%m'),
                              '%s.json' % day.strftime('%d'))
 
     if os.path.isfile(file_path):
@@ -37,6 +34,8 @@ def fetch_history_data(day, pws=utils.PWS[0]):
 
 
 # Loops through a date range and makes a call to store the daily data.
+# Examples:
+# python history.py 6 30  # Carson for 30 days worth of data
 pws_index = None
 if len(sys.argv) == 3:
     pws_index = int(sys.argv[1])
@@ -51,16 +50,15 @@ end_date = utils.now_date()
 
 if pws_index:
     pws = utils.PWS[pws_index]
-    print ('HISTORY :: %s :: START: %s -> END: %s' %
-           (pws['name'], start_date, end_date))
+    print('HISTORY :: %s :: START: %s -> END: %s' % (pws['name'], start_date,
+                                                     end_date))
     for day in utils.datespan(start_date, end_date):
         fetch_history_data(day, pws)
 
 else:
     for i in range(0, len(utils.PWS)):
         pws = utils.PWS[i]
-        print ('HISTORY :: %s :: START: %s -> END: %s' %
-               (pws['name'], start_date, end_date))
+        print('HISTORY :: %s :: START: %s -> END: %s' % (pws['name'],
+                                                         start_date, end_date))
         for day in utils.datespan(start_date, end_date):
             fetch_history_data(day, pws)
-

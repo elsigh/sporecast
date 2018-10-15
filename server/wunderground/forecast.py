@@ -14,11 +14,8 @@ def fetch_forecast_data(pws=utils.PWS[0]):
     """
     print 'FORECAST :: %s' % pws['name']
     day = utils.now_date(tz=pws['tz_long'])
-    file_path = os.path.join(os.getcwd(),
-                             utils.DATA_DIR,
-                             pws['name'],
-                             day.strftime('%Y'),
-                             day.strftime('%m'),
+    file_path = os.path.join(os.getcwd(), utils.DATA_DIR, pws['name'],
+                             day.strftime('%Y'), day.strftime('%m'),
                              '%s_forecast10day.json' % day.strftime('%d'))
 
     if os.path.isfile(file_path):

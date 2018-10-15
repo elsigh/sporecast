@@ -80,7 +80,7 @@ sc.models.WeatherPrefsCities = [
     name: "Astoria"
   },
   {
-    pws: "KWACARSO3",
+    pws: "KWACARSO8",
     name: "Carson"
   },
   {

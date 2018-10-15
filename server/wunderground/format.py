@@ -65,12 +65,14 @@ def format_data(data_root):
                 # only incorporate forecast datafile if it's from today.
                 if from_date == today:
                     print '->-> using forecast data file %s' % today
-                    forecast_data = json_data['forecast']['simpleforecast']['forecastday']
+                    forecast_data = json_data['forecast']['simpleforecast'][
+                        'forecastday']
                     for daily_data in forecast_data:
                         forecast_day_month = daily_data['date']['month']
                         forecast_day_num = daily_data['date']['day']
-                        forecast_day_name = date(int(year), int(month),
-                                                 int(forecast_day_num)).strftime('%a')
+                        forecast_day_name = date(
+                            int(year), int(month),
+                            int(forecast_day_num)).strftime('%a')
                         # Don't include next month's data in this months summary and also
                         # ignore forecast data for today, we should have real data.
                         is_from_this_month = int(
@@ -78,19 +80,32 @@ def format_data(data_root):
                         is_from_today = int(forecast_day_num) == today.day
                         if (is_from_this_month and not is_from_today):
                             monthly_data['data'].append({
-                                'is_forecast': True,
-                                'daynum': forecast_day_num,
-                                'dayname': forecast_day_name,
-                                'precipi': daily_data['pop'],
-                                'precipi_is_zero': int(daily_data['pop'] or 0) == 0,
-                                'mintempi': int(float(daily_data['low']['fahrenheit'] or 0)),
-                                'maxtempi': int(float(daily_data['high']['fahrenheit'] or 0)),
+                                'is_forecast':
+                                True,
+                                'daynum':
+                                forecast_day_num,
+                                'dayname':
+                                forecast_day_name,
+                                'precipi':
+                                daily_data['pop'],
+                                'precipi_is_zero':
+                                int(daily_data['pop'] or 0) == 0,
+                                'mintempi':
+                                int(
+                                    float(daily_data['low']['fahrenheit']
+                                          or 0)),
+                                'maxtempi':
+                                int(
+                                    float(daily_data['high']['fahrenheit']
+                                          or 0)),
                             })
-                            print ('-->-->--> Adding forecast for %s %s/%s' %
-                                   (forecast_day_name, forecast_day_month, forecast_day_num))
+                            print('-->-->--> Adding forecast for %s %s/%s' %
+                                  (forecast_day_name, forecast_day_month,
+                                   forecast_day_num))
                         else:
-                            print ('-->-->--> Ignore forecast for %s %s/%s' %
-                                   (forecast_day_name, forecast_day_month, forecast_day_num))
+                            print('-->-->--> Ignore forecast for %s %s/%s' %
+                                  (forecast_day_name, forecast_day_month,
+                                   forecast_day_num))
 
                 # else:
                 #    print '<-<- Ignore forecast data %s' % from_date
@@ -105,18 +120,24 @@ def format_data(data_root):
                 precipi = float(daily_data['precipi'] or 0)
                 precipi_rounded = int(precipi * 100 + 0.5) / 100.0
                 monthly_data['data'].append({
-                    'daynum': int(daynum),
-                    'dayname': from_date.strftime('%a'),
-                    'precipi': precipi_rounded,
-                    'precipi_is_zero': int(math.ceil(precipi)) == 0,
-                    'mintempi': int(float(daily_data['mintempi'] or 0)),
-                    'maxtempi': int(float(daily_data['maxtempi'] or 0)),
+                    'daynum':
+                    int(daynum),
+                    'dayname':
+                    from_date.strftime('%a'),
+                    'precipi':
+                    precipi_rounded,
+                    'precipi_is_zero':
+                    int(math.ceil(precipi)) == 0,
+                    'mintempi':
+                    int(float(daily_data['mintempi'] or 0)),
+                    'maxtempi':
+                    int(float(daily_data['maxtempi'] or 0)),
                 })
                 monthly_data['total_rain'] += precipi
                 # print 'Adding past for %s' % daynum
 
-        monthly_data['total_rain'] = int(
-            monthly_data['total_rain'] * 100 + 0.5) / 100.0
+        monthly_data['total_rain'] = int(monthly_data['total_rain'] * 100 +
+                                         0.5) / 100.0
         monthly_data['data'].sort(key=operator.itemgetter('daynum'))
 
         # Update dirpath to point to our output dir.
